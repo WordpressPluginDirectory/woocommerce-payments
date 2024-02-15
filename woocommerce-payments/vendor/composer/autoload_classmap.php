@@ -257,6 +257,7 @@ return array(
     'WCPay\\Internal\\Payment\\State\\StateFactory' => $baseDir . '/src/Internal/Payment/State/StateFactory.php',
     'WCPay\\Internal\\Payment\\State\\SystemErrorState' => $baseDir . '/src/Internal/Payment/State/SystemErrorState.php',
     'WCPay\\Internal\\Payment\\Transition' => $baseDir . '/src/Internal/Payment/Transition.php',
+    'WCPay\\Internal\\PluginManagement\\TranslationsLoader' => $baseDir . '/src/Internal/PluginManagement/TranslationsLoader.php',
     'WCPay\\Internal\\Proxy\\HooksProxy' => $baseDir . '/src/Internal/Proxy/HooksProxy.php',
     'WCPay\\Internal\\Proxy\\LegacyProxy' => $baseDir . '/src/Internal/Proxy/LegacyProxy.php',
     'WCPay\\Internal\\Proxy\\ProxyException' => $baseDir . '/src/Internal/Proxy/ProxyException.php',

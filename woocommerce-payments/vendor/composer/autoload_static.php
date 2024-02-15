@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit5bebf06cbd0a606b022f672f94e82881
+class ComposerStaticInitc77c6f448183a14790ec1fee9fc3636e
 {
     public static $files = array (
         '3773ef3f09c37da5478d578e32b03a4b' => __DIR__ . '/..' . '/automattic/jetpack-assets/actions.php',
@@ -303,6 +303,7 @@ class ComposerStaticInit5bebf06cbd0a606b022f672f94e82881
         'WCPay\\Internal\\Payment\\State\\StateFactory' => __DIR__ . '/../..' . '/src/Internal/Payment/State/StateFactory.php',
         'WCPay\\Internal\\Payment\\State\\SystemErrorState' => __DIR__ . '/../..' . '/src/Internal/Payment/State/SystemErrorState.php',
         'WCPay\\Internal\\Payment\\Transition' => __DIR__ . '/../..' . '/src/Internal/Payment/Transition.php',
+        'WCPay\\Internal\\PluginManagement\\TranslationsLoader' => __DIR__ . '/../..' . '/src/Internal/PluginManagement/TranslationsLoader.php',
         'WCPay\\Internal\\Proxy\\HooksProxy' => __DIR__ . '/../..' . '/src/Internal/Proxy/HooksProxy.php',
         'WCPay\\Internal\\Proxy\\LegacyProxy' => __DIR__ . '/../..' . '/src/Internal/Proxy/LegacyProxy.php',
         'WCPay\\Internal\\Proxy\\ProxyException' => __DIR__ . '/../..' . '/src/Internal/Proxy/ProxyException.php',
@@ -395,9 +396,9 @@ class ComposerStaticInit5bebf06cbd0a606b022f672f94e82881
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit5bebf06cbd0a606b022f672f94e82881::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit5bebf06cbd0a606b022f672f94e82881::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit5bebf06cbd0a606b022f672f94e82881::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitc77c6f448183a14790ec1fee9fc3636e::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitc77c6f448183a14790ec1fee9fc3636e::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitc77c6f448183a14790ec1fee9fc3636e::$classMap;
 
         }, null, ClassLoader::class);
     }
