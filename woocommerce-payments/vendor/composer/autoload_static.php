@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit1c29170d1f90d9e5b4ff4d32b836b7da
+class ComposerStaticInit90d963a2936e514705b287b12169ee70
 {
     public static $files = array (
         '3773ef3f09c37da5478d578e32b03a4b' => __DIR__ . '/..' . '/automattic/jetpack-assets/actions.php',
@@ -76,6 +76,11 @@ class ComposerStaticInit1c29170d1f90d9e5b4ff4d32b836b7da
         'Automattic\\Jetpack\\Connection\\Plugin_Storage' => __DIR__ . '/..' . '/automattic/jetpack-connection/src/class-plugin-storage.php',
         'Automattic\\Jetpack\\Connection\\REST_Connector' => __DIR__ . '/..' . '/automattic/jetpack-connection/src/class-rest-connector.php',
         'Automattic\\Jetpack\\Connection\\Rest_Authentication' => __DIR__ . '/..' . '/automattic/jetpack-connection/src/class-rest-authentication.php',
+        'Automattic\\Jetpack\\Connection\\SSO' => __DIR__ . '/..' . '/automattic/jetpack-connection/src/sso/class-sso.php',
+        'Automattic\\Jetpack\\Connection\\SSO\\Force_2FA' => __DIR__ . '/..' . '/automattic/jetpack-connection/src/sso/class-force-2fa.php',
+        'Automattic\\Jetpack\\Connection\\SSO\\Helpers' => __DIR__ . '/..' . '/automattic/jetpack-connection/src/sso/class-helpers.php',
+        'Automattic\\Jetpack\\Connection\\SSO\\Notices' => __DIR__ . '/..' . '/automattic/jetpack-connection/src/sso/class-notices.php',
+        'Automattic\\Jetpack\\Connection\\SSO\\User_Admin' => __DIR__ . '/..' . '/automattic/jetpack-connection/src/sso/class-user-admin.php',
         'Automattic\\Jetpack\\Connection\\Secrets' => __DIR__ . '/..' . '/automattic/jetpack-connection/src/class-secrets.php',
         'Automattic\\Jetpack\\Connection\\Server_Sandbox' => __DIR__ . '/..' . '/automattic/jetpack-connection/src/class-server-sandbox.php',
         'Automattic\\Jetpack\\Connection\\Tokens' => __DIR__ . '/..' . '/automattic/jetpack-connection/src/class-tokens.php',
@@ -396,9 +401,9 @@ class ComposerStaticInit1c29170d1f90d9e5b4ff4d32b836b7da
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit1c29170d1f90d9e5b4ff4d32b836b7da::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit1c29170d1f90d9e5b4ff4d32b836b7da::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit1c29170d1f90d9e5b4ff4d32b836b7da::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit90d963a2936e514705b287b12169ee70::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit90d963a2936e514705b287b12169ee70::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit90d963a2936e514705b287b12169ee70::$classMap;
 
         }, null, ClassLoader::class);
     }

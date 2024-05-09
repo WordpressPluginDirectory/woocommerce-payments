@@ -151,7 +151,7 @@ class Posts extends Module {
 		add_action( 'jetpack_sync_save_post', $callable, 10, 4 );
 
 		add_action( 'deleted_post', $callable, 10 );
-		add_action( 'jetpack_published_post', $callable, 10, 2 );
+		add_action( 'jetpack_published_post', $callable, 10, 3 );
 		add_filter( 'jetpack_sync_before_enqueue_deleted_post', array( $this, 'filter_blacklisted_post_types_deleted' ) );
 
 		add_action( 'transition_post_status', array( $this, 'save_published' ), 10, 3 );
@@ -161,6 +161,7 @@ class Posts extends Module {
 		$this->init_meta_whitelist_handler( 'post', array( $this, 'filter_meta' ) );
 
 		add_filter( 'jetpack_sync_before_enqueue_jetpack_sync_save_post', array( $this, 'filter_jetpack_sync_before_enqueue_jetpack_sync_save_post' ) );
+		add_filter( 'jetpack_sync_before_enqueue_jetpack_published_post', array( $this, 'filter_jetpack_sync_before_enqueue_jetpack_published_post' ) );
 
 		add_action( 'jetpack_daily_akismet_meta_cleanup_before', array( $this, 'daily_akismet_meta_cleanup_before' ) );
 		add_action( 'jetpack_daily_akismet_meta_cleanup_after', array( $this, 'daily_akismet_meta_cleanup_after' ) );
@@ -352,6 +353,18 @@ class Posts extends Module {
 	}
 
 	/**
+	 * Add filtered post content.
+	 *
+	 * @param array $args Hook arguments.
+	 * @return array Hook arguments.
+	 */
+	public function filter_jetpack_sync_before_enqueue_jetpack_published_post( $args ) {
+		list( $post_id, $flags, $post ) = $args;
+
+		return array( $post_id, $flags, $this->filter_post_content_and_add_links( $post ) );
+	}
+
+	/**
 	 * Filter all blacklisted post types.
 	 *
 	 * @param array $args Hook arguments.
@@ -444,6 +457,10 @@ class Posts extends Module {
 	 */
 	public function filter_post_content_and_add_links( $post_object ) {
 		global $post;
+
+		// Used to restore the post global.
+		$current_post = $post;
+
 		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		$post = $post_object;
 
@@ -456,6 +473,9 @@ class Posts extends Module {
 			$non_existant_post->post_modified_gmt = $post->post_modified_gmt;
 			$non_existant_post->post_status       = 'jetpack_sync_non_registered_post_type';
 			$non_existant_post->post_type         = $post->post_type;
+			// Restore global post.
+			// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+			$post = $current_post;
 
 			return $non_existant_post;
 		}
@@ -482,6 +502,10 @@ class Posts extends Module {
 			$blocked_post->post_modified_gmt = $post->post_modified_gmt;
 			$blocked_post->post_status       = 'jetpack_sync_blocked';
 			$blocked_post->post_type         = $post->post_type;
+
+			// Restore global post.
+			// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+			$post = $current_post;
 
 			return $blocked_post;
 		}
@@ -562,7 +586,13 @@ class Posts extends Module {
 			$post->amp_permalink = amp_get_permalink( $post->ID );
 		}
 
-		return $post;
+		$filtered_post = $post;
+
+		// Restore global post.
+		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+		$post = $current_post;
+
+		return $filtered_post;
 	}
 
 	/**
@@ -715,10 +745,6 @@ class Posts extends Module {
 		// Only Send Pulished Post event if post_type is not blacklisted.
 		if ( ! in_array( $post->post_type, Settings::get_setting( 'post_types_blacklist' ), true ) ) {
 
-			// Refreshing the post in the cache site before triggering the publish event.
-			// The true parameter means that it's an update action, not create action.
-			$this->wp_insert_post( $post_ID, $post, true );
-
 			/**
 			 * Action that gets synced when a post type gets published.
 			 *
@@ -727,8 +753,9 @@ class Posts extends Module {
 			 *
 			 * @param int $post_ID
 			 * @param mixed array $flags post flags that are added to the post
+			 * @param WP_Post $post The post object
 			 */
-			do_action( 'jetpack_published_post', $post_ID, $flags );
+			do_action( 'jetpack_published_post', $post_ID, $flags, $post );
 		}
 		unset( $this->just_published[ $post_ID ] );
 

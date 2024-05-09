@@ -25,6 +25,24 @@ class Sender {
 	const NEXT_SYNC_TIME_OPTION_NAME = 'jetpack_next_sync_time';
 
 	/**
+	 * Name of the transient responsible for temprorarily disabling Sync sending during Pulls.
+	 *
+	 * @access public
+	 *
+	 * @var string
+	 */
+	const TEMP_SYNC_DISABLE_TRANSIENT_NAME = 'jetpack_disable_sync_sending';
+
+	/**
+	 * Expiry of the transient responsible for temprorarily disabling Sync sending during Pulls.
+	 *
+	 * @access public
+	 *
+	 * @var int
+	 */
+	const TEMP_SYNC_DISABLE_TRANSIENT_EXPIRY = MINUTE_IN_SECONDS;
+
+	/**
 	 * Sync timeout after a WPCOM error.
 	 *
 	 * @access public
@@ -110,7 +128,7 @@ class Sender {
 	 *
 	 * @access private
 	 *
-	 * @var Automattic\Jetpack\Sync\Queue
+	 * @var \Automattic\Jetpack\Sync\Queue
 	 */
 	private $sync_queue;
 
@@ -119,7 +137,7 @@ class Sender {
 	 *
 	 * @access private
 	 *
-	 * @var Automattic\Jetpack\Sync\Queue
+	 * @var \Automattic\Jetpack\Sync\Queue
 	 */
 	private $full_sync_queue;
 
@@ -128,7 +146,7 @@ class Sender {
 	 *
 	 * @access private
 	 *
-	 * @var Automattic\Jetpack\Sync\Codec_Interface
+	 * @var \Automattic\Jetpack\Sync\Codec_Interface
 	 */
 	private $codec;
 
@@ -147,7 +165,7 @@ class Sender {
 	 * @access private
 	 * @static
 	 *
-	 * @var Automattic\Jetpack\Sync\Sender
+	 * @var \Automattic\Jetpack\Sync\Sender
 	 */
 	private static $instance;
 
@@ -421,7 +439,7 @@ class Sender {
 	 *
 	 * @access public
 	 *
-	 * @param Automattic\Jetpack\Sync\Queue $queue Queue object.
+	 * @param \Automattic\Jetpack\Sync\Queue $queue Queue object.
 	 *
 	 * @return boolean|WP_Error True if this sync sending was successful, error object otherwise.
 	 */
@@ -438,6 +456,10 @@ class Sender {
 
 		if ( ! Settings::is_sender_enabled( $queue->id ) ) {
 			return new WP_Error( 'sender_disabled_for_queue_' . $queue->id );
+		}
+
+		if ( get_transient( self::TEMP_SYNC_DISABLE_TRANSIENT_NAME ) ) {
+			return new WP_Error( 'sender_temporarily_disabled_while_pulling' );
 		}
 
 		// Return early if we've gotten a retry-after header response.
@@ -485,8 +507,8 @@ class Sender {
 	 *
 	 * @access public
 	 *
-	 * @param (array|Automattic\Jetpack\Sync\Queue_Buffer) $buffer_or_items Queue buffer or array of objects.
-	 * @param boolean                                      $encode Whether to encode the items.
+	 * @param (array|\Automattic\Jetpack\Sync\Queue_Buffer) $buffer_or_items Queue buffer or array of objects.
+	 * @param boolean                                       $encode Whether to encode the items.
 	 * @return array Sync items to send.
 	 */
 	public function get_items_to_send( $buffer_or_items, $encode = true ) {
@@ -509,6 +531,11 @@ class Sender {
 		 * This is expensive, but the only way to really know :/
 		 */
 		foreach ( $items as $key => $item ) {
+			if ( ! is_array( $item ) ) {
+				$skipped_items_ids[] = $key;
+				continue;
+			}
+
 			// Suspending cache addition help prevent overloading in memory cache of large sites.
 			wp_suspend_cache_addition( true );
 			/**
@@ -560,7 +587,7 @@ class Sender {
 	 *
 	 * @access public
 	 *
-	 * @param Automattic\Jetpack\Sync\Queue $queue Queue object.
+	 * @param \Automattic\Jetpack\Sync\Queue $queue Queue object.
 	 *
 	 * @return boolean|WP_Error True if this sync sending was successful, error object otherwise.
 	 */
@@ -675,7 +702,7 @@ class Sender {
 	 * @param string $action_name The action.
 	 * @param array  $data The data associated with the action.
 	 *
-	 * @return Items processed. TODO: this doesn't make much sense anymore, it should probably be just a bool.
+	 * @return array Items processed. TODO: this doesn't make much sense anymore, it should probably be just a bool.
 	 */
 	public function send_action( $action_name, $data = null ) {
 		if ( ! Settings::is_sender_enabled( 'full_sync' ) ) {
@@ -763,7 +790,7 @@ class Sender {
 	 *
 	 * @access public
 	 *
-	 * @return Automattic\Jetpack\Sync\Queue Queue object.
+	 * @return \Automattic\Jetpack\Sync\Queue Queue object.
 	 */
 	public function get_sync_queue() {
 		return $this->sync_queue;
@@ -774,7 +801,7 @@ class Sender {
 	 *
 	 * @access public
 	 *
-	 * @return Automattic\Jetpack\Sync\Queue Queue object.
+	 * @return \Automattic\Jetpack\Sync\Queue Queue object.
 	 */
 	public function get_full_sync_queue() {
 		return $this->full_sync_queue;
@@ -785,7 +812,7 @@ class Sender {
 	 *
 	 * @access public
 	 *
-	 * @return Automattic\Jetpack\Sync\Codec_Interface Codec object.
+	 * @return \Automattic\Jetpack\Sync\Codec_Interface Codec object.
 	 */
 	public function get_codec() {
 		return $this->codec;
