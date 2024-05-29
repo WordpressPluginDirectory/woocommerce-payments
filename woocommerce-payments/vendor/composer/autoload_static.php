@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit90d963a2936e514705b287b12169ee70
+class ComposerStaticInit2fdb6e373349308e7e7855402cf48871
 {
     public static $files = array (
         '3773ef3f09c37da5478d578e32b03a4b' => __DIR__ . '/..' . '/automattic/jetpack-assets/actions.php',
@@ -63,6 +63,7 @@ class ComposerStaticInit90d963a2936e514705b287b12169ee70
         'Automattic\\Jetpack\\Autoloader\\CustomAutoloaderPlugin' => __DIR__ . '/..' . '/automattic/jetpack-autoloader/src/CustomAutoloaderPlugin.php',
         'Automattic\\Jetpack\\Autoloader\\ManifestGenerator' => __DIR__ . '/..' . '/automattic/jetpack-autoloader/src/ManifestGenerator.php',
         'Automattic\\Jetpack\\Config' => __DIR__ . '/..' . '/automattic/jetpack-config/src/class-config.php',
+        'Automattic\\Jetpack\\Connection\\Authorize_Json_Api' => __DIR__ . '/..' . '/automattic/jetpack-connection/src/class-authorize-json-api.php',
         'Automattic\\Jetpack\\Connection\\Client' => __DIR__ . '/..' . '/automattic/jetpack-connection/src/class-client.php',
         'Automattic\\Jetpack\\Connection\\Connection_Notice' => __DIR__ . '/..' . '/automattic/jetpack-connection/src/class-connection-notice.php',
         'Automattic\\Jetpack\\Connection\\Error_Handler' => __DIR__ . '/..' . '/automattic/jetpack-connection/src/class-error-handler.php',
@@ -401,9 +402,9 @@ class ComposerStaticInit90d963a2936e514705b287b12169ee70
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit90d963a2936e514705b287b12169ee70::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit90d963a2936e514705b287b12169ee70::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit90d963a2936e514705b287b12169ee70::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit2fdb6e373349308e7e7855402cf48871::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit2fdb6e373349308e7e7855402cf48871::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit2fdb6e373349308e7e7855402cf48871::$classMap;
 
         }, null, ClassLoader::class);
     }
