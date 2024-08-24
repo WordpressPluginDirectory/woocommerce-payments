@@ -22,13 +22,6 @@ class Mode {
 	private $test_mode;
 
 	/**
-	 * Holds the onboarding test mode flag.
-	 *
-	 * @var bool
-	 */
-	private $test_mode_onboarding;
-
-	/**
 	 * Holds the dev mode flag.
 	 *
 	 * @var bool
@@ -55,10 +48,12 @@ class Mode {
 
 	/**
 	 * Initializes the working mode of WooPayments.
+	 *
+	 * @throws Exception In case the class has not been initialized yet.
 	 */
 	private function maybe_init() {
 		// The object is only initialized once.
-		if ( isset( $this->dev_mode ) && isset( $this->test_mode_onboarding ) && isset( $this->test_mode ) ) {
+		if ( isset( $this->dev_mode ) && isset( $this->test_mode ) ) {
 			return;
 		}
 
@@ -77,15 +72,6 @@ class Mode {
 		 * @param bool $dev_mode The pre-determined dev mode.
 		 */
 		$this->dev_mode = (bool) apply_filters( 'wcpay_dev_mode', $dev_mode );
-
-		$test_mode_onboarding = $this->dev_mode || \WC_Payments_Onboarding_Service::is_test_mode_enabled();
-
-		/**
-		 * Allows WooPayments to onboard in test mode.
-		 *
-		 * @param bool $test_mode_onboarding The pre-determined test mode onboarding.
-		 */
-		$this->test_mode_onboarding = (bool) apply_filters( 'wcpay_test_mode_onboarding', $test_mode_onboarding );
 
 		// Getting the gateway settings directly from the database so the gateway doesn't need to be initialized.
 		$settings_option_name = 'woocommerce_' . WC_Payment_Gateway_WCPay::GATEWAY_ID . '_settings';
@@ -126,28 +112,9 @@ class Mode {
 	}
 
 	/**
-	 * Checks if test mode onboarding is enabled.
-	 *
-	 * @return bool
-	 */
-	public function is_test_mode_onboarding(): bool {
-		$this->maybe_init();
-
-		return $this->test_mode_onboarding;
-	}
-
-	/**
-	 * Sets the test mode onboarding.
-	 *
-	 * @param bool $enabled Whether test mode onboarding is enabled or not.
-	 */
-	public function set_test_mode_onboarding( bool $enabled ) {
-		$this->test_mode_onboarding = $enabled;
-	}
-
-	/**
 	 * Checks if dev is enabled.
 	 *
+	 * @throws Exception In case the class has not been initialized yet.
 	 * @return bool
 	 */
 	public function is_dev(): bool {
@@ -161,7 +128,6 @@ class Mode {
 	 * @return void
 	 */
 	public function live() {
-		// Doesn't affect our onboarding mode.
 		$this->test_mode = false;
 		$this->dev_mode  = false;
 	}
@@ -172,7 +138,6 @@ class Mode {
 	 * @return void
 	 */
 	public function test() {
-		// Doesn't affect our onboarding mode.
 		$this->test_mode = true;
 		$this->dev_mode  = false;
 	}
@@ -183,9 +148,8 @@ class Mode {
 	 * @return void
 	 */
 	public function dev() {
-		$this->test_mode            = true;
-		$this->test_mode_onboarding = true;
-		$this->dev_mode             = true;
+		$this->test_mode = true;
+		$this->dev_mode  = true;
 	}
 
 	/**
