@@ -293,8 +293,8 @@ class WooCommerce extends Module {
 		global $wpdb;
 
 		$query = "SELECT count(*) FROM $this->order_item_table_name WHERE " . $this->get_where_sql( $config );
-		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-		$count = $wpdb->get_var( $query );
+		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
+		$count = (int) $wpdb->get_var( $query );
 
 		return (int) ceil( $count / self::ARRAY_CHUNK_SIZE );
 	}
@@ -549,14 +549,15 @@ class WooCommerce extends Module {
 		'_date_completed',
 		'_date_paid',
 		'_payment_tokens',
-		'_billing_address_index',
-		'_shipping_address_index',
+		// '_billing_address_index', do not sync these as they contain personal data.
+		// '_shipping_address_index',
 		'_recorded_sales',
 		'_recorded_coupon_usage_counts',
 		// See https://github.com/woocommerce/woocommerce/blob/8ed6e7436ff87c2153ed30edd83c1ab8abbdd3e9/includes/data-stores/class-wc-order-data-store-cpt.php#L539 .
 		'_download_permissions_granted',
 		// See https://github.com/woocommerce/woocommerce/blob/8ed6e7436ff87c2153ed30edd83c1ab8abbdd3e9/includes/data-stores/class-wc-order-data-store-cpt.php#L594 .
 		'_order_stock_reduced',
+		'_cart_hash',
 
 		// Woocommerce order refunds.
 		// See https://github.com/woocommerce/woocommerce/blob/b8a2815ae546c836467008739e7ff5150cb08e93/includes/data-stores/class-wc-order-refund-data-store-cpt.php#L20 .
