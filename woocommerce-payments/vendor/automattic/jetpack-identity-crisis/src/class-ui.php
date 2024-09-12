@@ -1,15 +1,14 @@
 <?php
 /**
- * Identity_Crisis UI class of the Connection package.
+ * Identity_Crisis package.
  *
- * @package automattic/jetpack-connection
+ * @package  automattic/jetpack-identity-crisis
  */
 
 namespace Automattic\Jetpack\IdentityCrisis;
 
 use Automattic\Jetpack\Assets;
 use Automattic\Jetpack\Identity_Crisis;
-use Automattic\Jetpack\Status;
 use Automattic\Jetpack\Status\Host;
 use Automattic\Jetpack\Tracking;
 use Jetpack_Options;
@@ -60,11 +59,11 @@ class UI {
 		if ( is_admin() ) {
 			Assets::register_script(
 				'jp_identity_crisis_banner',
-				'../../dist/identity-crisis.js',
+				'../build/index.js',
 				__FILE__,
 				array(
 					'in_footer'  => true,
-					'textdomain' => 'jetpack-connection',
+					'textdomain' => 'jetpack-idc',
 				)
 			);
 			Assets::enqueue_script( 'jp_identity_crisis_banner' );
@@ -102,7 +101,6 @@ class UI {
 		$current_screen                     = get_current_screen();
 		$is_admin                           = current_user_can( 'jetpack_disconnect' );
 		$possible_dynamic_site_url_detected = (bool) Identity_Crisis::detect_possible_dynamic_site_url();
-		$is_development_site                = (bool) Status::is_development_site();
 
 		return array(
 			'WP_API_root'                    => esc_url_raw( rest_url() ),
@@ -121,7 +119,6 @@ class UI {
 			'consumerData'                   => static::get_consumer_data(),
 			'isAdmin'                        => $is_admin,
 			'possibleDynamicSiteUrlDetected' => $possible_dynamic_site_url_detected,
-			'isDevelopmentSite'              => $is_development_site,
 
 			/**
 			 * Use the filter to provide custom HTML elecontainer ID.

@@ -22,16 +22,14 @@ class Modules {
 	 * Check whether or not a Jetpack module is active.
 	 *
 	 * @param string $module The slug of a Jetpack module.
-	 * @param bool   $available_only Whether to only check among available modules.
-	 *
 	 * @return bool
 	 */
-	public function is_active( $module, $available_only = true ) {
+	public function is_active( $module ) {
 		if ( defined( 'IS_WPCOM' ) && IS_WPCOM ) {
 			return true;
 		}
 
-		return in_array( $module, self::get_active( $available_only ), true );
+		return in_array( $module, self::get_active(), true );
 	}
 
 	/**
@@ -186,12 +184,8 @@ class Modules {
 
 	/**
 	 * Get a list of activated modules as an array of module slugs.
-	 *
-	 * @param bool $available_only Filter out the unavailable (deleted) modules.
-	 *
-	 * @return array
 	 */
-	public function get_active( $available_only = true ) {
+	public function get_active() {
 		$active = \Jetpack_Options::get_option( 'active_modules' );
 
 		if ( ! is_array( $active ) ) {
@@ -212,11 +206,9 @@ class Modules {
 			$active[] = 'protect';
 		}
 
-		if ( $available_only ) {
-			// If it's not available, it shouldn't be active.
-			// We don't delete it from the options though, as it will be active again when a plugin gets reactivated.
-			$active = array_intersect( $active, $this->get_available() );
-		}
+		// If it's not available, it shouldn't be active.
+		// We don't delete it from the options though, as it will be active again when a plugin gets reactivated.
+		$active = array_intersect( $active, $this->get_available() );
 
 		/**
 		 * Allow filtering of the active modules.
@@ -462,8 +454,10 @@ class Modules {
 			}
 
 			// Check the file for fatal errors, a la wp-admin/plugins.php::activate.
+			$errors = new Errors();
 			$state->state( 'module', $module );
 			$state->state( 'error', 'module_activation_failed' ); // we'll override this later if the plugin can be included without fatal error.
+			$errors->catch_errors( true );
 
 			ob_start();
 			$module_path = $this->get_path( $module );
@@ -476,6 +470,7 @@ class Modules {
 
 			$state->state( 'error', false ); // the override.
 			ob_end_clean();
+			$errors->catch_errors( false );
 		} else { // Not a Jetpack plugin.
 			$active[] = $module;
 			$this->update_active( $active );

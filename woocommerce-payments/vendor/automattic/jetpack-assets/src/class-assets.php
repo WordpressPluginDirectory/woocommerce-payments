@@ -109,8 +109,9 @@ class Assets {
 	 */
 	public static function enqueue_async_script( $handle, $min_path, $non_min_path, $deps = array(), $ver = false, $in_footer = true ) {
 		_deprecated_function( __METHOD__, '2.1.0' );
+		$assets_instance = self::instance();
+		$assets_instance->add_async_script( $handle );
 		wp_enqueue_script( $handle, self::get_file_url_for_environment( $min_path, $non_min_path ), $deps, $ver, $in_footer );
-		wp_script_add_data( $handle, 'strategy', 'defer' );
 	}
 
 	// endregion .
@@ -257,11 +258,11 @@ class Assets {
 		$ret  = '';
 		$ret .= isset( $parts['scheme'] ) ? $parts['scheme'] . '://' : '';
 		if ( isset( $parts['user'] ) || isset( $parts['pass'] ) ) {
-			$ret .= $parts['user'] ?? '';
+			$ret .= isset( $parts['user'] ) ? $parts['user'] : '';
 			$ret .= isset( $parts['pass'] ) ? ':' . $parts['pass'] : '';
 			$ret .= '@';
 		}
-		$ret .= $parts['host'] ?? '';
+		$ret .= isset( $parts['host'] ) ? $parts['host'] : '';
 		$ret .= isset( $parts['port'] ) ? ':' . $parts['port'] : '';
 
 		$pp = explode( '/', $parts['path'] );
@@ -322,7 +323,6 @@ class Assets {
 	 *  - `strategy`:         (string) Specify a script strategy to use, eg. `defer` or `async`. Default is `""`.
 	 *  - `textdomain`:       (string) Text domain for the script. Required if the script depends on wp-i18n.
 	 *  - `version`:          (string) Override the version from the `asset_path` file.
-	 * @phan-param array{asset_path?:?string,async?:bool,css_dependencies?:string[],css_path?:?string,dependencies?:string[],enqueue?:bool,in_footer?:bool,media?:string,minify?:?bool,nonmin_path?:string,strategy?:string,textdomain?:string,version?:string} $options
 	 * @throws \InvalidArgumentException If arguments are invalid.
 	 */
 	public static function register_script( $handle, $path, $relative_to, array $options = array() ) {
@@ -349,9 +349,8 @@ class Assets {
 			'strategy'         => '',
 			'textdomain'       => null,
 		);
-		'@phan-var array{asset_path:?string,async:bool,css_dependencies:string[],css_path:?string,dependencies:string[],enqueue:bool,in_footer:bool,media:string,minify:?bool,nonmin_path?:string,strategy:string,textdomain:string,version?:string} $options'; // Phan gets confused by the array addition.
 
-		if ( is_string( $options['css_path'] ) && $options['css_path'] !== '' && substr( $options['css_path'], -4 ) !== '.css' ) {
+		if ( $options['css_path'] && substr( $options['css_path'], -4 ) !== '.css' ) {
 			throw new \InvalidArgumentException( '$options[\'css_path\'] must end in ".css"' );
 		}
 
@@ -377,10 +376,9 @@ class Assets {
 				),
 				$options['css_dependencies']
 			);
-			$ver                         = $options['version'] ?? $asset['version'];
+			$ver                         = isset( $options['version'] ) ? $options['version'] : $asset['version'];
 		} else {
-			// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
-			$ver = $options['version'] ?? @filemtime( "$dir/$path" );
+			$ver = isset( $options['version'] ) ? $options['version'] : filemtime( "$dir/$path" );
 		}
 
 		if ( $options['async'] && '' === $options['strategy'] ) { // Handle the deprecated `async` option
@@ -409,7 +407,7 @@ class Assets {
 			);
 		}
 
-		if ( is_string( $options['css_path'] ) && $options['css_path'] !== '' && file_exists( "$dir/{$options['css_path']}" ) ) {
+		if ( $options['css_path'] && file_exists( "$dir/{$options['css_path']}" ) ) {
 			$csspath = $options['css_path'];
 			if ( is_rtl() ) {
 				$rtlcsspath = substr( $csspath, 0, -4 ) . '.rtl.css';
@@ -510,39 +508,26 @@ class Assets {
 		}
 		$url = self::normalize_path( plugins_url( $path, __FILE__ ) );
 		$url = add_query_arg( 'minify', 'true', $url );
-
-		$handle = 'wp-jp-i18n-loader';
-
-		$wp_scripts->add( $handle, $url, $asset['dependencies'], $asset['version'] );
-
-		// Ensure the script is loaded in the footer and deferred.
-		$wp_scripts->add_data( $handle, 'group', 1 );
-
+		$wp_scripts->add( 'wp-jp-i18n-loader', $url, $asset['dependencies'], $asset['version'] );
 		if ( ! is_array( $data ) ||
 			! isset( $data['baseUrl'] ) || ! ( is_string( $data['baseUrl'] ) || false === $data['baseUrl'] ) ||
 			! isset( $data['locale'] ) || ! is_string( $data['locale'] ) ||
 			! isset( $data['domainMap'] ) || ! is_array( $data['domainMap'] ) ||
 			! isset( $data['domainPaths'] ) || ! is_array( $data['domainPaths'] )
 		) {
-			$wp_scripts->add_inline_script( $handle, 'console.warn( "I18n state deleted by jetpack_i18n_state hook" );' );
+			$wp_scripts->add_inline_script( 'wp-jp-i18n-loader', 'console.warn( "I18n state deleted by jetpack_i18n_state hook" );' );
 		} elseif ( ! $data['baseUrl'] ) {
-			$wp_scripts->add_inline_script( $handle, 'console.warn( "Failed to determine languages base URL. Is WP_LANG_DIR in the WordPress root?" );' );
+			$wp_scripts->add_inline_script( 'wp-jp-i18n-loader', 'console.warn( "Failed to determine languages base URL. Is WP_LANG_DIR in the WordPress root?" );' );
 		} else {
 			$data['domainMap']   = (object) $data['domainMap']; // Ensure it becomes a json object.
 			$data['domainPaths'] = (object) $data['domainPaths']; // Ensure it becomes a json object.
-			$wp_scripts->add_inline_script( $handle, 'wp.jpI18nLoader.state = ' . wp_json_encode( $data, JSON_UNESCAPED_SLASHES ) . ';' );
+			$wp_scripts->add_inline_script( 'wp-jp-i18n-loader', 'wp.jpI18nLoader.state = ' . wp_json_encode( $data, JSON_UNESCAPED_SLASHES ) . ';' );
 		}
 
 		// Deprecated state module: Depend on wp-i18n to ensure global `wp` exists and because anything needing this will need that too.
-		$wp_scripts->add( 'wp-jp-i18n-state', false, array( 'wp-deprecated', $handle ) );
+		$wp_scripts->add( 'wp-jp-i18n-state', false, array( 'wp-deprecated', 'wp-jp-i18n-loader' ) );
 		$wp_scripts->add_inline_script( 'wp-jp-i18n-state', 'wp.deprecated( "wp-jp-i18n-state", { alternative: "wp-jp-i18n-loader" } );' );
 		$wp_scripts->add_inline_script( 'wp-jp-i18n-state', 'wp.jpI18nState = wp.jpI18nLoader.state;' );
-
-		// Register the React JSX runtime script - used as a polyfill until we can update JSX transforms. See https://github.com/Automattic/jetpack/issues/38424.
-		// @todo Remove this when we drop support for WordPress 6.5, as well as the script inclusion in test_wp_default_scripts_hook.
-		$jsx_url = self::normalize_path( plugins_url( '../build/react-jsx-runtime.js', __FILE__ ) );
-		$wp_scripts->add( 'react-jsx-runtime', $jsx_url, array( 'react' ), '18.3.1', true );
-		$wp_scripts->add_data( 'react-jsx-runtime', 'group', 1 );
 	}
 
 	// endregion .
@@ -666,7 +651,7 @@ class Assets {
 	 */
 	public static function filter_gettext( $translation, $text, $domain ) {
 		if ( $translation === $text ) {
-			// phpcs:ignore WordPress.WP.I18n -- This is a filter hook to map the text domains from our Composer packages to the domain for a containing plugin. See https://wp.me/p2gHKz-oRh#problem-6-text-domains-in-composer-packages
+			// phpcs:ignore WordPress.WP.I18n -- we're including text domains from the most recent dependency package versions, of which there are generally a fair number, to ensure we have the most recent translations.
 			$newtext = __( $text, self::$domain_map[ $domain ][0] );
 			if ( $newtext !== $text ) {
 				return $newtext;
@@ -682,13 +667,13 @@ class Assets {
 	 * @param string $translation Translated text.
 	 * @param string $single The text to be used if the number is singular.
 	 * @param string $plural The text to be used if the number is plural.
-	 * @param int    $number The number to compare against to use either the singular or plural form.
+	 * @param string $number The number to compare against to use either the singular or plural form.
 	 * @param string $domain Text domain.
 	 * @return string Translated text.
 	 */
 	public static function filter_ngettext( $translation, $single, $plural, $number, $domain ) {
 		if ( $translation === $single || $translation === $plural ) {
-			// phpcs:ignore WordPress.WP.I18n -- This is a filter hook to map the text domains from our Composer packages to the domain for a containing plugin. See https://wp.me/p2gHKz-oRh#problem-6-text-domains-in-composer-packages
+			// phpcs:ignore WordPress.WP.I18n -- we're including text domains from the most recent dependency package versions, of which there are generally a fair number, to ensure we have the most recent translations.
 			$translation = _n( $single, $plural, $number, self::$domain_map[ $domain ][0] );
 		}
 		return $translation;
@@ -706,7 +691,7 @@ class Assets {
 	 */
 	public static function filter_gettext_with_context( $translation, $text, $context, $domain ) {
 		if ( $translation === $text ) {
-			// phpcs:ignore WordPress.WP.I18n -- This is a filter hook to map the text domains from our Composer packages to the domain for a containing plugin. See https://wp.me/p2gHKz-oRh#problem-6-text-domains-in-composer-packages
+			// phpcs:ignore WordPress.WP.I18n -- we're including text domains from the most recent dependency package versions, of which there are generally a fair number, to ensure we have the most recent translations.
 			$translation = _x( $text, $context, self::$domain_map[ $domain ][0] );
 		}
 		return $translation;
@@ -719,14 +704,14 @@ class Assets {
 	 * @param string $translation Translated text.
 	 * @param string $single The text to be used if the number is singular.
 	 * @param string $plural The text to be used if the number is plural.
-	 * @param int    $number The number to compare against to use either the singular or plural form.
+	 * @param string $number The number to compare against to use either the singular or plural form.
 	 * @param string $context Context information for the translators.
 	 * @param string $domain Text domain.
 	 * @return string Translated text.
 	 */
 	public static function filter_ngettext_with_context( $translation, $single, $plural, $number, $context, $domain ) {
 		if ( $translation === $single || $translation === $plural ) {
-			// phpcs:ignore WordPress.WP.I18n -- This is a filter hook to map the text domains from our Composer packages to the domain for a containing plugin. See https://wp.me/p2gHKz-oRh#problem-6-text-domains-in-composer-packages
+			// phpcs:ignore WordPress.WP.I18n -- we're including text domains from the most recent dependency package versions, of which there are generally a fair number, to ensure we have the most recent translations.
 			$translation = _nx( $single, $plural, $number, $context, self::$domain_map[ $domain ][0] );
 		}
 		return $translation;

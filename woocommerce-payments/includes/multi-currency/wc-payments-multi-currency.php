@@ -15,10 +15,8 @@ function wcpay_multi_currency_onboarding_check() {
 
 	// Skip checking the HTTP referer if it is a cron job.
 	if ( ! defined( 'DOING_CRON' ) ) {
-		$http_referer = sanitize_text_field( wp_unslash( $_SERVER['HTTP_REFERER'] ?? '' ) );
-		if ( ! empty( $http_referer ) ) {
-			$is_setup_page = strpos( $http_referer, 'multi-currency-setup' ) !== false;
-		}
+		$http_referer  = sanitize_text_field( wp_unslash( $_SERVER['HTTP_REFERER'] ?? '' ) );
+		$is_setup_page = 0 < strpos( $http_referer, 'multi-currency-setup' );
 	}
 
 	return $is_setup_page;
