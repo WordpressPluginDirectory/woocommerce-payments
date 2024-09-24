@@ -114,15 +114,6 @@ final class SessionHandler extends WC_Session {
 	}
 
 	/**
-	 * Gets a cache prefix. This is used in session names so the entire cache can be invalidated with 1 function call.
-	 *
-	 * @return string
-	 */
-	private function get_cache_prefix() {
-		return \WC_Cache_Helper::get_cache_prefix( WC_SESSION_CACHE_GROUP );
-	}
-
-	/**
 	 * Save data and delete user session.
 	 */
 	public function save_data() {
@@ -138,7 +129,7 @@ final class SessionHandler extends WC_Session {
 					$this->session_expiration
 				)
 			);
-			wp_cache_set( $this->get_cache_prefix() . $this->_customer_id, $this->_data, WC_SESSION_CACHE_GROUP, $this->session_expiration - time() );
+
 			$this->_dirty = false;
 		}
 	}

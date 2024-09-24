@@ -293,19 +293,19 @@ abstract class Module {
 	 * @return array|object|null
 	 */
 	public function get_next_chunk( $config, $status, $chunk_size ) {
-		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery
+		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 		global $wpdb;
 		return $wpdb->get_col(
-			"
-			SELECT {$this->id_field()}
-			FROM {$wpdb->{$this->table_name()}}
-			WHERE {$this->get_where_sql( $config )}
-			AND {$this->id_field()} < {$status['last_sent']}
-			ORDER BY {$this->id_field()}
-			DESC LIMIT {$chunk_size}
-			"
+			<<<SQL
+SELECT {$this->id_field()}
+FROM {$wpdb->{$this->table_name()}}
+WHERE {$this->get_where_sql( $config )}
+AND {$this->id_field()} < {$status['last_sent']}
+ORDER BY {$this->id_field()}
+DESC LIMIT {$chunk_size}
+SQL
 		);
-		// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery
+		// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 	}
 
 	/**
@@ -319,13 +319,13 @@ abstract class Module {
 		global $wpdb;
 		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.DirectDatabaseQuery.DirectQuery
 		return $wpdb->get_var(
-			"
-			SELECT {$this->id_field()}
-			FROM {$wpdb->{$this->table_name()}}
-			WHERE {$this->get_where_sql( $config )}
-			ORDER BY {$this->id_field()}
-			LIMIT 1
-			"
+			<<<SQL
+SELECT {$this->id_field()}
+FROM {$wpdb->{$this->table_name()}}
+WHERE {$this->get_where_sql( $config )}
+ORDER BY {$this->id_field()}
+LIMIT 1
+SQL
 		);
 		// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.DirectDatabaseQuery.DirectQuery
 	}
@@ -631,8 +631,8 @@ abstract class Module {
 		$table = $wpdb->{$this->table_name()};
 		$where = $this->get_where_sql( $config );
 
-		// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
-		return (int) $wpdb->get_var( "SELECT COUNT(*) FROM $table WHERE $where" );
+		// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		return $wpdb->get_var( "SELECT COUNT(*) FROM $table WHERE $where" );
 	}
 
 	/**

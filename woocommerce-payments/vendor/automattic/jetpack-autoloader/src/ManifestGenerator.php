@@ -1,10 +1,16 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName
 /**
  * Manifest Generator.
  *
  * @package automattic/jetpack-autoloader
  */
 
+// phpcs:disable WordPress.Files.FileName.InvalidClassFileName
+// phpcs:disable WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
+// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+// phpcs:disable WordPress.NamingConventions.ValidVariableName.InterpolatedVariableNotSnakeCase
+// phpcs:disable WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
+// phpcs:disable WordPress.NamingConventions.ValidVariableName.PropertyNotSnakeCase
 // phpcs:disable WordPress.PHP.DevelopmentFunctions.error_log_var_export
 
 namespace Automattic\Jetpack\Autoloader;
