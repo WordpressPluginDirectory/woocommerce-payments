@@ -5,6 +5,70 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.10] - 2024-08-26
+### Changed
+- Updated package dependencies. [#39004]
+
+## [3.0.9] - 2024-07-10
+### Fixed
+- Avoid a deprecation notice in `Autoloader_Locator::find_latest_autoloader()`. [#38245]
+
+## [3.0.8] - 2024-05-29
+### Fixed
+- `AutoloadGenerator::__construct` no longer pretends `$io` is nullable. That never worked. [#37608]
+
+## [3.0.7] - 2024-05-06
+### Fixed
+- Avoid deprecation notices when plugin path is null. [#37174]
+
+## [3.0.6] - 2024-04-22
+### Changed
+- Internal updates.
+
+## [3.0.5] - 2024-04-11
+### Changed
+- Internal updates.
+
+## [3.0.4] - 2024-03-18
+### Changed
+- Internal updates.
+
+## [3.0.3] - 2024-03-14
+### Changed
+- Internal updates.
+
+## [3.0.2] - 2023-11-21
+
+## [3.0.1] - 2023-11-21
+
+## [3.0.0] - 2023-11-20
+### Changed
+- Updated required PHP version to >= 7.0. [#34192]
+
+## [2.12.0] - 2023-09-28
+### Added
+- Add an `AutoloadGenerator::VERSION` constant, and use that for the autoloader's version in preference to whatever Composer has. [#33156]
+
+## [2.11.23] - 2023-09-19
+
+- Minor internal updates.
+
+## [2.11.22] - 2023-08-23
+### Changed
+- Updated package dependencies. [#32605]
+
+## [2.11.21] - 2023-05-22
+### Added
+- Set keywords in `composer.json`. [#30756]
+
+## [2.11.20] - 2023-05-11
+
+- Updated package dependencies
+
+## [2.11.19] - 2023-04-25
+### Fixed
+- Fix example in README [#30225]
+
 ## [2.11.18] - 2023-03-28
 ### Changed
 - Minor internal updates.
@@ -308,6 +372,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add Custom Autoloader
 
+[3.0.10]: https://github.com/Automattic/jetpack-autoloader/compare/v3.0.9...v3.0.10
+[3.0.9]: https://github.com/Automattic/jetpack-autoloader/compare/v3.0.8...v3.0.9
+[3.0.8]: https://github.com/Automattic/jetpack-autoloader/compare/v3.0.7...v3.0.8
+[3.0.7]: https://github.com/Automattic/jetpack-autoloader/compare/v3.0.6...v3.0.7
+[3.0.6]: https://github.com/Automattic/jetpack-autoloader/compare/v3.0.5...v3.0.6
+[3.0.5]: https://github.com/Automattic/jetpack-autoloader/compare/v3.0.4...v3.0.5
+[3.0.4]: https://github.com/Automattic/jetpack-autoloader/compare/v3.0.3...v3.0.4
+[3.0.3]: https://github.com/Automattic/jetpack-autoloader/compare/v3.0.2...v3.0.3
+[3.0.2]: https://github.com/Automattic/jetpack-autoloader/compare/v3.0.1...v3.0.2
+[3.0.1]: https://github.com/Automattic/jetpack-autoloader/compare/v3.0.0...v3.0.1
+[3.0.0]: https://github.com/Automattic/jetpack-autoloader/compare/v2.12.0...v3.0.0
+[2.12.0]: https://github.com/Automattic/jetpack-autoloader/compare/v2.11.23...v2.12.0
+[2.11.23]: https://github.com/Automattic/jetpack-autoloader/compare/v2.11.22...v2.11.23
+[2.11.22]: https://github.com/Automattic/jetpack-autoloader/compare/v2.11.21...v2.11.22
+[2.11.21]: https://github.com/Automattic/jetpack-autoloader/compare/v2.11.20...v2.11.21
+[2.11.20]: https://github.com/Automattic/jetpack-autoloader/compare/v2.11.19...v2.11.20
+[2.11.19]: https://github.com/Automattic/jetpack-autoloader/compare/v2.11.18...v2.11.19
+[2.11.18]: https://github.com/Automattic/jetpack-autoloader/compare/v2.11.17...v2.11.18
 [2.11.17]: https://github.com/Automattic/jetpack-autoloader/compare/v2.11.16...v2.11.17
 [2.11.16]: https://github.com/Automattic/jetpack-autoloader/compare/v2.11.15...v2.11.16
 [2.11.15]: https://github.com/Automattic/jetpack-autoloader/compare/v2.11.14...v2.11.15
