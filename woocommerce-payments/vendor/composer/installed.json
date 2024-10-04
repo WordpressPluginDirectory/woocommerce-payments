@@ -55,17 +55,17 @@
         },
         {
             "name": "automattic/jetpack-admin-ui",
-            "version": "v0.4.4",
-            "version_normalized": "0.4.4.0",
+            "version": "v0.4.5",
+            "version_normalized": "0.4.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Automattic/jetpack-admin-ui.git",
-                "reference": "18ea3a92f910f7afa9641dadb956b95b75ce6e0f"
+                "reference": "7d5b8485ebe5984774375468ae52efe5c2849369"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Automattic/jetpack-admin-ui/zipball/18ea3a92f910f7afa9641dadb956b95b75ce6e0f",
-                "reference": "18ea3a92f910f7afa9641dadb956b95b75ce6e0f",
+                "url": "https://api.github.com/repos/Automattic/jetpack-admin-ui/zipball/7d5b8485ebe5984774375468ae52efe5c2849369",
+                "reference": "7d5b8485ebe5984774375468ae52efe5c2849369",
                 "shasum": ""
             },
             "require": {
@@ -80,7 +80,7 @@
             "suggest": {
                 "automattic/jetpack-autoloader": "Allow for better interoperability with other plugins that use this package."
             },
-            "time": "2024-08-29T08:39:06+00:00",
+            "time": "2024-09-05T12:38:36+00:00",
             "type": "jetpack-library",
             "extra": {
                 "autotagger": true,
@@ -108,23 +108,23 @@
             ],
             "description": "Generic Jetpack wp-admin UI elements",
             "support": {
-                "source": "https://github.com/Automattic/jetpack-admin-ui/tree/v0.4.4"
+                "source": "https://github.com/Automattic/jetpack-admin-ui/tree/v0.4.5"
             },
             "install-path": "../automattic/jetpack-admin-ui"
         },
         {
             "name": "automattic/jetpack-assets",
-            "version": "v2.3.5",
-            "version_normalized": "2.3.5.0",
+            "version": "v2.3.8",
+            "version_normalized": "2.3.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Automattic/jetpack-assets.git",
-                "reference": "e869f7a7780da9b0c1ff9612701fcffde83cda12"
+                "reference": "3ddaff78c82ed7663b61961356585061dbb3410a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Automattic/jetpack-assets/zipball/e869f7a7780da9b0c1ff9612701fcffde83cda12",
-                "reference": "e869f7a7780da9b0c1ff9612701fcffde83cda12",
+                "url": "https://api.github.com/repos/Automattic/jetpack-assets/zipball/3ddaff78c82ed7663b61961356585061dbb3410a",
+                "reference": "3ddaff78c82ed7663b61961356585061dbb3410a",
                 "shasum": ""
             },
             "require": {
@@ -140,7 +140,7 @@
             "suggest": {
                 "automattic/jetpack-autoloader": "Allow for better interoperability with other plugins that use this package."
             },
-            "time": "2024-08-29T08:39:36+00:00",
+            "time": "2024-09-10T11:21:54+00:00",
             "type": "jetpack-library",
             "extra": {
                 "autotagger": true,
@@ -168,7 +168,7 @@
             ],
             "description": "Asset management utilities for Jetpack ecosystem packages",
             "support": {
-                "source": "https://github.com/Automattic/jetpack-assets/tree/v2.3.5"
+                "source": "https://github.com/Automattic/jetpack-assets/tree/v2.3.8"
             },
             "install-path": "../automattic/jetpack-assets"
         },
@@ -675,17 +675,17 @@
         },
         {
             "name": "automattic/jetpack-status",
-            "version": "v3.3.4",
-            "version_normalized": "3.3.4.0",
+            "version": "v3.3.5",
+            "version_normalized": "3.3.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Automattic/jetpack-status.git",
-                "reference": "cf023b164ded674d66998b5b5870a3b6cf26679a"
+                "reference": "69d5d8a8f31adf2b297a539bcddd9a9162d1320b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Automattic/jetpack-status/zipball/cf023b164ded674d66998b5b5870a3b6cf26679a",
-                "reference": "cf023b164ded674d66998b5b5870a3b6cf26679a",
+                "url": "https://api.github.com/repos/Automattic/jetpack-status/zipball/69d5d8a8f31adf2b297a539bcddd9a9162d1320b",
+                "reference": "69d5d8a8f31adf2b297a539bcddd9a9162d1320b",
                 "shasum": ""
             },
             "require": {
@@ -703,7 +703,7 @@
             "suggest": {
                 "automattic/jetpack-autoloader": "Allow for better interoperability with other plugins that use this package."
             },
-            "time": "2024-08-23T14:28:43+00:00",
+            "time": "2024-09-10T17:55:40+00:00",
             "type": "jetpack-library",
             "extra": {
                 "autotagger": true,
@@ -733,7 +733,7 @@
             ],
             "description": "Used to retrieve information about the current status of Jetpack and the site overall.",
             "support": {
-                "source": "https://github.com/Automattic/jetpack-status/tree/v3.3.4"
+                "source": "https://github.com/Automattic/jetpack-status/tree/v3.3.5"
             },
             "install-path": "../automattic/jetpack-status"
         },
