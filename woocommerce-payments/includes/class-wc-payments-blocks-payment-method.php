@@ -58,7 +58,7 @@ class WC_Payments_Blocks_Payment_Method extends AbstractPaymentMethodType {
 				'wc-blocks-checkout-style',
 				plugins_url( 'dist/blocks-checkout.css', WCPAY_PLUGIN_FILE ),
 				[],
-				WC_Payments::get_file_version( 'dist/checkout.css' ),
+				'1.0',
 				'all'
 			);
 		}

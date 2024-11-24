@@ -7,7 +7,7 @@
 
 namespace WCPay\MultiCurrency;
 
-use WCPay\MultiCurrency\Interfaces\MultiCurrencyLocalizationInterface;
+use WC_Payments_Localization_Service;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -16,18 +16,18 @@ defined( 'ABSPATH' ) || exit;
  */
 class Geolocation {
 	/**
-	 * MultiCurrencyLocalizationInterface instance.
+	 * WC_Payments_Localization_Service instance.
 	 *
-	 * @var MultiCurrencyLocalizationInterface
+	 * @var WC_Payments_Localization_Service
 	 */
 	protected $localization_service;
 
 	/**
 	 * Constructor.
 	 *
-	 * @param MultiCurrencyLocalizationInterface $localization_service The Localization Service instance.
+	 * @param WC_Payments_Localization_Service $localization_service The Localization Service instance.
 	 */
-	public function __construct( MultiCurrencyLocalizationInterface $localization_service ) {
+	public function __construct( WC_Payments_Localization_Service $localization_service ) {
 		$this->localization_service = $localization_service;
 	}
 

@@ -33,7 +33,7 @@ class WooCommercePointsAndRewards extends BaseCompatibility {
 	 *
 	 * @return  void
 	 */
-	public function init() {
+	protected function init() {
 		// Add needed filters if Points & Rewards is active and it's not an admin request.
 		if ( is_admin() || ! class_exists( 'WC_Points_Rewards' ) ) {
 			return;

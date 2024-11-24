@@ -20,7 +20,7 @@ class WooCommercePreOrders extends BaseCompatibility {
 	 *
 	 * @return  void
 	 */
-	public function init() {
+	protected function init() {
 		// Add needed actions and filters if Pre-Orders is active.
 		if ( class_exists( 'WC_Pre_Orders' ) ) {
 			add_filter( 'wc_pre_orders_fee', [ $this, 'wc_pre_orders_fee' ] );

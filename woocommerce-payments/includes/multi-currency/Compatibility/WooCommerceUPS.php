@@ -20,7 +20,7 @@ class WooCommerceUPS extends BaseCompatibility {
 	 *
 	 * @return  void
 	 */
-	public function init() {
+	protected function init() {
 		// Add needed actions and filters if UPS is active.
 		if ( class_exists( 'WC_Shipping_UPS_Init' ) ) {
 			add_filter( MultiCurrency::FILTER_PREFIX . 'should_return_store_currency', [ $this, 'should_return_store_currency' ] );

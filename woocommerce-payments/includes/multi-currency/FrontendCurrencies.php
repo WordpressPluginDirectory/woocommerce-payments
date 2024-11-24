@@ -8,7 +8,7 @@
 namespace WCPay\MultiCurrency;
 
 use WC_Order;
-use WCPay\MultiCurrency\Interfaces\MultiCurrencyLocalizationInterface;
+use WC_Payments_Localization_Service;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -24,9 +24,9 @@ class FrontendCurrencies {
 	protected $multi_currency;
 
 	/**
-	 * MultiCurrencyLocalizationInterface instance.
+	 * WC_Payments_Localization_Service instance.
 	 *
-	 * @var MultiCurrencyLocalizationInterface
+	 * @var WC_Payments_Localization_Service
 	 */
 	protected $localization_service;
 
@@ -89,12 +89,12 @@ class FrontendCurrencies {
 	/**
 	 * Constructor.
 	 *
-	 * @param MultiCurrency                      $multi_currency       The MultiCurrency instance.
-	 * @param MultiCurrencyLocalizationInterface $localization_service The Localization Service instance.
-	 * @param Utils                              $utils                Utils instance.
-	 * @param Compatibility                      $compatibility        Compatibility instance.
+	 * @param MultiCurrency                    $multi_currency       The MultiCurrency instance.
+	 * @param WC_Payments_Localization_Service $localization_service The Localization Service instance.
+	 * @param Utils                            $utils                Utils instance.
+	 * @param Compatibility                    $compatibility        Compatibility instance.
 	 */
-	public function __construct( MultiCurrency $multi_currency, MultiCurrencyLocalizationInterface $localization_service, Utils $utils, Compatibility $compatibility ) {
+	public function __construct( MultiCurrency $multi_currency, WC_Payments_Localization_Service $localization_service, Utils $utils, Compatibility $compatibility ) {
 		$this->multi_currency       = $multi_currency;
 		$this->localization_service = $localization_service;
 		$this->utils                = $utils;

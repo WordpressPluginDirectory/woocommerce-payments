@@ -1,29 +1,21 @@
 <?php
 /**
- * Class RestController
+ * Class WC_REST_Controller
  *
  * @package WooCommerce\Payments\MultiCurrency
  */
 
 namespace WCPay\MultiCurrency;
 
-use Exception;
+use WCPay\Exceptions\Base_Exception;
 use WCPay\MultiCurrency\Exceptions\InvalidCurrencyException;
-use WCPay\MultiCurrency\MultiCurrency;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * REST controller for multi-currency.
  */
-class RestController extends \WP_REST_Controller {
-
-	/**
-	 * Endpoint namespace.
-	 *
-	 * @var string
-	 */
-	protected $namespace = 'wc/v3';
+class RestController extends \WC_Payments_REST_Controller {
 
 	/**
 	 * Endpoint path.
@@ -31,23 +23,6 @@ class RestController extends \WP_REST_Controller {
 	 * @var string
 	 */
 	protected $rest_base = 'payments/multi-currency';
-
-	/**
-	 * MultiCurrency instance.
-	 *
-	 * @var MultiCurrency
-	 */
-	protected $multi_currency;
-
-	/**
-	 * Constructor.
-	 *
-	 * @param MultiCurrency $multi_currency MultiCurrency instance.
-	 */
-	public function __construct( MultiCurrency $multi_currency ) {
-		$this->multi_currency = $multi_currency;
-	}
-
 
 	/**
 	 * Configure REST API routes.
@@ -169,7 +144,7 @@ class RestController extends \WP_REST_Controller {
 	 * @return \WP_REST_Response|\WP_Error Array of the store currencies structure.
 	 */
 	public function get_store_currencies() {
-		return rest_ensure_response( $this->multi_currency->get_store_currencies() );
+		return rest_ensure_response( WC_Payments_Multi_Currency()->get_store_currencies() );
 	}
 
 	/**
@@ -182,10 +157,10 @@ class RestController extends \WP_REST_Controller {
 	public function update_enabled_currencies( $request ) {
 		$enabled = $request->get_param( 'enabled' );
 		try {
-			$this->multi_currency->set_enabled_currencies( $enabled );
+			WC_Payments_Multi_Currency()->set_enabled_currencies( $enabled );
 			$response = $this->get_store_currencies();
 		} catch ( InvalidCurrencyException $e ) {
-			$response = new \WP_Error( $e->getCode(), $e->getMessage() );
+			$response = new \WP_Error( $e->get_error_code(), $e->getMessage() );
 		}
 		return rest_ensure_response( $response );
 	}
@@ -201,9 +176,9 @@ class RestController extends \WP_REST_Controller {
 		$currency_code = $request->get_param( 'currency_code' );
 
 		try {
-			$response = $this->multi_currency->get_single_currency_settings( $currency_code );
+			$response = WC_Payments_Multi_Currency()->get_single_currency_settings( $currency_code );
 		} catch ( InvalidCurrencyException $e ) {
-			$response = new \WP_Error( $e->getCode(), $e->getMessage() );
+			$response = new \WP_Error( $e->get_error_code(), $e->getMessage() );
 		}
 
 		return rest_ensure_response( $response );
@@ -224,10 +199,10 @@ class RestController extends \WP_REST_Controller {
 		$manual_rate        = $request->get_param( 'manual_rate' ) ?? null;
 
 		try {
-			$this->multi_currency->update_single_currency_settings( $currency_code, $exchange_rate_type, $price_rounding, $price_charm, $manual_rate );
-			$response = $this->multi_currency->get_single_currency_settings( $currency_code );
-		} catch ( Exception $e ) {
-			$response = new \WP_Error( $e->getCode(), $e->getMessage() );
+			WC_Payments_Multi_Currency()->update_single_currency_settings( $currency_code, $exchange_rate_type, $price_rounding, $price_charm, $manual_rate );
+			$response = WC_Payments_Multi_Currency()->get_single_currency_settings( $currency_code );
+		} catch ( Base_Exception $e ) {
+			$response = new \WP_Error( $e->get_error_code(), $e->getMessage() );
 		}
 
 		return rest_ensure_response( $response );
@@ -239,7 +214,7 @@ class RestController extends \WP_REST_Controller {
 	 * @return \WP_REST_Response|\WP_Error The store settings as an array.
 	 */
 	public function get_settings() {
-		return rest_ensure_response( $this->multi_currency->get_settings() );
+		return rest_ensure_response( WC_Payments_Multi_Currency()->get_settings() );
 	}
 
 	/**
@@ -251,14 +226,7 @@ class RestController extends \WP_REST_Controller {
 	 */
 	public function update_settings( $request ) {
 		$params = $request->get_params();
-		$this->multi_currency->update_settings( $params );
-		return rest_ensure_response( $this->multi_currency->get_settings() );
-	}
-
-	/**
-	 * Verify access.
-	 */
-	public function check_permission() {
-		return current_user_can( 'manage_woocommerce' );
+		WC_Payments_Multi_Currency()->update_settings( $params );
+		return rest_ensure_response( WC_Payments_Multi_Currency()->get_settings() );
 	}
 }

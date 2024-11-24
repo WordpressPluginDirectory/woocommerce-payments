@@ -23,7 +23,7 @@ class WooCommerceProductAddOns extends BaseCompatibility {
 	 *
 	 * @return  void
 	 */
-	public function init() {
+	protected function init() {
 		// Add needed actions and filters if Product Add Ons is active.
 		if ( class_exists( 'WC_Product_Addons' ) ) {
 			if ( ! is_admin() && ! defined( 'DOING_CRON' ) ) {
