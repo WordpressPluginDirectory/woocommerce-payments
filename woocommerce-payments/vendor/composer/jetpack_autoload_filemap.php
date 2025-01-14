@@ -15,7 +15,7 @@ return array(
 		'path'    => $vendorDir . '/automattic/jetpack-connection/actions.php'
 	),
 	'e25fc356bc58b4090924d1aac798cacd' => array(
-		'version' => 'dev-release/8.7.0',
+		'version' => 'dev-release/8.7.1',
 		'path'    => $baseDir . '/src/wcpay-get-container.php'
 	),
 );
