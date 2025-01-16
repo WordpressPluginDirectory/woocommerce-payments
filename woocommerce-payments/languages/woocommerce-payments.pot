@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the WooPayments package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooPayments 8.7.1\n"
+"Project-Id-Version: WooPayments 8.8.0\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-payments\n"
-"POT-Creation-Date: 2025-01-14 07:01:16+00:00\n"
+"POT-Creation-Date: 2025-01-15 16:41:12+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -31,7 +31,7 @@ msgstr ""
 
 #: includes/admin/class-wc-payments-admin-settings.php:81
 #: includes/admin/class-wc-payments-admin.php:474
-#: includes/admin/class-wc-payments-admin.php:1172
+#: includes/admin/class-wc-payments-admin.php:1171
 #: dist/settings.js:1
 #: client/settings/express-checkout-settings/index.js:101
 msgid "Settings"
@@ -173,26 +173,26 @@ msgid ""
 "your analytics."
 msgstr ""
 
-#: includes/admin/class-wc-payments-admin.php:1218
+#: includes/admin/class-wc-payments-admin.php:1217
 #. translators: 1: WooPayments.
 msgid "Please <b>complete your %1$s setup</b> to continue using it."
 msgstr ""
 
-#: includes/admin/class-wc-payments-admin.php:1240
+#: includes/admin/class-wc-payments-admin.php:1239
 msgid "Paid with"
 msgstr ""
 
-#: includes/admin/class-wc-payments-admin.php:1244
+#: includes/admin/class-wc-payments-admin.php:1243
 #: includes/class-wc-payments-order-success-page.php:143
 msgid "Card ending in"
 msgstr ""
 
-#: includes/admin/class-wc-payments-admin.php:1271
+#: includes/admin/class-wc-payments-admin.php:1270
 #. translators: %s: WooPayments
 msgid "This represents the fee %s collects for the transaction."
 msgstr ""
 
-#: includes/admin/class-wc-payments-admin.php:1276
+#: includes/admin/class-wc-payments-admin.php:1275
 msgid "Transaction Fee:"
 msgstr ""
 
@@ -1558,12 +1558,12 @@ msgid ""
 "more details."
 msgstr ""
 
-#: includes/class-wc-payments-order-service.php:1764
+#: includes/class-wc-payments-order-service.php:1762
 #. translators: %1: the refund amount, %2: WooPayments, %3: ID of the refund
 msgid "A refund of %1$s was successfully processed using %2$s (<code>%3$s</code>)."
 msgstr ""
 
-#: includes/class-wc-payments-order-service.php:1777
+#: includes/class-wc-payments-order-service.php:1775
 #. translators: %1: the successfully charged amount, %2: WooPayments, %3:
 #. reason, %4: refund id
 msgid ""
@@ -1571,11 +1571,11 @@ msgid ""
 "(<code>%4$s</code>)"
 msgstr ""
 
-#: includes/class-wc-payments-order-service.php:1955
+#: includes/class-wc-payments-order-service.php:1957
 msgid "Intent id was not included for payment complete status change."
 msgstr ""
 
-#: includes/class-wc-payments-order-service.php:2027
+#: includes/class-wc-payments-order-service.php:2029
 msgid "The requested order was not found."
 msgstr ""
 
@@ -1705,7 +1705,7 @@ msgstr ""
 
 #: includes/class-wc-payments-status.php:138
 #: dist/blocks-checkout.js:1
-#: client/checkout/blocks/payment-method-label.js:104
+#: client/checkout/blocks/payment-method-label.js:106
 msgid "Test Mode"
 msgstr ""
 
@@ -2306,7 +2306,7 @@ msgstr ""
 msgid "Email address"
 msgstr ""
 
-#: includes/class-wc-payments.php:2017
+#: includes/class-wc-payments.php:2016
 #. translators: %1$s: WooCommerce , %2$s: WooPayments, %3$s: The current
 #. WooCommerce version used by the store
 msgid ""
@@ -2315,7 +2315,7 @@ msgid ""
 "using %3$s). You can do that via the <a1>the plugins page.</a1>"
 msgstr ""
 
-#: includes/class-wc-payments.php:2021
+#: includes/class-wc-payments.php:2020
 #. translators: %1$s: WooCommerce , %2$s: WooPayments, %3$s: The current
 #. WooCommerce version used by the store
 msgid ""
@@ -2324,7 +2324,7 @@ msgid ""
 "%3$s). You can do that via the <a1>the plugins page.</a1>"
 msgstr ""
 
-#: includes/class-wc-payments.php:2025
+#: includes/class-wc-payments.php:2024
 #. translators: %1$s: WooCommerce , %2$s: WooPayments, %3$s: The current
 #. WooCommerce version used by the store
 msgid ""
@@ -2333,11 +2333,11 @@ msgid ""
 "using %3$s). You can do that via the <a1>the plugins page.</a1>"
 msgstr ""
 
-#: includes/class-wc-payments.php:2108
+#: includes/class-wc-payments.php:2107
 msgid "Mobile Number"
 msgstr ""
 
-#: includes/class-wc-payments.php:2108
+#: includes/class-wc-payments.php:2107
 msgid "is required to create an WooPay account."
 msgstr ""
 
@@ -2523,39 +2523,39 @@ msgstr ""
 msgid "Thanks for using {site_url}!"
 msgstr ""
 
-#: includes/express-checkout/class-wc-payments-express-checkout-ajax-handler.php:71
+#: includes/express-checkout/class-wc-payments-express-checkout-ajax-handler.php:80
 msgid "Empty cart"
 msgstr ""
 
-#: includes/express-checkout/class-wc-payments-express-checkout-ajax-handler.php:116
+#: includes/express-checkout/class-wc-payments-express-checkout-ajax-handler.php:125
 msgid "Invalid request"
 msgstr ""
 
-#: includes/express-checkout/class-wc-payments-express-checkout-ajax-handler.php:128
+#: includes/express-checkout/class-wc-payments-express-checkout-ajax-handler.php:137
 msgid "Invalid order!"
 msgstr ""
 
-#: includes/express-checkout/class-wc-payments-express-checkout-ajax-handler.php:132
+#: includes/express-checkout/class-wc-payments-express-checkout-ajax-handler.php:141
 msgid "This order does not require payment!"
 msgstr ""
 
-#: includes/express-checkout/class-wc-payments-express-checkout-ajax-handler.php:144
+#: includes/express-checkout/class-wc-payments-express-checkout-ajax-handler.php:153
 msgid "Unable to determine payment success."
 msgstr ""
 
-#: includes/express-checkout/class-wc-payments-express-checkout-ajax-handler.php:263
+#: includes/express-checkout/class-wc-payments-express-checkout-ajax-handler.php:272
 #. translators: product ID
 msgid "Product with the ID (%d) cannot be found."
 msgstr ""
 
-#: includes/express-checkout/class-wc-payments-express-checkout-ajax-handler.php:284
+#: includes/express-checkout/class-wc-payments-express-checkout-ajax-handler.php:293
 #. translators: 1: product name 2: quantity in stock
 msgid ""
 "You cannot add that amount of \"%1$s\"; to the cart because there is not "
 "enough stock (%2$s remaining)."
 msgstr ""
 
-#: includes/express-checkout/class-wc-payments-express-checkout-ajax-handler.php:305
+#: includes/express-checkout/class-wc-payments-express-checkout-ajax-handler.php:314
 #: includes/express-checkout/class-wc-payments-express-checkout-button-handler.php:347
 #: includes/express-checkout/class-wc-payments-express-checkout-button-helper.php:112
 #: includes/express-checkout/class-wc-payments-express-checkout-button-helper.php:716
@@ -2566,7 +2566,7 @@ msgstr ""
 msgid "Tax"
 msgstr ""
 
-#: includes/express-checkout/class-wc-payments-express-checkout-ajax-handler.php:313
+#: includes/express-checkout/class-wc-payments-express-checkout-ajax-handler.php:322
 #: includes/express-checkout/class-wc-payments-express-checkout-button-helper.php:121
 #: includes/express-checkout/class-wc-payments-express-checkout-button-helper.php:724
 #: dist/blocks-checkout.js:1
@@ -2575,7 +2575,7 @@ msgstr ""
 msgid "Shipping"
 msgstr ""
 
-#: includes/express-checkout/class-wc-payments-express-checkout-ajax-handler.php:320
+#: includes/express-checkout/class-wc-payments-express-checkout-ajax-handler.php:329
 #: includes/express-checkout/class-wc-payments-express-checkout-button-helper.php:731
 #: dist/index.js:1
 #: dist/tokenized-express-checkout.js:1
@@ -2585,7 +2585,7 @@ msgstr ""
 msgid "Pending"
 msgstr ""
 
-#: includes/express-checkout/class-wc-payments-express-checkout-ajax-handler.php:367
+#: includes/express-checkout/class-wc-payments-express-checkout-ajax-handler.php:376
 msgid "Invalid product id"
 msgstr ""
 
@@ -2893,7 +2893,7 @@ msgstr ""
 msgid "Display flags in supported devices"
 msgstr ""
 
-#: includes/multi-currency/MultiCurrency.php:969
+#: includes/multi-currency/MultiCurrency.php:972
 #. translators: %1 User's country, %2 Selected currency name, %3 Default store
 #. currency name, %4 Link to switch currency
 msgid ""
@@ -2901,7 +2901,7 @@ msgid ""
 "your shopping convenience. <a href=\"%4$s\">Use %3$s instead.</a>"
 msgstr ""
 
-#: includes/multi-currency/MultiCurrency.php:982
+#: includes/multi-currency/MultiCurrency.php:985
 #: dist/index.js:1
 #: client/components/fraud-risk-tools-banner/components/banner-actions/index.tsx:17
 #: client/overview/connection-sucess-notice.tsx:18
@@ -4067,7 +4067,7 @@ msgstr ""
 #: dist/index.js:1
 #: client/capital/index.tsx:137
 #: client/deposits/list/index.tsx:165
-#: client/transactions/list/index.tsx:522
+#: client/transactions/list/index.tsx:526
 #: client/transactions/uncaptured/index.tsx:162
 msgid "total"
 msgstr ""
@@ -4378,8 +4378,8 @@ msgstr ""
 #: dist/express-checkout.js:1
 #: dist/tokenized-express-checkout.js:1
 #: client/checkout/woopay/express-button/woopay-express-checkout-button.js:132
-#: client/express-checkout/index.js:284
-#: client/tokenized-express-checkout/index.js:235
+#: client/express-checkout/index.js:283
+#: client/tokenized-express-checkout/index.js:234
 msgid "Sorry, this product is unavailable. Please choose a different combination."
 msgstr ""
 
@@ -4389,8 +4389,8 @@ msgstr ""
 #: dist/express-checkout.js:1
 #: dist/tokenized-express-checkout.js:1
 #: client/checkout/woopay/express-button/woopay-express-checkout-button.js:139
-#: client/express-checkout/index.js:291
-#: client/tokenized-express-checkout/index.js:242
+#: client/express-checkout/index.js:290
+#: client/tokenized-express-checkout/index.js:241
 msgid "Please select your product options before proceeding."
 msgstr ""
 
@@ -4458,19 +4458,19 @@ msgid ""
 msgstr ""
 
 #: dist/index.js:1
-#: client/components/account-balances/index.tsx:78
+#: client/components/account-balances/index.tsx:82
 msgid ""
 "Get %1$s via instant payout. Funds are typically in your bank account "
 "within 30 mins. Fee: %2$s%%."
 msgstr ""
 
 #: dist/index.js:1
-#: client/components/account-balances/index.tsx:85
+#: client/components/account-balances/index.tsx:89
 msgid "Learn more about instant payouts"
 msgstr ""
 
 #: dist/index.js:1
-#: client/components/account-balances/index.tsx:88
+#: client/components/account-balances/index.tsx:92
 msgid ""
 "With {{strong}}instant payout{{/strong}} you can receive requested funds in "
 "your bank account within 30 mins for a %s%% fee. {{learnMoreLink}}Learn "
@@ -4820,7 +4820,7 @@ msgstr ""
 #: dist/settings.js:1
 #: dist/index.js:1
 #: client/components/deposits-overview/deposit-notices.tsx:105
-#: client/deposits/index.tsx:77
+#: client/deposits/index.tsx:76
 msgid ""
 "Payouts are currently paused because a recent payout failed. Please "
 "{{updateLink}}update your bank account details{{/updateLink}}."
@@ -5643,12 +5643,12 @@ msgid ""
 msgstr ""
 
 #: dist/woopay.js:1
-#: client/components/woopay/save-user/checkout-page-save-user.js:323
+#: client/components/woopay/save-user/checkout-page-save-user.js:329
 msgid "Securely save my information for 1-click checkout"
 msgstr ""
 
 #: dist/woopay.js:1
-#: client/components/woopay/save-user/checkout-page-save-user.js:377
+#: client/components/woopay/save-user/checkout-page-save-user.js:383
 msgid "Please enter a valid mobile phone number."
 msgstr ""
 
@@ -6640,7 +6640,7 @@ msgstr ""
 #: dist/multi-currency-switcher-block.js:1
 #: dist/index.js:1
 #: dist/multi-currency.js:1
-#: client/data/transactions/resolvers.js:150
+#: client/data/transactions/resolvers.js:152
 msgid "Error retrieving transactions."
 msgstr ""
 
@@ -6650,64 +6650,64 @@ msgstr ""
 #: dist/multi-currency-switcher-block.js:1
 #: dist/index.js:1
 #: dist/multi-currency.js:1
-#: client/data/transactions/resolvers.js:196
+#: client/data/transactions/resolvers.js:198
 msgid "Error retrieving on review transactions."
 msgstr ""
 
 #: dist/index.js:1
-#: client/deposits/details/index.tsx:51
+#: client/deposits/details/index.tsx:50
 #: client/transactions/list/index.tsx:224
 msgid "Payout date"
 msgstr ""
 
 #: dist/index.js:1
-#: client/deposits/details/index.tsx:53
+#: client/deposits/details/index.tsx:52
 msgid "Instant payout date"
 msgstr ""
 
 #: dist/index.js:1
-#: client/deposits/details/index.tsx:56
+#: client/deposits/details/index.tsx:55
 msgid "Withdrawal date"
 msgstr ""
 
 #: dist/index.js:1
-#: client/deposits/details/index.tsx:64
+#: client/deposits/details/index.tsx:63
 msgid "Withdrawal overview"
 msgstr ""
 
 #: dist/index.js:1
-#: client/deposits/details/index.tsx:65
+#: client/deposits/details/index.tsx:64
 msgid "Payout overview"
 msgstr ""
 
 #: dist/index.js:1
-#: client/deposits/details/index.tsx:68
+#: client/deposits/details/index.tsx:67
 msgid "Withdrawal amount"
 msgstr ""
 
 #: dist/index.js:1
-#: client/deposits/details/index.tsx:69
+#: client/deposits/details/index.tsx:68
 msgid "Payout amount"
 msgstr ""
 
 #: dist/index.js:1
-#: client/deposits/details/index.tsx:72
+#: client/deposits/details/index.tsx:71
 #. %s - amount representing the fee percentage
 msgid "%s service fee"
 msgstr ""
 
 #: dist/index.js:1
-#: client/deposits/details/index.tsx:74
+#: client/deposits/details/index.tsx:73
 msgid "Net withdrawal amount"
 msgstr ""
 
 #: dist/index.js:1
-#: client/deposits/details/index.tsx:75
+#: client/deposits/details/index.tsx:74
 msgid "Net payout amount"
 msgstr ""
 
 #: dist/index.js:1
-#: client/deposits/details/index.tsx:91
+#: client/deposits/details/index.tsx:89
 msgid "Payout transactions"
 msgstr ""
 
@@ -6951,7 +6951,7 @@ msgstr ""
 #: dist/index.js:1
 #: client/deposits/list/index.tsx:207
 #: client/disputes/index.tsx:313
-#: client/transactions/list/index.tsx:460
+#: client/transactions/list/index.tsx:464
 msgid "Your export will be emailed to %s"
 msgstr ""
 
@@ -6959,7 +6959,7 @@ msgstr ""
 #: client/deposits/list/index.tsx:215
 #: client/disputes/index.tsx:321
 #: client/transactions/blocked/index.tsx:111
-#: client/transactions/list/index.tsx:463
+#: client/transactions/list/index.tsx:467
 msgid "There was a problem generating your export."
 msgstr ""
 
@@ -6974,7 +6974,7 @@ msgstr ""
 #: client/documents/list/index.tsx:36
 #: client/payment-details/payment-method/card-present/index.js:121
 #: client/payment-details/payment-method/card/index.js:146
-#: client/transactions/filters/config.ts:178
+#: client/transactions/filters/config.ts:203
 #: client/transactions/list/index.tsx:114
 msgid "Type"
 msgstr ""
@@ -6982,19 +6982,6 @@ msgstr ""
 #: dist/index.js:1
 #: client/deposits/list/index.tsx:96
 msgid "Bank account"
-msgstr ""
-
-#: dist/index.js:1
-#: client/deposits/rename-notice/index.tsx:49
-msgid "Deposits are now known as Payouts!"
-msgstr ""
-
-#: dist/index.js:1
-#: client/deposits/rename-notice/index.tsx:51
-msgid ""
-"Same reliable system for quick access to your earnings — now with a clearer "
-"name. To enhance your experience, 'Deposits' will now be called 'Payouts'. "
-"<link>Learn More.</link>"
 msgstr ""
 
 #: dist/index.js:1
@@ -8535,13 +8522,13 @@ msgstr ""
 
 #: dist/index.js:1
 #: client/documents/filters/config.ts:81
-#: client/transactions/filters/config.ts:183
+#: client/transactions/filters/config.ts:208
 msgid "{{title}}Type{{/title}} {{rule /}} {{filter /}}"
 msgstr ""
 
 #: dist/index.js:1
 #: client/documents/filters/config.ts:82
-#: client/transactions/filters/config.ts:184
+#: client/transactions/filters/config.ts:209
 msgid "<title>Type</title> <rule /> <filter />"
 msgstr ""
 
@@ -8568,17 +8555,17 @@ msgstr ""
 
 #: dist/index.js:1
 #: client/documents/list/index.tsx:57
-msgid "VAT invoice for %s to %s"
+msgid "Tax invoice for %s to %s"
 msgstr ""
 
 #: dist/index.js:1
 #: client/documents/list/index.tsx:59
-msgid "VAT invoice without proper period dates"
+msgid "Tax invoice without proper period dates"
 msgstr ""
 
 #: dist/index.js:1
 #: client/documents/strings.ts:8
-msgid "VAT Invoice"
+msgid "Tax Invoice"
 msgstr ""
 
 #: dist/settings.js:1
@@ -8605,8 +8592,8 @@ msgstr ""
 #: dist/express-checkout.js:1
 #: dist/blocks-checkout.js:1
 #: dist/tokenized-express-checkout.js:1
-#: client/express-checkout/event-handlers.js:126
-#: client/tokenized-express-checkout/event-handlers.js:172
+#: client/express-checkout/event-handlers.js:124
+#: client/tokenized-express-checkout/event-handlers.js:170
 msgid "There was a problem processing the order."
 msgstr ""
 
@@ -9088,33 +9075,33 @@ msgid ""
 msgstr ""
 
 #: dist/index.js:1
-#: client/overview/index.js:142
+#: client/overview/index.js:141
 msgid "Success! You can start using WooPayments in sandbox mode."
 msgstr ""
 
 #: dist/index.js:1
-#: client/overview/index.js:159
+#: client/overview/index.js:158
 msgid ""
 "There was a problem redirecting you to the loan offer. Please check that it "
 "is not expired and try again."
 msgstr ""
 
 #: dist/index.js:1
-#: client/overview/index.js:167
+#: client/overview/index.js:166
 msgid ""
 "There was a problem redirecting you to the requested link. Please check "
 "that it is valid and try again."
 msgstr ""
 
 #: dist/index.js:1
-#: client/overview/index.js:175
+#: client/overview/index.js:174
 msgid ""
 "There was a problem resetting your account. Please wait a few seconds and "
 "try again."
 msgstr ""
 
 #: dist/index.js:1
-#: client/overview/index.js:52
+#: client/overview/index.js:51
 msgid ""
 "There was a problem redirecting you to the account dashboard. Please try "
 "again."
@@ -10325,6 +10312,7 @@ msgstr ""
 #: dist/index.js:1
 #: client/payment-details/payment-method/index.js:65
 #: client/payment-details/summary/index.tsx:95
+#: client/transactions/filters/config.ts:178
 msgid "Payment method"
 msgstr ""
 
@@ -10539,7 +10527,7 @@ msgstr ""
 
 #: dist/index.js:1
 #: client/payment-details/summary/index.tsx:74
-#: client/transactions/filters/config.ts:251
+#: client/transactions/filters/config.ts:276
 #: client/transactions/list/index.tsx:121
 msgid "Channel"
 msgstr ""
@@ -13033,97 +13021,92 @@ msgstr ""
 
 #: dist/index.js:1
 #: client/transactions/filters/config.ts:179
-msgid "Remove transaction type filter"
+msgid "Remove payment method filter"
 msgstr ""
 
 #: dist/index.js:1
 #: client/transactions/filters/config.ts:180
+msgid "Select a payment method filter match"
+msgstr ""
+
+#: dist/index.js:1
+#: client/transactions/filters/config.ts:181
+msgid "<title>Payment method</title> <rule /> <filter />"
+msgstr ""
+
+#: dist/index.js:1
+#: client/transactions/filters/config.ts:182
+msgid "Select a payment method"
+msgstr ""
+
+#: dist/index.js:1
+#: client/transactions/filters/config.ts:204
+msgid "Remove transaction type filter"
+msgstr ""
+
+#: dist/index.js:1
+#: client/transactions/filters/config.ts:205
 msgid "Select a transaction type filter match"
 msgstr ""
 
 #: dist/index.js:1
-#: client/transactions/filters/config.ts:185
+#: client/transactions/filters/config.ts:210
 msgid "Select a transaction type"
 msgstr ""
 
 #: dist/index.js:1
-#: client/transactions/filters/config.ts:206
+#: client/transactions/filters/config.ts:231
 msgid "Loan"
 msgstr ""
 
 #: dist/index.js:1
-#: client/transactions/filters/config.ts:207
+#: client/transactions/filters/config.ts:232
 msgid "Remove loan filter"
 msgstr ""
 
 #: dist/index.js:1
-#: client/transactions/filters/config.ts:211
+#: client/transactions/filters/config.ts:236
 msgid "{{title}}Loan{{/title}} {{rule /}} {{filter /}}"
 msgstr ""
 
 #: dist/index.js:1
-#: client/transactions/filters/config.ts:212
+#: client/transactions/filters/config.ts:237
 msgid "<title>Loan</title> <rule /> <filter />"
 msgstr ""
 
 #: dist/index.js:1
-#: client/transactions/filters/config.ts:213
+#: client/transactions/filters/config.ts:238
 msgid "Select a loan"
 msgstr ""
 
 #: dist/index.js:1
-#: client/transactions/filters/config.ts:223
+#: client/transactions/filters/config.ts:248
 msgid "Device Type"
 msgstr ""
 
 #: dist/index.js:1
-#: client/transactions/filters/config.ts:224
+#: client/transactions/filters/config.ts:249
 msgid "Remove transaction device type filter"
 msgstr ""
 
 #: dist/index.js:1
-#: client/transactions/filters/config.ts:225
+#: client/transactions/filters/config.ts:250
 msgid "Select a transaction device type filter match"
 msgstr ""
 
 #: dist/index.js:1
-#: client/transactions/filters/config.ts:228
+#: client/transactions/filters/config.ts:253
 msgid "{{title}}Device type{{/title}} {{rule /}} {{filter /}}"
 msgstr ""
 
 #: dist/index.js:1
-#: client/transactions/filters/config.ts:229
+#: client/transactions/filters/config.ts:254
 msgid "<title>Device type</title> <rule /> <filter />"
 msgstr ""
 
 #: dist/index.js:1
-#: client/transactions/filters/config.ts:230
+#: client/transactions/filters/config.ts:255
 msgid "Select a transaction device type"
-msgstr ""
-
-#: dist/index.js:1
-#: client/transactions/filters/config.ts:252
-msgid "Remove transaction channel filter"
-msgstr ""
-
-#: dist/index.js:1
-#: client/transactions/filters/config.ts:253
-msgid "Select a transaction channel filter match"
-msgstr ""
-
-#: dist/index.js:1
-#: client/transactions/filters/config.ts:256
-msgid "{{title}}Channel{{/title}} {{rule /}} {{filter /}}"
-msgstr ""
-
-#: dist/index.js:1
-#: client/transactions/filters/config.ts:257
-msgid "<title>Channel</title> <rule /> <filter />"
-msgstr ""
-
-#: dist/index.js:1
-#: client/transactions/filters/config.ts:258
-msgid "Select a transaction channel"
 msgstr ""
 
 #: dist/index.js:1
@@ -13132,8 +13115,13 @@ msgid "In Progress"
 msgstr ""
 
 #: dist/index.js:1
-#: client/transactions/filters/config.ts:279
-msgid "Customer Country"
+#: client/transactions/filters/config.ts:277
+msgid "Remove transaction channel filter"
+msgstr ""
+
+#: dist/index.js:1
+#: client/transactions/filters/config.ts:278
+msgid "Select a transaction channel filter match"
 msgstr ""
 
 #: dist/index.js:1
@@ -13142,57 +13130,77 @@ msgid "Paid in Full"
 msgstr ""
 
 #: dist/index.js:1
-#: client/transactions/filters/config.ts:280
+#: client/transactions/filters/config.ts:281
+msgid "{{title}}Channel{{/title}} {{rule /}} {{filter /}}"
+msgstr ""
+
+#: dist/index.js:1
+#: client/transactions/filters/config.ts:282
+msgid "<title>Channel</title> <rule /> <filter />"
+msgstr ""
+
+#: dist/index.js:1
+#: client/transactions/filters/config.ts:283
+msgid "Select a transaction channel"
+msgstr ""
+
+#: dist/index.js:1
+#: client/transactions/filters/config.ts:304
+msgid "Customer Country"
+msgstr ""
+
+#: dist/index.js:1
+#: client/transactions/filters/config.ts:305
 msgid "Remove transaction customer country filter"
 msgstr ""
 
 #: dist/index.js:1
-#: client/transactions/filters/config.ts:281
+#: client/transactions/filters/config.ts:306
 msgid "Select a transaction customer country filter match"
 msgstr ""
 
 #: dist/index.js:1
-#: client/transactions/filters/config.ts:284
+#: client/transactions/filters/config.ts:309
 msgid "{{title}}Customer country{{/title}} {{rule /}} {{filter /}}"
 msgstr ""
 
 #: dist/index.js:1
-#: client/transactions/filters/config.ts:285
+#: client/transactions/filters/config.ts:310
 msgid "<title>Customer country</title> <rule /> <filter />"
 msgstr ""
 
 #: dist/index.js:1
-#: client/transactions/filters/config.ts:286
+#: client/transactions/filters/config.ts:311
 msgid "Select a transaction customer country"
 msgstr ""
 
 #: dist/index.js:1
-#: client/transactions/filters/config.ts:307
+#: client/transactions/filters/config.ts:332
 msgid "Risk Level"
 msgstr ""
 
 #: dist/index.js:1
-#: client/transactions/filters/config.ts:308
+#: client/transactions/filters/config.ts:333
 msgid "Remove transaction Risk Level filter"
 msgstr ""
 
 #: dist/index.js:1
-#: client/transactions/filters/config.ts:309
+#: client/transactions/filters/config.ts:334
 msgid "Select a transaction Risk Level filter match"
 msgstr ""
 
 #: dist/index.js:1
-#: client/transactions/filters/config.ts:312
+#: client/transactions/filters/config.ts:337
 msgid "{{title}}Risk Level{{/title}} {{rule /}} {{filter /}}"
 msgstr ""
 
 #: dist/index.js:1
-#: client/transactions/filters/config.ts:313
+#: client/transactions/filters/config.ts:338
 msgid "<title>Risk Level</title> <rule /> <filter />"
 msgstr ""
 
 #: dist/index.js:1
-#: client/transactions/filters/config.ts:314
+#: client/transactions/filters/config.ts:339
 msgid "Select a transaction Risk Level"
 msgstr ""
 
@@ -13299,31 +13307,31 @@ msgid "Search by order number, customer name, or billing email"
 msgstr ""
 
 #: dist/index.js:1
-#: client/transactions/list/index.tsx:430
+#: client/transactions/list/index.tsx:432
 msgid ""
 "You are about to export %d transactions. If you'd like to reduce the size "
 "of your export, you can use one or more filters. Would you like to continue?"
 msgstr ""
 
 #: dist/index.js:1
-#: client/transactions/list/index.tsx:499
+#: client/transactions/list/index.tsx:503
 msgid "Search by customer name"
 msgstr ""
 
 #: dist/index.js:1
-#: client/transactions/list/index.tsx:512
+#: client/transactions/list/index.tsx:516
 msgid "transaction"
 msgid_plural "transactions"
 msgstr[0] ""
 msgstr[1] ""
 
 #: dist/index.js:1
-#: client/transactions/list/index.tsx:528
+#: client/transactions/list/index.tsx:532
 msgid "fees"
 msgstr ""
 
 #: dist/index.js:1
-#: client/transactions/list/index.tsx:531
+#: client/transactions/list/index.tsx:535
 msgid "net"
 msgstr ""
 
@@ -13677,7 +13685,7 @@ msgid "{{title}}Customer Currency{{/title}} {{rule /}} {{filter /}}"
 msgstr ""
 
 #: dist/index.js:1
-#: client/transactions/filters/config.ts:320
+#: client/transactions/filters/config.ts:345
 #. Sentence fragment, logical, "Is" refers to searching for transactions matching a chosen transaction risk level.
 msgctxt "Risk Level"
 msgid "Is"
@@ -14116,7 +14124,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: dist/index.js:1
-#: client/transactions/filters/config.ts:325
+#: client/transactions/filters/config.ts:350
 #. Sentence fragment, logical, "Is not" refers to searching for transactions that don\'t match a chosen transaction risk level.
 msgctxt "Risk Level"
 msgid "Is not"
