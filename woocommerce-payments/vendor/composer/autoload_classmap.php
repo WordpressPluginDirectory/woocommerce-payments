@@ -242,6 +242,7 @@ return array(
     'WCPay\\Internal\\DependencyManagement\\ServiceProvider\\PaymentsServiceProvider' => $baseDir . '/src/Internal/DependencyManagement/ServiceProvider/PaymentsServiceProvider.php',
     'WCPay\\Internal\\DependencyManagement\\ServiceProvider\\ProxiesServiceProvider' => $baseDir . '/src/Internal/DependencyManagement/ServiceProvider/ProxiesServiceProvider.php',
     'WCPay\\Internal\\Logger' => $baseDir . '/src/Internal/Logger.php',
+    'WCPay\\Internal\\LoggerContext' => $baseDir . '/src/Internal/LoggerContext.php',
     'WCPay\\Internal\\Payment\\AbstractSessionRateLimiter' => $baseDir . '/src/Internal/Payment/AbstractSessionRateLimiter.php',
     'WCPay\\Internal\\Payment\\Change' => $baseDir . '/src/Internal/Payment/Change.php',
     'WCPay\\Internal\\Payment\\Exception\\StateTransitionException' => $baseDir . '/src/Internal/Payment/Exception/StateTransitionException.php',

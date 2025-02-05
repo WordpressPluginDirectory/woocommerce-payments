@@ -1,0 +1,1220 @@
+# Copyright (C) 2024 WooCommerce
+# This file is distributed under the same license as the Transact Gateway package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Transact Gateway 0.0.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woopayments\n"
+"POT-Creation-Date: 2024-11-08 19:44:37+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2024-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: node-wp-i18n 1.2.5\n"
+
+#: includes/multi-currency/src/AdminNotices.php:72
+msgid "Action failed. Please refresh the page and retry."
+msgstr ""
+
+#: includes/multi-currency/src/AdminNotices.php:76
+msgid "Cheatin&#8217; huh?"
+msgstr ""
+
+#: includes/multi-currency/src/AdminNotices.php:112
+#. translators: %s List of currencies that are already translated in
+#. WooCommerce core.
+msgid ""
+"The store currency was recently changed. The following currencies are set "
+"to manual rates and may need updates: %s"
+msgstr ""
+
+#: includes/multi-currency/src/CurrencySwitcherWidget.php:50
+msgid "Currency Switcher Widget"
+msgstr ""
+
+#: includes/multi-currency/src/CurrencySwitcherWidget.php:51
+#: includes/multi-currency/client/blocks/currency-switcher.js:30
+msgid "Let your customers switch between your enabled currencies"
+msgstr ""
+
+#: includes/multi-currency/src/CurrencySwitcherWidget.php:56
+msgid "Title"
+msgstr ""
+
+#: includes/multi-currency/src/CurrencySwitcherWidget.php:61
+#: includes/multi-currency/client/blocks/currency-switcher.js:235
+msgid "Display currency symbols"
+msgstr ""
+
+#: includes/multi-currency/src/CurrencySwitcherWidget.php:66
+msgid "Display flags in supported devices"
+msgstr ""
+
+#: includes/multi-currency/src/MultiCurrency.php:958
+#. translators: %1 User's country, %2 Selected currency name, %3 Default store
+#. currency name, %4 Link to switch currency
+msgid ""
+"We noticed you're visiting from %1$s. We've updated our prices to %2$s for "
+"your shopping convenience. <a href=\"%4$s\">Use %3$s instead.</a>"
+msgstr ""
+
+#: includes/multi-currency/src/MultiCurrency.php:971
+msgid "Dismiss"
+msgstr ""
+
+#: includes/multi-currency/src/Notes/NoteMultiCurrencyAvailable.php:46
+msgid "Sell worldwide in multiple currencies"
+msgstr ""
+
+#: includes/multi-currency/src/Notes/NoteMultiCurrencyAvailable.php:47
+msgid ""
+"Boost your international sales by allowing your customers to shop and pay "
+"in their local currency."
+msgstr ""
+
+#: includes/multi-currency/src/Notes/NoteMultiCurrencyAvailable.php:54
+msgid "Set up now"
+msgstr ""
+
+#: includes/multi-currency/src/SettingsOnboardCta.php:74
+#. translators: %s: WooPayments
+msgid "To add new currencies to your store, please finish setting up %s."
+msgstr ""
+
+#: includes/multi-currency/src/SettingsOnboardCta.php:80
+msgid "Get started"
+msgstr ""
+
+#: includes/multi-currency/src/SettingsOnboardCta.php:99
+msgid "Enabled currencies"
+msgstr ""
+
+#: includes/multi-currency/src/SettingsOnboardCta.php:102
+#. translators: %s: url to documentation.
+msgid ""
+"Accept payments in multiple currencies. Prices are converted based on "
+"exchange rates and rounding rules. <a href=\"%s\">Learn more</a>"
+msgstr ""
+
+#: includes/multi-currency/src/UserSettings.php:54
+msgid "Default currency"
+msgstr ""
+
+#: includes/multi-currency/src/UserSettings.php:69
+msgid "Select your preferred currency for shopping and payments."
+msgstr ""
+
+#: src/ApiClient/Services/WooPaymentsApiClient.php:177
+msgid "Unable to encode body for request to WooPayments API."
+msgstr ""
+
+#: src/ApiClient/Services/WooPaymentsApiClient.php:266
+msgid "Unable to decode response from WooPayments API"
+msgstr ""
+
+#: src/ApiClient/Services/WooPaymentsApiClient.php:280
+msgid "Server error. Please try again."
+msgstr ""
+
+#: src/ApiClient/Services/WooPaymentsApiClient.php:306
+msgid "Invalid response from WooPayments API"
+msgstr ""
+
+#: src/AssetsManagement/Services/AssetsService.php:294
+#. translators: %s: The label for the postcode/ZIP field
+msgid "%s (optional)"
+msgstr ""
+
+#: src/Integrations/HooksManagement/AdminHooks.php:53
+msgid "Payments v2"
+msgstr ""
+
+#: src/Integrations/HooksManagement/AdminHooks.php:71
+#: dist/admin-pages.js:1
+#: client/entrypoints/admin-pages/index.tsx:9
+msgid "Overview"
+msgstr ""
+
+#: src/Integrations/HooksManagement/AdminHooks.php:84
+#: dist/admin-pages.js:1
+#: client/entrypoints/admin-pages/index.tsx:17
+msgid "Onboarding"
+msgstr ""
+
+#: src/Integrations/HooksManagement/AdminHooks.php:103
+#: src/Integrations/HooksManagement/AdminHooks.php:113
+msgid "Settings"
+msgstr ""
+
+#: src/Integrations/HooksManagement/AdminSettingsPageHooks.php:32
+msgid "WooPayments"
+msgstr ""
+
+#: src/Integrations/HooksManagement/CheckoutHooks.php:172
+msgid "You are logged out. Please log in first."
+msgstr ""
+
+#: src/Integrations/HooksManagement/CheckoutHooks.php:203
+msgid "You are not allowed to authenticate this order."
+msgstr ""
+
+#: src/Integrations/HooksManagement/WooCommerceDebugToolsHooks.php:31
+#. translators: %s: WooPayments
+msgid "Clear %s calculated styles"
+msgstr ""
+
+#: src/Integrations/HooksManagement/WooCommerceDebugToolsHooks.php:34
+msgid "Clear"
+msgstr ""
+
+#: src/Integrations/HooksManagement/WooCommerceDebugToolsHooks.php:37
+#. translators: %s: WooPayments
+msgid ""
+"This tool will clear the styles cached for the %s gateway UI elements at "
+"checkout."
+msgstr ""
+
+#: src/Integrations/HooksManagement/WooCommerceDebugToolsHooks.php:56
+#. translators: %s: WooPayments
+msgid "%s styles cleared"
+msgstr ""
+
+#: src/Integrations/Jetpack/JetpackIntegrationService.php:105
+msgid "Site is not connected to WordPress.com"
+msgstr ""
+
+#: src/Integrations/Jetpack/JetpackIntegrationService.php:123
+#. translators: %1: original error message.
+msgid "Http request failed. Reason: %1$s"
+msgstr ""
+
+#: src/Integrations/MultiCurrency/Services/MultiCurrencyApiService.php:64
+msgid "Currency From parameter is required"
+msgstr ""
+
+#: src/Integrations/WooCommerce/PaymentMethods/CreditCard/CreditCardGateway.php:124
+#: src/Integrations/WooCommerce/PaymentMethods/CreditCard/CreditCardGateway.php:125
+#: dist/blocks-checkout.js:1
+#: client/entrypoints/blocks-checkout/index.tsx:31
+msgid "Credit or debit card"
+msgstr ""
+
+#: src/Integrations/WooCommerce/PaymentMethods/CreditCard/CreditCardGateway.php:128
+#. translators: %1$s: WooPayments
+msgid ""
+"%1$s gives your store flexibility to accept credit cards and debit cards. "
+"Enable other digital wallets like Google Pay and Apple Pay to give "
+"customers even more choice."
+msgstr ""
+
+#: src/Integrations/WooCommerce/PaymentMethods/ExpressCheckout/ExpressCheckoutGateway.php:65
+#: src/Integrations/WooCommerce/PaymentMethods/ExpressCheckout/ExpressCheckoutGateway.php:66
+msgid "WooPayments Express Checkout"
+msgstr ""
+
+#: src/Integrations/WooCommerce/PaymentMethods/ExpressCheckout/ExpressCheckoutGateway.php:68
+msgid "Allow your customers to pay with Apple Pay or Google Pay"
+msgstr ""
+
+#: src/Integrations/WooCommerce/Services/OrderService.php:309
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/express-checkout-settings/express-checkout-settings.tsx:16
+msgid "Apple Pay"
+msgstr ""
+
+#: src/Integrations/WooCommerce/Services/OrderService.php:311
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/express-checkout-settings/express-checkout-settings.tsx:17
+msgid "Google Pay"
+msgstr ""
+
+#: src/Integrations/WooCommerce/Services/OrderService.php:315
+#. translators: %1$s: card brand, %2$s: last 4 digits of the card, %3$s:
+#. expiration month, %4$s: expiration year
+msgid "%1$s ending in %2$s"
+msgstr ""
+
+#: src/Integrations/WooCommerce/Services/OrderService.php:381
+#. translators: %s is the uknown state of a charge.
+msgid "Failed to update order status. Unknown charge state: %s"
+msgstr ""
+
+#: src/Integrations/WooCommerce/Services/OrderService.php:415
+#. translators: %s is the uknown state of a setup authorization.
+msgid "Failed to update order status. Unknown setup authorization state: %s"
+msgstr ""
+
+#: src/Integrations/WooCommerce/Services/OrderService.php:488
+#. translators: %1: the failed payment amount, %2: error message
+msgid ""
+"A payment of %1$s <strong>failed</strong> to complete with the following "
+"message: <code>%2$s</code>."
+msgstr ""
+
+#: src/Integrations/WooCommerce/Services/OrderService.php:674
+#. translators: %1: the successfully charged amount, %2: WooPayments, %3:
+#. transaction ID of the payment
+msgid ""
+"A payment of %1$s was <strong>successful</strong> using %2$s "
+"(<code>%3$s</code>)."
+msgstr ""
+
+#: src/PaymentProcessing/Services/AuthenticationService.php:208
+#: src/PaymentProcessing/Services/AuthenticationService.php:244
+msgid "You have already authorized the use of this payment instrument."
+msgstr ""
+
+#: src/PaymentProcessing/Services/AuthenticationService.php:214
+msgid "You do not have any payment methods pending authentication."
+msgstr ""
+
+#: src/PaymentProcessing/Services/AuthenticationService.php:265
+msgid "Payment method successfully added."
+msgstr ""
+
+#: src/PaymentProcessing/Services/AuthenticationService.php:273
+msgid "Unable to add payment method."
+msgstr ""
+
+#: src/PaymentProcessing/Services/PaymentProcessingService.php:223
+msgid "The chosen payment method is invalid."
+msgstr ""
+
+#: src/PaymentProcessing/Services/PaymentProcessingService.php:226
+msgid "The chosen payment method belongs to another customer."
+msgstr ""
+
+#: src/PaymentProcessing/Services/SubscriptionRenewalService.php:67
+msgid "Renewal failed: No payment token found."
+msgstr ""
+
+#: src/PaymentProcessing/Services/SubscriptionRenewalService.php:78
+#: src/PaymentProcessing/Services/SubscriptionRenewalService.php:86
+#. translators: %s: The error message from the payment processing result.
+#. translators: %s: The exception message when the renewal fails.
+msgid "Renewal failed: %s"
+msgstr ""
+
+#: src/PaymentProcessing/Services/SubscriptionRenewalService.php:83
+msgid "Renewal payment processed successfully."
+msgstr ""
+
+#: src/PaymentProcessing/Services/SubscriptionService.php:254
+msgid "Saved payment method"
+msgstr ""
+
+#: src/PaymentProcessing/Services/SubscriptionService.php:364
+msgid "Please select a payment method"
+msgstr ""
+
+#: src/Settings/RestControllers/SettingsController.php:65
+#. translators: %s: WooPayments
+msgid "If %s should be enabled."
+msgstr ""
+
+#: src/Settings/RestControllers/SettingsController.php:73
+msgid "Whether payments via credit / debit card should be enabled."
+msgstr ""
+
+#: src/Settings/RestControllers/SettingsController.php:79
+msgid "Whether payments via Express Checkouts should be enabled."
+msgstr ""
+
+#: src/Settings/RestControllers/SettingsController.php:85
+msgid "Whether test mode is enabled."
+msgstr ""
+
+#: src/Settings/RestControllers/SettingsController.php:91
+msgid "Whether sandbox mode is enabled."
+msgstr ""
+
+#: src/Shared/Helpers/ErrorMessageHelper.php:21
+msgid "The payment amount exceeds the amount that's allowed by the card issuer."
+msgstr ""
+
+#: src/Shared/Helpers/ErrorMessageHelper.php:22
+msgid "The authorization for the charge is expired."
+msgstr ""
+
+#: src/Shared/Helpers/ErrorMessageHelper.php:23
+msgid "The payment amount is below the allowable minimum amount."
+msgstr ""
+
+#: src/Shared/Helpers/ErrorMessageHelper.php:24
+msgid "There was a problem processing the payment. Please try again."
+msgstr ""
+
+#: src/Shared/Helpers/ErrorMessageHelper.php:25
+#: src/Shared/Helpers/ErrorMessageHelper.php:27
+msgid "The card was declined. Please try a different payment method."
+msgstr ""
+
+#: src/Shared/Helpers/ErrorMessageHelper.php:26
+msgid "The card has expired. Please use a diffferent payment method."
+msgstr ""
+
+#: src/Shared/Helpers/ErrorMessageHelper.php:28
+msgid ""
+"The payment amount is invalid, or exceeds the amount that's allowed. Please "
+"try again."
+msgstr ""
+
+#: src/Shared/Helpers/ErrorMessageHelper.php:29
+#: src/Shared/Helpers/ErrorMessageHelper.php:31
+#: src/Shared/Helpers/ErrorMessageHelper.php:32
+#: src/Shared/Helpers/ErrorMessageHelper.php:33
+#: src/Shared/Helpers/ErrorMessageHelper.php:34
+msgid "Please check your card details and try again."
+msgstr ""
+
+#: src/Shared/Helpers/ErrorMessageHelper.php:30
+#: src/Shared/Helpers/ErrorMessageHelper.php:42
+msgid "Please check your billing address details and try again."
+msgstr ""
+
+#: src/Shared/Helpers/ErrorMessageHelper.php:35
+#: src/Shared/Helpers/ErrorMessageHelper.php:44
+msgid "There was a problem contacting the card issuer. Please try again."
+msgstr ""
+
+#: src/Shared/Helpers/ErrorMessageHelper.php:36
+msgid ""
+"The card does not support this type of purchase. Please use a different "
+"payment method."
+msgstr ""
+
+#: src/Shared/Helpers/ErrorMessageHelper.php:37
+msgid ""
+"The card was declined because the card issuer requires authentication such "
+"as 3D Secure. Please try again."
+msgstr ""
+
+#: src/Shared/Helpers/ErrorMessageHelper.php:38
+msgid "The card has insufficient funds. Please use a different payment method."
+msgstr ""
+
+#: src/Shared/Helpers/ErrorMessageHelper.php:39
+#: src/Shared/Helpers/ErrorMessageHelper.php:40
+msgid "The payment was cancelled before completion. Please try again."
+msgstr ""
+
+#: src/Shared/Helpers/ErrorMessageHelper.php:41
+#: src/Shared/Helpers/ErrorMessageHelper.php:50
+msgid "The card was declined. Please contact the card issuer for more details."
+msgstr ""
+
+#: src/Shared/Helpers/ErrorMessageHelper.php:45
+#: src/Shared/Helpers/ErrorMessageHelper.php:46
+#: src/Shared/Helpers/ErrorMessageHelper.php:49
+msgid "There was a technical problem processing the payment. Please try again."
+msgstr ""
+
+#: src/Shared/Helpers/ErrorMessageHelper.php:47
+msgid "Please check your address details and try again."
+msgstr ""
+
+#: src/Shared/Helpers/ErrorMessageHelper.php:48
+msgid "The email address provided is invalid. Please try again."
+msgstr ""
+
+#: src/Shared/Helpers/ErrorMessageHelper.php:63
+#: dist/my-account--payment-methods.js:1
+#: dist/blocks-checkout.js:1
+#: dist/classic-checkout.js:1
+#: dist/pay-for-order.js:1
+#: client/shared/utilities/form-validation/index.ts:2
+msgid ""
+"We're not able to process this request. Please refresh the page and try "
+"again."
+msgstr ""
+
+#: src/Shared/Helpers/ErrorMessageHelper.php:66
+msgid ""
+"There was an error while processing this request. If you continue to see "
+"this notice, please contact the admin."
+msgstr ""
+
+#: templates/emails/customer-ipp-receipt.php:24
+#: templates/emails/plain/customer-ipp-receipt.php:24
+#. translators: %s: Customer first name
+msgid "Hi %s,"
+msgstr ""
+
+#: templates/emails/customer-ipp-receipt.php:26
+#: templates/emails/plain/customer-ipp-receipt.php:26
+#. translators: %s: Order number
+msgid "This is the receipt for your order #%s:"
+msgstr ""
+
+#: templates/emails/email-ipp-receipt-compliance-details.php:25
+#: templates/emails/plain/email-ipp-receipt-compliance-details.php:19
+msgid "Payment Method"
+msgstr ""
+
+#: templates/emails/email-ipp-receipt-compliance-details.php:33
+#: templates/emails/plain/email-ipp-receipt-compliance-details.php:21
+msgid "Application Name"
+msgstr ""
+
+#: templates/emails/email-ipp-receipt-compliance-details.php:41
+#: templates/emails/plain/email-ipp-receipt-compliance-details.php:23
+msgid "AID"
+msgstr ""
+
+#: templates/emails/email-ipp-receipt-compliance-details.php:49
+#: templates/emails/plain/email-ipp-receipt-compliance-details.php:25
+msgid "Account Type"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Transact Gateway"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://woocommerce.com/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Accept payments via credit card. Manage transactions within WordPress."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WooCommerce"
+msgstr ""
+
+#: includes/multi-currency/src/Compatibility/WooCommerceProductAddOns.php:309
+#. translators: %1$s custom addon price in order
+msgctxt "custom addon price in order"
+msgid " (%1$s)"
+msgstr ""
+
+#: includes/multi-currency/src/Compatibility/WooCommerceProductAddOns.php:303
+#. translators: %1$s flat fee addon price in order
+msgctxt "flat fee addon price in order"
+msgid " (+ %1$s)"
+msgstr ""
+
+#: includes/multi-currency/src/Settings.php:46
+#: includes/multi-currency/src/SettingsOnboardCta.php:49
+msgctxt "Settings tab label"
+msgid "Multi-currency"
+msgstr ""
+
+#: src/ApiClient/Services/WooPaymentsApiClient.php:284
+#. translators: This is an error API response.
+msgctxt "API error message to throw as Exception"
+msgid "Error: %1$s"
+msgstr ""
+
+#: dist/admin-pages.js:1
+#: client/entrypoints/admin-pages/pages/onboarding/strings/index.ts:11
+msgid "Verify business details"
+msgstr ""
+
+#: dist/admin-pages.js:1
+#: client/entrypoints/admin-pages/pages/onboarding/strings/index.ts:15
+#. %s: first name of the merchant, if it exists, %s: WooPayments.
+msgid "Hi%1$s, Welcome to %2$s!"
+msgstr ""
+
+#: dist/admin-pages.js:1
+#: client/entrypoints/admin-pages/pages/onboarding/strings/index.ts:9
+msgid "Connect your store"
+msgstr ""
+
+#: dist/admin-pages.js:1
+#: client/entrypoints/admin-pages/pages/overview/components/account-status/index.tsx:14
+msgid "Error determining the connection status."
+msgstr ""
+
+#: dist/admin-pages.js:1
+#: client/entrypoints/admin-pages/pages/overview/components/account-status/index.tsx:21
+msgid "Account details"
+msgstr ""
+
+#: dist/admin-pages.js:1
+#: client/entrypoints/admin-pages/pages/overview/components/account-status/index.tsx:22
+msgid "Payments:"
+msgstr ""
+
+#: dist/admin-pages.js:1
+#: client/entrypoints/admin-pages/pages/overview/components/account-status/index.tsx:22
+msgid "Deposits:"
+msgstr ""
+
+#: dist/admin-pages.js:1
+#: client/entrypoints/admin-pages/pages/overview/components/account-tools/strings.tsx:13
+msgid "Continue onboarding"
+msgstr ""
+
+#: dist/admin-pages.js:1
+#: client/entrypoints/admin-pages/pages/overview/components/account-tools/strings.tsx:14
+msgid "Delete cache"
+msgstr ""
+
+#: dist/admin-pages.js:1
+#: client/entrypoints/admin-pages/pages/overview/components/account-tools/strings.tsx:6
+msgid "Account Tools"
+msgstr ""
+
+#: dist/admin-pages.js:1
+#: client/entrypoints/admin-pages/pages/overview/components/account-tools/strings.tsx:8
+msgid ""
+"Important! The statuses for Payments and Deposits listed above are "
+"currently {{strong}}hardcoded in the API for the WCCOM release{{/strong}}. "
+"If you need to resume the hosted onboarding process with Adyen, you can use "
+"the Continue onboarding button below to generate a new link."
+msgstr ""
+
+#: dist/admin-pages.js:1
+#: client/entrypoints/admin-pages/pages/overview/components/deposits-status/index.tsx:12
+msgid "Automatic"
+msgstr ""
+
+#: dist/admin-pages.js:1
+#: client/entrypoints/admin-pages/pages/overview/components/deposits-status/index.tsx:14
+msgid "Manual"
+msgstr ""
+
+#: dist/admin-pages.js:1
+#: client/entrypoints/admin-pages/pages/overview/components/deposits-status/index.tsx:16
+#: client/entrypoints/admin-pages/pages/overview/components/status-chip/index.tsx:6
+msgid "Unknown"
+msgstr ""
+
+#: dist/admin-pages.js:1
+#: client/entrypoints/admin-pages/pages/overview/components/deposits-status/index.tsx:23
+#: client/entrypoints/admin-pages/pages/overview/components/payments-status/index.tsx:7
+msgid "Disabled"
+msgstr ""
+
+#: dist/admin-pages.js:1
+#: client/entrypoints/admin-pages/pages/overview/components/deposits-status/index.tsx:28
+#. <a> - suspended accounts FAQ URL
+msgid "Temporarily suspended (<a>learn more</a>)"
+msgstr ""
+
+#: dist/admin-pages.js:1
+#: client/entrypoints/admin-pages/pages/overview/components/deposits-status/index.tsx:35
+#: client/entrypoints/admin-pages/pages/overview/components/payments-status/index.tsx:8
+msgid "Pending verification"
+msgstr ""
+
+#: dist/admin-pages.js:1
+#: client/entrypoints/admin-pages/pages/overview/components/payments-status/index.tsx:6
+#: client/entrypoints/admin-pages/pages/overview/components/status-chip/index.tsx:46
+msgid "Enabled"
+msgstr ""
+
+#: dist/admin-pages.js:1
+#: client/entrypoints/admin-pages/pages/overview/components/status-chip/index.tsx:11
+msgid "Complete"
+msgstr ""
+
+#: dist/admin-pages.js:1
+#: client/entrypoints/admin-pages/pages/overview/components/status-chip/index.tsx:19
+msgid "Restricted soon"
+msgstr ""
+
+#: dist/admin-pages.js:1
+#: client/entrypoints/admin-pages/pages/overview/components/status-chip/index.tsx:24
+msgid "Pending"
+msgstr ""
+
+#: dist/admin-pages.js:1
+#: client/entrypoints/admin-pages/pages/overview/components/status-chip/index.tsx:26
+msgid "Deposits are pending while Stripe verifies details on your account."
+msgstr ""
+
+#: dist/admin-pages.js:1
+#: client/entrypoints/admin-pages/pages/overview/components/status-chip/index.tsx:29
+msgid "Restricted partially"
+msgstr ""
+
+#: dist/admin-pages.js:1
+#: client/entrypoints/admin-pages/pages/overview/components/status-chip/index.tsx:33
+msgid "Restricted"
+msgstr ""
+
+#: dist/admin-pages.js:1
+#: client/entrypoints/admin-pages/pages/overview/components/status-chip/index.tsx:37
+msgid "Rejected"
+msgstr ""
+
+#: dist/admin-pages.js:1
+#: client/entrypoints/admin-pages/pages/overview/components/status-chip/index.tsx:41
+msgid "Under review"
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/components/loadable-wrapper/loadable-wrapper.tsx:6
+msgid "Loading content…"
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/accepted-payments-settings/accepted-payments-settings.tsx:12
+msgid "Credit / Debit card"
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/accepted-payments-settings/accepted-payments-settings.tsx:13
+msgid ""
+"Let your customers pay with major credit and debit cards without leaving "
+"your store."
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/accepted-payments-settings/accepted-payments-settings.tsx:14
+msgid "Card payments"
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/accepted-payments-settings/accepted-payments-settings.tsx:28
+msgid "Payments accepted on checkout"
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/accepted-payments-settings/accepted-payments-settings.tsx:28
+msgid ""
+"Add and edit payments available to customers at checkout. Based on their "
+"device type, location, and purchase history, your customers will only see "
+"the most relevant payment methods."
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/accepted-payments-settings/accepted-payments-settings.tsx:31
+msgid "Payment methods"
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/advanced-settings/advanced-settings.tsx:11
+msgid "Enable sandbox mode"
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/advanced-settings/advanced-settings.tsx:8
+msgid "Advanced"
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/express-checkout-settings/express-checkout-settings.tsx:11
+msgid "Google Pay icon"
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/express-checkout-settings/express-checkout-settings.tsx:12
+msgid "Apple Pay icon"
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/express-checkout-settings/express-checkout-settings.tsx:22
+msgid "Express checkout"
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/express-checkout-settings/express-checkout-settings.tsx:22
+msgid ""
+"The \"Credit / Debit card\" payment method must be enabled for express "
+"checkout payments to work."
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/express-checkout-settings/express-checkout-settings.tsx:22
+msgid ""
+"Apple Pay is an easy and secure way for customers to pay on your store. By "
+"enabling this feature, you agree to Adyen's and Apple's terms of use."
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/express-checkout-settings/express-checkout-settings.tsx:24
+msgid ""
+"Offer customers a fast, secure checkout experience with Google Pay. By "
+"enabling this feature, you agree to Adyen's and Google's terms of use."
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/express-checkout-settings/express-checkout-settings.tsx:28
+msgid "Express checkouts"
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/express-checkout-settings/express-checkout-settings.tsx:28
+msgid ""
+"Let your customers use their favorite expresspayment methods and digital "
+"wallets for faster, moresecure checkouts across different parts of your "
+"store."
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/general-settings/general-settings.tsx:11
+msgid "General settings"
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/general-settings/general-settings.tsx:11
+msgid "Enable or disable WooPayments on your store."
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/general-settings/general-settings.tsx:18
+#. %s: WooPayments
+msgid "Enable %s"
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/general-settings/general-settings.tsx:20
+#. %s: WooPayments
+msgid "When enabled, payment methods powered by %s will appear on checkout."
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/general-settings/general-settings.tsx:20
+msgid "Test mode"
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/general-settings/general-settings.tsx:28
+#: client/entrypoints/admin-settings-page/sections/general-settings/test-mode-confirm-modal.tsx:5
+msgid "Enable test mode"
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/general-settings/general-settings.tsx:29
+msgid ""
+"Use {{testCardHelpLink}}test card numbers{{/testCardHelpLink}} to simulate "
+"various transactions. {{learnMoreLink}}Learn more{{/learnMoreLink}}"
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/general-settings/test-mode-confirm-modal.tsx:11
+msgid "Learn more about test mode"
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/general-settings/test-mode-confirm-modal.tsx:5
+msgid "Cancel"
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/general-settings/test-mode-confirm-modal.tsx:5
+msgid "Enable"
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/general-settings/test-mode-confirm-modal.tsx:5
+msgid "Are you sure you want to enable test mode?"
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/general-settings/test-mode-confirm-modal.tsx:5
+msgid ""
+"Test mode lets you try out payments, refunds, disputes and other such "
+"processes as you're working on your store without handling live payment "
+"information. All incoming orders will be simulated, and test mode will have "
+"to be disabled before you can accept real orders."
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/payouts-settings/payouts-settings.tsx:11
+msgid "Payouts"
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/payouts-settings/payouts-settings.tsx:13
+#. %s: WooPayments
+msgid "Funds are available for deposit %s business days after they’re received."
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/payouts-settings/payouts-settings.tsx:13
+msgid "Learn more about pending schedules"
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/payouts-settings/payouts-settings.tsx:18
+msgid "Payouts schedule"
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/payouts-settings/payouts-settings.tsx:19
+msgid "Available funds are automatically dispatched {{payoutInterval/}}."
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/payouts-settings/payouts-settings.tsx:23
+msgid "Payout bank account"
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/payouts-settings/payouts-settings.tsx:24
+msgid "Need help with payout settings? {{supportLink/}}."
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/payouts-settings/payouts-settings.tsx:26
+msgid "Contact our support team."
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/save-settings/save-settings.tsx:35
+msgid "Error saving settings."
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/save-settings/save-settings.tsx:38
+msgid "Settings saved."
+msgstr ""
+
+#: dist/admin-settings-page.js:1
+#: client/entrypoints/admin-settings-page/sections/save-settings/save-settings.tsx:55
+msgid "Save changes"
+msgstr ""
+
+#: dist/adyen--express-checkout.js:1
+#: client/entrypoints/adyen--express-checkout/connectors/apple-pay.ts:48
+#: client/entrypoints/adyen--express-checkout/connectors/google-pay.ts:65
+msgid "Tax"
+msgstr ""
+
+#: dist/adyen--express-checkout.js:1
+#: client/entrypoints/adyen--express-checkout/connectors/apple-pay.ts:55
+#: client/entrypoints/adyen--express-checkout/connectors/google-pay.ts:73
+msgid "Shipping"
+msgstr ""
+
+#: dist/adyen--express-checkout.js:1
+#: client/entrypoints/adyen--express-checkout/connectors/google-pay.ts:12
+msgid "No shipping options available."
+msgstr ""
+
+#: dist/adyen--express-checkout.js:1
+#: client/entrypoints/adyen--express-checkout/connectors/google-pay.ts:141
+msgid "Total"
+msgstr ""
+
+#: dist/adyen--express-checkout.js:1
+#: client/entrypoints/adyen--express-checkout/google-pay/event-handlers.ts:24
+msgid "No address was received"
+msgstr ""
+
+#: dist/adyen--express-checkout.js:1
+#: client/entrypoints/adyen--express-checkout/google-pay/event-handlers.ts:34
+msgid ""
+"Unable to ship to the selected address. No shipping options available for "
+"this location."
+msgstr ""
+
+#: dist/adyen--express-checkout.js:1
+#: client/entrypoints/adyen--express-checkout/google-pay/event-handlers.ts:84
+msgid "No Shipping Option ID provided"
+msgstr ""
+
+#: dist/adyen--express-checkout.js:1
+#: client/entrypoints/adyen--express-checkout/google-pay/event-handlers.ts:98
+msgid "Error getting shipping rates"
+msgstr ""
+
+#: dist/adyen--express-checkout.js:1
+#: client/entrypoints/adyen--express-checkout/utils/google-pay.ts:49
+msgid "Loading"
+msgstr ""
+
+#: dist/blocks-checkout.js:1
+#: dist/my-account--payment-methods.js:1
+#: dist/classic-checkout.js:1
+#: dist/pay-for-order.js:1
+#: client/entrypoints/blocks-checkout/credit-card-block/credit-card-block.tsx:49
+#: client/shared/hooks/use-handle-submit-form/use-handle-submit-form.ts:49
+msgid "Couldn't load the credit card form."
+msgstr ""
+
+#: dist/blocks-checkout.js:1
+#: dist/my-account--payment-methods.js:1
+#: dist/classic-checkout.js:1
+#: dist/pay-for-order.js:1
+#: client/entrypoints/blocks-checkout/credit-card-block/credit-card-block.tsx:54
+#: client/shared/hooks/use-handle-submit-form/use-handle-submit-form.ts:62
+#: client/shared/payment-instrument-utils.ts:4
+msgid "Failed to receive tokens."
+msgstr ""
+
+#: dist/blocks-checkout.js:1
+#: dist/my-account--payment-methods.js:1
+#: dist/classic-checkout.js:1
+#: dist/pay-for-order.js:1
+#: client/entrypoints/blocks-checkout/credit-card-block/credit-card-block.tsx:68
+#: client/shared/hooks/use-handle-submit-form/use-handle-submit-form.ts:82
+msgid "An error occurred during payment form processing"
+msgstr ""
+
+#: dist/blocks-checkout.js:1
+#: client/entrypoints/blocks-checkout/index.tsx:32
+msgid "WooPayments V2"
+msgstr ""
+
+#: dist/blocks-checkout.js:1
+#: client/entrypoints/blocks-checkout/payment-method-label/payment-method-label.tsx:36
+msgid "Test Mode"
+msgstr ""
+
+#: dist/classic-checkout.js:1
+#: client/entrypoints/classic-checkout/save-payment-information-checkbox/save-payment-information-checkbox.tsx:12
+msgid "Save payment information to my account for future purchases."
+msgstr ""
+
+#: dist/my-account--payment-methods.js:1
+#: dist/pay-for-order.js:1
+#: client/shared/components/billing-data-context-provider/billing-data-context-provider.tsx:6
+msgid "Postcode / ZIP (optional)"
+msgstr ""
+
+#: dist/my-account--payment-methods.js:1
+#: dist/pay-for-order.js:1
+#: client/shared/components/billing-fields/billing-fields.tsx:14
+msgid "Country"
+msgstr ""
+
+#: dist/my-account--payment-methods.js:1
+#: dist/blocks-checkout.js:1
+#: dist/classic-checkout.js:1
+#: dist/pay-for-order.js:1
+#: client/shared/components/copyable-block/copyable-block.tsx:17
+msgid "Copy to clipboard"
+msgstr ""
+
+#: dist/my-account--payment-methods.js:1
+#: dist/blocks-checkout.js:1
+#: dist/classic-checkout.js:1
+#: dist/pay-for-order.js:1
+#: client/shared/components/credit-card-form-provider/credit-card-form-provider.tsx:90
+msgid ""
+"Unable to load the payment form due to a temporary issue. Please refresh "
+"the page or try again later."
+msgstr ""
+
+#: dist/my-account--payment-methods.js:1
+#: dist/blocks-checkout.js:1
+#: dist/classic-checkout.js:1
+#: dist/pay-for-order.js:1
+#: client/shared/components/credit-card-form/credit-card-form.tsx:194
+msgid "Card number"
+msgstr ""
+
+#: dist/my-account--payment-methods.js:1
+#: dist/blocks-checkout.js:1
+#: dist/classic-checkout.js:1
+#: dist/pay-for-order.js:1
+#: client/shared/components/credit-card-form/credit-card-form.tsx:194
+msgid "Expires (MM/YY)"
+msgstr ""
+
+#: dist/my-account--payment-methods.js:1
+#: dist/blocks-checkout.js:1
+#: dist/classic-checkout.js:1
+#: dist/pay-for-order.js:1
+#: client/shared/components/credit-card-form/credit-card-form.tsx:194
+msgid "Security code"
+msgstr ""
+
+#: dist/my-account--payment-methods.js:1
+#: dist/blocks-checkout.js:1
+#: dist/classic-checkout.js:1
+#: dist/pay-for-order.js:1
+#: client/shared/components/credit-card-form/credit-card-form.tsx:197
+msgid ""
+"By providing your card information, you allow your card be charged for "
+"future payments."
+msgstr ""
+
+#: dist/my-account--payment-methods.js:1
+#: dist/blocks-checkout.js:1
+#: dist/classic-checkout.js:1
+#: dist/pay-for-order.js:1
+#: client/shared/components/test-mode-notice/test-mode-notice.tsx:18
+msgid "Copy the test card number to the clipboard"
+msgstr ""
+
+#: dist/my-account--payment-methods.js:1
+#: dist/blocks-checkout.js:1
+#: dist/classic-checkout.js:1
+#: dist/pay-for-order.js:1
+#: client/shared/components/test-mode-notice/test-mode-notice.tsx:19
+msgid "Test number copied to your clipboard!"
+msgstr ""
+
+#: dist/my-account--payment-methods.js:1
+#: dist/blocks-checkout.js:1
+#: dist/classic-checkout.js:1
+#: dist/pay-for-order.js:1
+#: client/shared/components/test-mode-notice/test-mode-notice.tsx:29
+#. %1$s: The expiry date, %2$s: The security code.
+msgid ""
+"Use test card {{testCardNumber/}} (expiry: %1$s, security code: %2$s), or "
+"refer to our {{testCardHelpLink}}testing guide{{/testCardHelpLink}}."
+msgstr ""
+
+#: dist/my-account--payment-methods.js:1
+#: dist/blocks-checkout.js:1
+#: dist/classic-checkout.js:1
+#: dist/pay-for-order.js:1
+#: client/shared/components/test-mode-notice/test-mode-notice.tsx:39
+msgid ""
+"Use test card {{testCardNumber/}}, or refer to our "
+"{{testCardHelpLink}}testing guide{{/testCardHelpLink}}."
+msgstr ""
+
+#: dist/my-account--payment-methods.js:1
+#: dist/blocks-checkout.js:1
+#: dist/classic-checkout.js:1
+#: dist/pay-for-order.js:1
+#: client/shared/utilities/form-validation/index.ts:11
+msgid "Your card number is invalid."
+msgstr ""
+
+#: dist/my-account--payment-methods.js:1
+#: dist/blocks-checkout.js:1
+#: dist/classic-checkout.js:1
+#: dist/pay-for-order.js:1
+#: client/shared/utilities/form-validation/index.ts:17
+msgid "Your card's expiration date is required."
+msgstr ""
+
+#: dist/my-account--payment-methods.js:1
+#: dist/blocks-checkout.js:1
+#: dist/classic-checkout.js:1
+#: dist/pay-for-order.js:1
+#: client/shared/utilities/form-validation/index.ts:19
+msgid "Your card's expiration date is invalid."
+msgstr ""
+
+#: dist/my-account--payment-methods.js:1
+#: dist/blocks-checkout.js:1
+#: dist/classic-checkout.js:1
+#: dist/pay-for-order.js:1
+#: client/shared/utilities/form-validation/index.ts:25
+msgid "Your card's security code is required."
+msgstr ""
+
+#: dist/my-account--payment-methods.js:1
+#: dist/blocks-checkout.js:1
+#: dist/classic-checkout.js:1
+#: dist/pay-for-order.js:1
+#: client/shared/utilities/form-validation/index.ts:27
+msgid "Your card's security code is invalid."
+msgstr ""
+
+#: dist/my-account--payment-methods.js:1
+#: dist/blocks-checkout.js:1
+#: dist/classic-checkout.js:1
+#: dist/pay-for-order.js:1
+#: client/shared/utilities/form-validation/index.ts:33
+msgid "Your card's country is required."
+msgstr ""
+
+#: dist/my-account--payment-methods.js:1
+#: dist/blocks-checkout.js:1
+#: dist/classic-checkout.js:1
+#: dist/pay-for-order.js:1
+#: client/shared/utilities/form-validation/index.ts:49
+msgid "Please enter your card details."
+msgstr ""
+
+#: dist/my-account--payment-methods.js:1
+#: dist/blocks-checkout.js:1
+#: dist/classic-checkout.js:1
+#: dist/pay-for-order.js:1
+#: client/shared/utilities/form-validation/index.ts:9
+msgid "Your card number is required."
+msgstr ""
+
+#: includes/multi-currency/client/analytics/index.js:131
+msgid "Customer currency"
+msgstr ""
+
+#: includes/multi-currency/client/analytics/index.js:137
+msgid "All currencies"
+msgstr ""
+
+#: includes/multi-currency/client/analytics/index.js:24
+msgid "Remove customer currency filter"
+msgstr ""
+
+#: includes/multi-currency/client/analytics/index.js:28
+msgid "Select a customer currency filter match"
+msgstr ""
+
+#: includes/multi-currency/client/analytics/index.js:32
+msgid "{{title}}Customer Currency{{/title}} {{rule /}} {{filter /}}"
+msgstr ""
+
+#: includes/multi-currency/client/analytics/index.js:36
+msgid "Select a customer currency"
+msgstr ""
+
+#: includes/multi-currency/client/analytics/index.js:45
+#. Sentence fragment, logical, "Is" refers to searching for orders matching a chosen currency.
+msgid "Is"
+msgstr ""
+
+#: includes/multi-currency/client/analytics/index.js:55
+#. Sentence fragment, logical, "Is Not" refers to searching for orders not matching a chosen currency.
+msgid "Is Not"
+msgstr ""
+
+#: includes/multi-currency/client/blocks/currency-switcher.js:209
+msgid "Multi-Currency settings"
+msgstr ""
+
+#: includes/multi-currency/client/blocks/currency-switcher.js:221
+msgid "Adjust and edit your Multi-Currency settings"
+msgstr ""
+
+#: includes/multi-currency/client/blocks/currency-switcher.js:227
+msgid "Layout"
+msgstr ""
+
+#: includes/multi-currency/client/blocks/currency-switcher.js:229
+msgid "Display flags"
+msgstr ""
+
+#: includes/multi-currency/client/blocks/currency-switcher.js:250
+msgid "Border radius"
+msgstr ""
+
+#: includes/multi-currency/client/blocks/currency-switcher.js:257
+msgid "Typography"
+msgstr ""
+
+#: includes/multi-currency/client/blocks/currency-switcher.js:259
+msgid "Size"
+msgstr ""
+
+#: includes/multi-currency/client/blocks/currency-switcher.js:266
+msgid "Line height"
+msgstr ""
+
+#: includes/multi-currency/client/blocks/currency-switcher.js:275
+msgid "Color settings"
+msgstr ""
+
+#: includes/multi-currency/client/blocks/currency-switcher.js:280
+msgid "Text"
+msgstr ""
+
+#: includes/multi-currency/client/blocks/currency-switcher.js:286
+msgid "Background"
+msgstr ""
+
+#: includes/multi-currency/client/blocks/currency-switcher.js:29
+msgid "Currency Switcher Block"
+msgstr ""
+
+#: includes/multi-currency/client/blocks/currency-switcher.js:292
+msgid "Border"
+msgstr ""
+
+#: includes/multi-currency/client/blocks/currency-switcher.js:305
+msgid "Loading…"
+msgstr ""
+

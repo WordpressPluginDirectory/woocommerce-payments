@@ -289,6 +289,7 @@ class ComposerStaticInit6265907401ba377e5857d8960a5ceb1e
         'WCPay\\Internal\\DependencyManagement\\ServiceProvider\\PaymentsServiceProvider' => __DIR__ . '/../..' . '/src/Internal/DependencyManagement/ServiceProvider/PaymentsServiceProvider.php',
         'WCPay\\Internal\\DependencyManagement\\ServiceProvider\\ProxiesServiceProvider' => __DIR__ . '/../..' . '/src/Internal/DependencyManagement/ServiceProvider/ProxiesServiceProvider.php',
         'WCPay\\Internal\\Logger' => __DIR__ . '/../..' . '/src/Internal/Logger.php',
+        'WCPay\\Internal\\LoggerContext' => __DIR__ . '/../..' . '/src/Internal/LoggerContext.php',
         'WCPay\\Internal\\Payment\\AbstractSessionRateLimiter' => __DIR__ . '/../..' . '/src/Internal/Payment/AbstractSessionRateLimiter.php',
         'WCPay\\Internal\\Payment\\Change' => __DIR__ . '/../..' . '/src/Internal/Payment/Change.php',
         'WCPay\\Internal\\Payment\\Exception\\StateTransitionException' => __DIR__ . '/../..' . '/src/Internal/Payment/Exception/StateTransitionException.php',
