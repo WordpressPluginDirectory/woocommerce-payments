@@ -4,7 +4,7 @@ Tags: woocommerce payments, apple pay, credit card, google pay, payment, payment
 Requires at least: 6.0
 Tested up to: 6.7
 Requires PHP: 7.3
-Stable tag: 8.9.0
+Stable tag: 8.9.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -87,7 +87,11 @@ You can read our Terms of Service and other policies [here](https://woocommerce.
 
 == Changelog ==
 
-= 8.9.0 - 2025-02-05 =
+= 8.9.1 - 2025-02-07 =
+* Fix - Ensures that the tokenised cart for ECE implementation is disabled by default.
+
+
+= 8.9.0 - 2025-02-04 =
 * Add - Add a popover to WooPayments to present all possible payment methods
 * Add - Added persistent column visibility preferences for reporting tables, allowing merchants to customize and save their preferred table view layouts across sessions.
 * Add - Add support for `WP_DEVELOPMENT_MODE`. Any non-empty setting will force the plugin into development mode.
