@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'WCPay\\Vendor\\' => array($baseDir . '/lib/packages'),
+    'WCPay\\PaymentMethods\\Configs\\' => array($baseDir . '/includes/payment-methods/Configs'),
     'WCPay\\MultiCurrency\\' => array($baseDir . '/includes/multi-currency'),
     'WCPay\\' => array($baseDir . '/src'),
     'Composer\\Installers\\' => array($vendorDir . '/composer/installers/src/Composer/Installers'),

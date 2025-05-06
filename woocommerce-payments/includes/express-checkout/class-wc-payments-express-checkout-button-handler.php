@@ -250,6 +250,7 @@ class WC_Payments_Express_Checkout_Button_Handler {
 				// Defaults to 'required' to match how core initializes this option.
 				'needs_payer_phone'          => 'required' === get_option( 'woocommerce_checkout_phone_field', 'required' ),
 				'allowed_shipping_countries' => array_keys( WC()->countries->get_shipping_countries() ?? [] ),
+				'display_prices_with_tax'    => 'incl' === get_option( 'woocommerce_tax_display_cart' ),
 			],
 			'button'             => $this->get_button_settings(),
 			'login_confirmation' => $this->get_login_confirmation_settings(),
@@ -307,6 +308,7 @@ class WC_Payments_Express_Checkout_Button_Handler {
 		}
 
 		wp_localize_script( 'WCPAY_EXPRESS_CHECKOUT_ECE', 'wcpayExpressCheckoutParams', $express_checkout_params );
+		wp_localize_script( 'WCPAY_BLOCKS_CHECKOUT', 'wcpayExpressCheckoutParams', $express_checkout_params );
 
 		wp_set_script_translations( 'WCPAY_EXPRESS_CHECKOUT_ECE', 'woocommerce-payments' );
 
@@ -328,7 +330,7 @@ class WC_Payments_Express_Checkout_Button_Handler {
 			return;
 		}
 		?>
-		<div id="wcpay-express-checkout-element" style="display: none;"></div>
+		<div id="wcpay-express-checkout-element"></div>
 		<?php
 	}
 
