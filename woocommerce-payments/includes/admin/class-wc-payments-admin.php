@@ -981,7 +981,7 @@ class WC_Payments_Admin {
 			'showUpdateDetailsTask'              => $this->get_should_show_update_business_details_task( $account_status_data ),
 			'wpcomReconnectUrl'                  => $this->payments_api_client->is_server_connected() && ! $this->payments_api_client->has_server_connection_owner() ? WC_Payments_Account::get_wpcom_reconnect_url() : null,
 			'multiCurrencySetup'                 => [
-				'isSetupCompleted' => filter_var( get_option( 'wcpay_multi_currency_setup_completed' ), FILTER_VALIDATE_BOOLEAN ) ? 'yes' : 'no,',
+				'isSetupCompleted' => filter_var( get_option( 'wcpay_multi_currency_setup_completed' ), FILTER_VALIDATE_BOOLEAN ) ? 'yes' : 'no',
 			],
 			'isMultiCurrencyEnabled'             => WC_Payments_Features::is_customer_multi_currency_enabled(),
 			'shouldUseExplicitPrice'             => WC_Payments_Explicit_Price_Formatter::should_output_explicit_price(),
@@ -1006,6 +1006,7 @@ class WC_Payments_Admin {
 			'storeName'                          => get_bloginfo( 'name' ),
 			'isNextDepositNoticeDismissed'       => WC_Payments_Features::is_next_deposit_notice_dismissed(),
 			'isInstantDepositNoticeDismissed'    => get_option( 'wcpay_instant_deposit_notice_dismissed', false ),
+			'instantDepositsPreviouslyEligible'  => get_option( 'wcpay_instant_deposits_previously_eligible', false ),
 			'dismissedDuplicateNotices'          => get_option( 'wcpay_duplicate_payment_method_notices_dismissed', [] ),
 			'isConnectionSuccessModalDismissed'  => get_option( WC_Payments_Onboarding_Service::ONBOARDING_CONNECTION_SUCCESS_MODAL_OPTION, false ),
 			'isOverviewSurveySubmitted'          => get_option( 'wcpay_survey_payment_overview_submitted', false ),
