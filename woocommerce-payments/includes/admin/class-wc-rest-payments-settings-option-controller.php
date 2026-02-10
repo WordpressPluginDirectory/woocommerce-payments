@@ -13,23 +13,21 @@ defined( 'ABSPATH' ) || exit;
 class WC_REST_Payments_Settings_Option_Controller extends WC_Payments_REST_Controller {
 
 	/**
-	 * Map of allowed option names to their accepted value types.
-	 * Types: 'bool', 'array', 'string'.
+	 * List of allowed option names that can be updated via the REST API.
 	 *
 	 * @var array
 	 */
 	private const ALLOWED_OPTIONS = [
-		'wcpay_multi_currency_setup_completed'             => 'bool',
-		'woocommerce_dismissed_todo_tasks'                 => 'array',
-		'woocommerce_remind_me_later_todo_tasks'           => 'array',
-		'woocommerce_deleted_todo_tasks'                   => 'array',
-		'wcpay_fraud_protection_welcome_tour_dismissed'    => 'bool',
-		'wcpay_onboarding_eligibility_modal_dismissed'     => 'bool',
-		'wcpay_connection_success_modal_dismissed'         => 'bool',
-		'wcpay_next_deposit_notice_dismissed'              => 'bool',
-		'wcpay_duplicate_payment_method_notices_dismissed' => 'bool',
-		'wcpay_instant_deposit_notice_dismissed'           => 'bool',
-		'wcpay_exit_survey_last_shown'                     => 'string',
+		'wcpay_multi_currency_setup_completed',
+		'woocommerce_dismissed_todo_tasks',
+		'woocommerce_remind_me_later_todo_tasks',
+		'woocommerce_deleted_todo_tasks',
+		'wcpay_fraud_protection_welcome_tour_dismissed',
+		'wcpay_onboarding_eligibility_modal_dismissed',
+		'wcpay_connection_success_modal_dismissed',
+		'wcpay_next_deposit_notice_dismissed',
+		'wcpay_duplicate_payment_method_notices_dismissed',
+		'wcpay_instant_deposit_notice_dismissed',
 	];
 
 	/**
@@ -71,41 +69,22 @@ class WC_REST_Payments_Settings_Option_Controller extends WC_Payments_REST_Contr
 	 * @return bool
 	 */
 	public function validate_option_name( string $option_name ): bool {
-		return array_key_exists( $option_name, self::ALLOWED_OPTIONS );
+		return in_array( $option_name, self::ALLOWED_OPTIONS, true );
 	}
 
 	/**
-	 * Validate the value parameter based on the option's expected type.
+	 * Validate the value parameter.
 	 *
-	 * @param mixed           $value   The value to validate.
-	 * @param WP_REST_Request $request The request object.
+	 * @param mixed $value The value to validate.
 	 * @return bool|WP_Error True if valid, WP_Error if invalid.
 	 */
-	public function validate_value( $value, WP_REST_Request $request ) {
-		$option_name   = $request->get_param( 'option_name' );
-		$expected_type = self::ALLOWED_OPTIONS[ $option_name ] ?? null;
-
-		$is_valid = false;
-		switch ( $expected_type ) {
-			case 'bool':
-				$is_valid = is_bool( $value );
-				break;
-			case 'array':
-				$is_valid = is_array( $value );
-				break;
-			case 'string':
-				$is_valid = is_string( $value );
-				break;
-		}
-
-		if ( $is_valid ) {
+	public function validate_value( $value ) {
+		if ( is_bool( $value ) || is_array( $value ) ) {
 			return true;
 		}
-
 		return new WP_Error(
 			'rest_invalid_param',
-			/* translators: %s: expected type (bool, array, or string) */
-			sprintf( __( 'Invalid value type; expected %s', 'woocommerce-payments' ), $expected_type ),
+			__( 'Invalid value type; must be either boolean or array', 'woocommerce-payments' ),
 			[ 'status' => 400 ]
 		);
 	}

@@ -123,22 +123,24 @@ class WC_Payments_Onboarding_Service {
 	 *
 	 * The data is retrieved from the server and is cached. If we can't retrieve, we will use whatever data we have.
 	 *
-	 * @param string $locale       The locale to use to i18n the data.
-	 * @param bool   $__deprecated Force-refresh flag, deprecated.
+	 * @param string $locale The locale to use to i18n the data.
+	 * @param bool   $force_refresh Forces data to be fetched from the server, rather than using the cache.
+	 *
 	 * @return ?array Fields data, or NULL if failed to retrieve.
 	 */
-	public function get_fields_data( string $locale = '', bool $__deprecated = false ): ?array {
-		if ( false !== $__deprecated ) {
-			wc_deprecated_argument( __CLASS__ . '::' . __METHOD__, '10.5.0', 'Force-refresh argument is deprecated.' );
-		}
-
+	public function get_fields_data( string $locale = '', bool $force_refresh = false ): ?array {
 		// If we don't have a server connection, return what data we currently have, regardless of expiry.
 		if ( ! $this->payments_api_client->is_server_connected() ) {
 			return $this->database_cache->get( Database_Cache::ONBOARDING_FIELDS_DATA_KEY, true );
 		}
 
+		$cache_key = Database_Cache::ONBOARDING_FIELDS_DATA_KEY;
+		if ( ! empty( $locale ) ) {
+			$cache_key .= '__' . $locale;
+		}
+
 		return $this->database_cache->get_or_add(
-			Database_Cache::ONBOARDING_FIELDS_DATA_KEY,
+			$cache_key,
 			function () use ( $locale ) {
 				try {
 					// We will use the language for the current user (defaults to the site language).
@@ -148,19 +150,10 @@ class WC_Payments_Onboarding_Service {
 					return null;
 				}
 
-				// Store the locale, so if a different one is requested, we can invalidate the cache.
-				$fields_data['__locale'] = $locale;
-
 				return $fields_data;
 			},
-			function ( $data ) use ( $locale ) {
-				// The locale used to be part of a dynamic key. If it is not set, the data is old & invalid.
-				return (
-					is_array( $data )
-					&& isset( $data['__locale'] )
-					&& $data['__locale'] === $locale
-				);
-			}
+			'__return_true',
+			$force_refresh
 		);
 	}
 
@@ -174,38 +167,23 @@ class WC_Payments_Onboarding_Service {
 	 *                NULL on retrieval or validation error.
 	 */
 	public function get_recommended_payment_methods( string $country_code, string $locale = '' ): ?array {
-		$cached_data = \WC_Payments::get_database_cache()->get_or_add(
-			Database_Cache::RECOMMENDED_PAYMENT_METHODS,
+		$cache_key = Database_Cache::RECOMMENDED_PAYMENT_METHODS . '__' . $country_code;
+		if ( ! empty( $locale ) ) {
+			$cache_key .= '__' . $locale;
+		}
+
+		return \WC_Payments::get_database_cache()->get_or_add(
+			$cache_key,
 			function () use ( $country_code, $locale ) {
 				try {
-					$payment_methods = $this->payments_api_client->get_recommended_payment_methods( $country_code, $locale );
-
-					// Indicate that the cached value is specific for the given locale and country code.
-					return [
-						'payment_methods' => $payment_methods,
-						'__locale'        => $locale,
-						'__country_code'  => $country_code,
-					];
+					return $this->payments_api_client->get_recommended_payment_methods( $country_code, $locale );
 				} catch ( API_Exception $e ) {
 					// Return NULL to signal retrieval error.
 					return null;
 				}
 			},
-			function ( $data ) use ( $locale, $country_code ) {
-				// The locale and country code used to be part of a dynamic key.
-				// If either is not set, the data is old & invalid.
-				return (
-					is_array( $data )
-					&& isset( $data['payment_methods'] )
-					&& isset( $data['__locale'] )
-					&& isset( $data['__country_code'] )
-					&& $data['__locale'] === $locale
-					&& $data['__country_code'] === $country_code
-				);
-			}
+			'is_array'
 		);
-
-		return $cached_data['payment_methods'] ?? null;
 	}
 
 	/**
@@ -308,7 +286,6 @@ class WC_Payments_Onboarding_Service {
 	 */
 	public function create_embedded_kyc_session( array $self_assessment_data, array $capabilities = [] ): array {
 		if ( ! $this->payments_api_client->is_server_connected() ) {
-			WC_Payments_Utils::log_to_wc( 'Failed to create embedded KYC session: Jetpack connection not available.' );
 			return [];
 		}
 
@@ -364,8 +341,6 @@ class WC_Payments_Onboarding_Service {
 		} catch ( API_Exception $e ) {
 			$this->clear_onboarding_init_in_progress();
 
-			WC_Payments_Utils::log_to_wc( 'Failed to create embedded KYC session: ' . $e->getMessage() );
-
 			// If we fail to create the session, return an empty array.
 			return [];
 		}
@@ -410,7 +385,6 @@ class WC_Payments_Onboarding_Service {
 	 */
 	public function finalize_embedded_kyc( string $locale, string $source, array $actioned_notes ): array {
 		if ( ! $this->payments_api_client->is_server_connected() ) {
-			WC_Payments_Utils::log_to_wc( 'Failed to finalize embedded KYC: Jetpack connection not available.' );
 			return [
 				'success' => false,
 			];
@@ -444,12 +418,16 @@ class WC_Payments_Onboarding_Service {
 	/**
 	 * Gets and caches the business types per country from the server.
 	 *
+	 * @param bool $force_refresh Forces data to be fetched from the server, rather than using the cache.
+	 *
 	 * @return array|bool Business types, or false if failed to retrieve.
 	 */
-	public function get_cached_business_types() {
+	public function get_cached_business_types( bool $force_refresh = false ) {
 		if ( ! $this->payments_api_client->is_server_connected() ) {
 			return [];
 		}
+
+		$refreshed = false;
 
 		$business_types = $this->database_cache->get_or_add(
 			Database_Cache::BUSINESS_TYPES_KEY,
@@ -467,7 +445,9 @@ class WC_Payments_Onboarding_Service {
 
 				return $business_types;
 			},
-			[ $this, 'is_valid_cached_business_types' ]
+			[ $this, 'is_valid_cached_business_types' ],
+			$force_refresh,
+			$refreshed
 		);
 
 		if ( null === $business_types ) {
@@ -928,9 +908,12 @@ class WC_Payments_Onboarding_Service {
 	 */
 	public function cleanup_on_account_onboarded() {
 		// Delete the onboarding fields data since it is used only during the initial onboarding.
-		$this->database_cache->delete( Database_Cache::ONBOARDING_FIELDS_DATA_KEY );
+		// Delete it by prefix since it can have entries suffixed with the user locale.
+		$this->database_cache->delete_by_prefix( Database_Cache::ONBOARDING_FIELDS_DATA_KEY );
+
 		$this->database_cache->delete( Database_Cache::BUSINESS_TYPES_KEY );
-		$this->database_cache->delete( Database_Cache::RECOMMENDED_PAYMENT_METHODS );
+		// Delete it by prefix since it can have entries suffixed with the user locale.
+		$this->database_cache->delete_by_prefix( Database_Cache::RECOMMENDED_PAYMENT_METHODS );
 	}
 
 	/**

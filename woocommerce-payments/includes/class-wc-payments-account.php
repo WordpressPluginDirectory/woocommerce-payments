@@ -371,7 +371,6 @@ class WC_Payments_Account implements MultiCurrencyAccountInterface {
 			'accountLink'         => empty( $account['is_test_drive'] ) ? $this->get_login_url() : false,
 			'hasSubmittedVatData' => $account['has_submitted_vat_data'] ?? false,
 			'isDocumentsEnabled'  => $account['is_documents_enabled'] ?? false,
-			'communicationsEmail' => $account['communications_email'] ?? '',
 			'requirements'        => [
 				'errors' => $account['requirements']['errors'] ?? [],
 			],
@@ -483,16 +482,6 @@ class WC_Payments_Account implements MultiCurrencyAccountInterface {
 	public function get_business_support_phone(): string {
 		$account = $this->get_cached_account_data();
 		return isset( $account['business_profile']['support_phone'] ) ? $account['business_profile']['support_phone'] : '';
-	}
-
-	/**
-	 * Gets the communications email.
-	 *
-	 * @return string Communications email.
-	 */
-	public function get_communications_email(): string {
-		$account = $this->get_cached_account_data();
-		return isset( $account['communications_email'] ) ? $account['communications_email'] : '';
 	}
 
 	/**
@@ -2554,10 +2543,6 @@ class WC_Payments_Account implements MultiCurrencyAccountInterface {
 		if ( ! $this->is_instant_deposits_eligible( $account ) ) {
 			return;
 		}
-
-		// Track that this merchant has been eligible for instant deposits.
-		// Used to show an informative notice if they later become ineligible.
-		update_option( 'wcpay_instant_deposits_previously_eligible', true );
 
 		require_once WCPAY_ABSPATH . 'includes/notes/class-wc-payments-notes-instant-deposits-eligible.php';
 		WC_Payments_Notes_Instant_Deposits_Eligible::possibly_add_note();

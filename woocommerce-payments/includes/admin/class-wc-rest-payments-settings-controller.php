@@ -201,11 +201,6 @@ class WC_REST_Payments_Settings_Controller extends WC_Payments_REST_Controller {
 						'description' => __( 'A CSS hex color value representing the secondary branding color for this account.', 'woocommerce-payments' ),
 						'type'        => 'string',
 					],
-					'account_communications_email'         => [
-						'description'       => __( 'Email address used for WooPayments communications.', 'woocommerce-payments' ),
-						'type'              => 'string',
-						'validate_callback' => [ $this, 'validate_account_communications_email' ],
-					],
 					'deposit_schedule_interval'            => [
 						'description' => __( 'An interval for deposit scheduling.', 'woocommerce-payments' ),
 						'type'        => 'string',
@@ -270,11 +265,6 @@ class WC_REST_Payments_Settings_Controller extends WC_Payments_REST_Controller {
 						'type'              => 'boolean',
 						'validate_callback' => 'rest_validate_request_arg',
 					],
-					'is_amazon_pay_enabled'                => [
-						'description'       => __( 'If Amazon Pay should be enabled.', 'woocommerce-payments' ),
-						'type'              => 'boolean',
-						'validate_callback' => 'rest_validate_request_arg',
-					],
 					'woopay_custom_message'                => [
 						'description'       => __( 'Custom message to display to WooPay customers.', 'woocommerce-payments' ),
 						'type'              => 'string',
@@ -297,12 +287,12 @@ class WC_REST_Payments_Settings_Controller extends WC_Payments_REST_Controller {
 					],
 					'stripe_billing_subscription_count'    => [
 						'description'       => __( 'The number of subscriptions using Stripe Billing', 'woocommerce-payments' ),
-						'type'              => 'integer',
+						'type'              => 'int',
 						'validate_callback' => 'rest_validate_request_arg',
 					],
 					'stripe_billing_migrated_count'        => [
 						'description'       => __( 'The number of subscriptions migrated from Stripe Billing to on-site billing.', 'woocommerce-payments' ),
-						'type'              => 'integer',
+						'type'              => 'int',
 						'validate_callback' => 'rest_validate_request_arg',
 					],
 					'express_checkout_product_methods'     => [
@@ -461,37 +451,6 @@ class WC_REST_Payments_Settings_Controller extends WC_Payments_REST_Controller {
 	}
 
 	/**
-	 * Validate the account communications email.
-	 *
-	 * @param string          $value The value being validated.
-	 * @param WP_REST_Request $request The request made.
-	 * @param string          $param The parameter name, used in error messages.
-	 * @return true|WP_Error
-	 */
-	public function validate_account_communications_email( string $value, WP_REST_Request $request, string $param ) {
-		$string_validation_result = rest_validate_request_arg( $value, $request, $param );
-		if ( true !== $string_validation_result ) {
-			return $string_validation_result;
-		}
-
-		if ( '' === $value ) {
-			return new WP_Error(
-				'rest_invalid_pattern',
-				__( 'Error: Communications email is required.', 'woocommerce-payments' )
-			);
-		}
-
-		if ( ! is_email( $value ) ) {
-			return new WP_Error(
-				'rest_invalid_pattern',
-				__( 'Error: Invalid email address: ', 'woocommerce-payments' ) . $value
-			);
-		}
-
-		return true;
-	}
-
-	/**
 	 * Retrieve settings.
 	 *
 	 * @return WP_REST_Response
@@ -558,7 +517,6 @@ class WC_REST_Payments_Settings_Controller extends WC_Payments_REST_Controller {
 				'account_branding_primary_color'         => $this->wcpay_gateway->get_option( 'account_branding_primary_color' ),
 				'account_branding_secondary_color'       => $this->wcpay_gateway->get_option( 'account_branding_secondary_color' ),
 				'account_domestic_currency'              => $this->wcpay_gateway->get_option( 'account_domestic_currency' ),
-				'account_communications_email'           => $this->wcpay_gateway->get_option( 'account_communications_email' ),
 				'is_payment_request_enabled'             => $this->wcpay_gateway->is_payment_request_enabled(),
 				'is_apple_google_pay_in_payment_methods_options_enabled' => 'yes' === $this->wcpay_gateway->get_option( 'apple_google_pay_in_payment_methods_options' ),
 				'is_debug_log_enabled'                   => 'yes' === $this->wcpay_gateway->get_option( 'enable_logging' ),
@@ -569,7 +527,6 @@ class WC_REST_Payments_Settings_Controller extends WC_Payments_REST_Controller {
 				'is_saved_cards_enabled'                 => $this->wcpay_gateway->is_saved_cards_enabled(),
 				'is_card_present_eligible'               => $this->wcpay_gateway->is_card_present_eligible() && isset( WC()->payment_gateways()->get_available_payment_gateways()['cod'] ),
 				'is_woopay_enabled'                      => WC_Payments_Features::is_woopay_eligible() && 'yes' === $this->wcpay_gateway->get_option( 'platform_checkout' ),
-				'is_amazon_pay_enabled'                  => $this->is_amazon_pay_enabled(),
 				'show_woopay_incompatibility_notice'     => get_option( 'woopay_invalid_extension_found', false ),
 				'woopay_custom_message'                  => $this->wcpay_gateway->get_option( 'platform_checkout_custom_message' ),
 				'woopay_store_logo'                      => $this->wcpay_gateway->get_option( 'platform_checkout_store_logo' ),
@@ -610,7 +567,6 @@ class WC_REST_Payments_Settings_Controller extends WC_Payments_REST_Controller {
 		$this->update_payment_request_appearance( $request );
 		$this->update_is_saved_cards_enabled( $request );
 		$this->update_is_woopay_enabled( $request );
-		$this->update_is_amazon_pay_enabled( $request );
 		$this->update_is_woopay_global_theme_support_enabled( $request );
 		$this->update_woopay_store_logo( $request );
 		$this->update_woopay_custom_message( $request );
@@ -735,8 +691,11 @@ class WC_REST_Payments_Settings_Controller extends WC_Payments_REST_Controller {
 		foreach ( $enabled_payment_methods as $payment_method_id ) {
 			$gateway = WC_Payments::get_payment_gateway_by_id( $payment_method_id );
 			if ( ! $gateway ) {
-				/* translators: 1: Payment method ID, 2: Error message */
-				WC_Payments_Utils::log_to_wc( sprintf( 'Failed to enable payment method %1$s: %2$s', $payment_method_id, 'payment gateway instance not available' ), 'warning' );
+				if ( function_exists( 'wc_get_logger' ) ) {
+					$logger = wc_get_logger();
+					/* translators: 1: Payment method ID, 2: Error message */
+					$logger->warning( sprintf( 'Failed to enable payment method %1$s: %2$s', $payment_method_id, 'payment gateway instance not available' ), [ 'source' => 'woopayments' ] );
+				}
 				continue;
 			}
 
@@ -751,8 +710,11 @@ class WC_REST_Payments_Settings_Controller extends WC_Payments_REST_Controller {
 		foreach ( $disabled_payment_methods as $payment_method_id ) {
 			$gateway = WC_Payments::get_payment_gateway_by_id( $payment_method_id );
 			if ( ! $gateway ) {
-				/* translators: 1: Payment method ID, 2: Error message */
-				WC_Payments_Utils::log_to_wc( sprintf( 'Failed to disable payment method %1$s: %2$s', $payment_method_id, 'payment gateway instance not available' ), 'warning' );
+				if ( function_exists( 'wc_get_logger' ) ) {
+					$logger = wc_get_logger();
+					/* translators: 1: Payment method ID, 2: Error message */
+					$logger->warning( sprintf( 'Failed to disable payment method %1$s: %2$s', $payment_method_id, 'payment gateway instance not available' ), [ 'source' => 'woopayments' ] );
+				}
 				continue;
 			}
 			$gateway->disable();
@@ -1002,41 +964,6 @@ class WC_REST_Payments_Settings_Controller extends WC_Payments_REST_Controller {
 		$is_woopay_enabled = $request->get_param( 'is_woopay_enabled' );
 
 		$this->wcpay_gateway->update_is_woopay_enabled( $is_woopay_enabled );
-	}
-
-	/**
-	 * Updates the "Amazon Pay" enable/disable settings.
-	 *
-	 * @param WP_REST_Request $request Request object.
-	 */
-	private function update_is_amazon_pay_enabled( WP_REST_Request $request ) {
-		if ( ! $request->has_param( 'is_amazon_pay_enabled' ) ) {
-			return;
-		}
-
-		$amazon_pay_gateway = WC_Payments::get_payment_gateway_by_id( \WCPay\PaymentMethods\Configs\Definitions\AmazonPayDefinition::get_id() );
-		if ( ! $amazon_pay_gateway ) {
-			return;
-		}
-
-		$is_amazon_pay_enabled = $request->get_param( 'is_amazon_pay_enabled' );
-		if ( $is_amazon_pay_enabled ) {
-			$amazon_pay_gateway->enable();
-			$this->request_unrequested_payment_methods( [ 'amazon_pay' ] );
-		} else {
-			$amazon_pay_gateway->disable();
-		}
-	}
-
-	/**
-	 * Checks if Amazon Pay is enabled.
-	 *
-	 * @return bool
-	 */
-	private function is_amazon_pay_enabled(): bool {
-		$amazon_pay_gateway = WC_Payments::get_payment_gateway_by_id( \WCPay\PaymentMethods\Configs\Definitions\AmazonPayDefinition::get_id() );
-
-		return $amazon_pay_gateway && $amazon_pay_gateway->is_enabled();
 	}
 
 	/**

@@ -328,7 +328,6 @@ return [
 		'am_ET'   => $global_formats['lx_dot_comma_ltr'],
 	],
 	'EUR' => [
-		'bg_BG'      => $global_formats['rs_comma_dot_ltr'],
 		'ca_AD'      => $global_formats['rs_comma_dot_ltr'],
 		'de_AT'      => $global_formats['ls_comma_space_ltr'],
 		'de_BE'      => $global_formats['rs_comma_dot_ltr'],
