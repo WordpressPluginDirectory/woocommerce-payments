@@ -371,6 +371,7 @@ class WC_Payments_Account implements MultiCurrencyAccountInterface {
 			'accountLink'         => empty( $account['is_test_drive'] ) ? $this->get_login_url() : false,
 			'hasSubmittedVatData' => $account['has_submitted_vat_data'] ?? false,
 			'isDocumentsEnabled'  => $account['is_documents_enabled'] ?? false,
+			'communicationsEmail' => $account['communications_email'] ?? '',
 			'requirements'        => [
 				'errors' => $account['requirements']['errors'] ?? [],
 			],
@@ -381,7 +382,9 @@ class WC_Payments_Account implements MultiCurrencyAccountInterface {
 			// Campaigns are temporary flags that are used to enable/disable features for a limited time.
 			'campaigns'           => [
 				// The flag for the WordPress.org merchant review campaign in 2025. Eligibility is determined per-account on transact-platform-server.
-				'wporgReview2025' => $account['eligibility_wporg_review_campaign_2025'] ?? false,
+				'wporgReview2025'    => $account['eligibility_wporg_review_campaign_2025'] ?? false,
+				// The flag for the payments settings review prompt (Phase 0). Eligibility is determined per-account on transact-platform-server.
+				'reviewPromptPhase0' => $account['eligibility_review_prompt_phase_0'] ?? false,
 			],
 		];
 	}
@@ -482,6 +485,16 @@ class WC_Payments_Account implements MultiCurrencyAccountInterface {
 	public function get_business_support_phone(): string {
 		$account = $this->get_cached_account_data();
 		return isset( $account['business_profile']['support_phone'] ) ? $account['business_profile']['support_phone'] : '';
+	}
+
+	/**
+	 * Gets the communications email.
+	 *
+	 * @return string Communications email.
+	 */
+	public function get_communications_email(): string {
+		$account = $this->get_cached_account_data();
+		return isset( $account['communications_email'] ) ? $account['communications_email'] : '';
 	}
 
 	/**
@@ -2544,6 +2557,10 @@ class WC_Payments_Account implements MultiCurrencyAccountInterface {
 			return;
 		}
 
+		// Track that this merchant has been eligible for instant deposits.
+		// Used to show an informative notice if they later become ineligible.
+		update_option( 'wcpay_instant_deposits_previously_eligible', true );
+
 		require_once WCPAY_ABSPATH . 'includes/notes/class-wc-payments-notes-instant-deposits-eligible.php';
 		WC_Payments_Notes_Instant_Deposits_Eligible::possibly_add_note();
 		$this->maybe_add_instant_deposit_note_reminder();
@@ -2558,6 +2575,7 @@ class WC_Payments_Account implements MultiCurrencyAccountInterface {
 	 */
 	public function handle_loan_approved_inbox_note( $account ) {
 		require_once WCPAY_ABSPATH . 'includes/notes/class-wc-payments-notes-loan-approved.php';
+		require_once WCPAY_ABSPATH . 'includes/class-wc-payments-explicit-price-formatter.php';
 
 		// If the account cache is empty, don't try to create an inbox note.
 		if ( empty( $account ) ) {
@@ -2638,6 +2656,16 @@ class WC_Payments_Account implements MultiCurrencyAccountInterface {
 	}
 
 	/**
+	 * Checks if the account is eligible for the review prompt (Phase 0).
+	 *
+	 * @return bool
+	 */
+	public function is_review_prompt_eligible(): bool {
+		$account = $this->get_cached_account_data();
+		return $account['eligibility_review_prompt_phase_0'] ?? false;
+	}
+
+	/**
 	 * Gather the latest store setup state and send it to the Transact Platform.
 	 *
 	 * @return void
@@ -2699,14 +2727,14 @@ class WC_Payments_Account implements MultiCurrencyAccountInterface {
 
 		return [
 			// The WooPayments setup details.
-			'gateway'                => [
+			'gateway'                                     => [
 				'enabled'              => $gateway->is_enabled(),
 				'test_mode'            => WC_Payments::mode()->is_test(),
 				'test_mode_onboarding' => WC_Payments::mode()->is_test_mode_onboarding(),
 			],
 
 			// Payment methods setup.
-			'payment_methods'        => [
+			'payment_methods'                             => [
 				'available'  => $payment_methods_available,
 				'enabled'    => $payment_methods_enabled,
 				'disabled'   => $payment_methods_disabled,
@@ -2714,18 +2742,18 @@ class WC_Payments_Account implements MultiCurrencyAccountInterface {
 			],
 			// Payment methods mapped to capabilities, for flexibility with the Transact Platform.
 			// E.g. 'card_payments' capability corresponds to 'card' payment method.
-			'provider_capabilities'  => [
+			'provider_capabilities'                       => [
 				'available' => $provider_capabilities_available,
 				'enabled'   => $provider_capabilities_enabled,
 				'disabled'  => $provider_capabilities_disabled,
 			],
-			'apple_google_pay_in_payment_methods_options_enabled' => $gateway->get_option( 'apple_google_pay_in_payment_methods_options' ),
+			'express_checkout_in_payment_methods_enabled' => $gateway->get_option( 'express_checkout_in_payment_methods' ),
 
-			'saved_cards_enabled'    => $gateway->is_saved_cards_enabled(),
-			'manual_capture_enabled' => 'yes' === $gateway->get_option( 'manual_capture' ),
-			'debug_log_enabled'      => 'yes' === $gateway->get_option( 'enable_logging' ),
+			'saved_cards_enabled'                         => $gateway->is_saved_cards_enabled(),
+			'manual_capture_enabled'                      => 'yes' === $gateway->get_option( 'manual_capture' ),
+			'debug_log_enabled'                           => 'yes' === $gateway->get_option( 'enable_logging' ),
 
-			'payment_request'        => [
+			'payment_request'                             => [
 				'enabled'              => $gateway->is_payment_request_enabled(),
 				'enabled_locations'    => $this->get_express_checkout_method_locations( $gateway, 'payment_request' ),
 				'button_type'          => $gateway->get_option( 'payment_request_button_type' ),
@@ -2734,7 +2762,7 @@ class WC_Payments_Account implements MultiCurrencyAccountInterface {
 				'button_border_radius' => $gateway->get_option( 'payment_request_button_border_radius' ),
 			],
 
-			'woopay'                 => [
+			'woopay'                                      => [
 				'enabled'                 => WC_Payments_Features::is_woopay_enabled(),
 				'enabled_locations'       => $this->get_express_checkout_method_locations( $gateway, 'woopay' ),
 				'store_logo'              => $gateway->get_option( 'platform_checkout_store_logo' ),
@@ -2743,17 +2771,17 @@ class WC_Payments_Account implements MultiCurrencyAccountInterface {
 			],
 
 			// WooPayments features.
-			'multi_currency_enabled' => WC_Payments_Features::is_customer_multi_currency_enabled(),
-			'stripe_billing_enabled' => WC_Payments_Features::is_stripe_billing_enabled(),
+			'multi_currency_enabled'                      => WC_Payments_Features::is_customer_multi_currency_enabled(),
+			'stripe_billing_enabled'                      => WC_Payments_Features::is_stripe_billing_enabled(),
 
 			// Other WooPayments details.
-			'plugin'                 => [
+			'plugin'                                      => [
 				'version'              => defined( 'WCPAY_VERSION_NUMBER' ) ? explode( '-', WCPAY_VERSION_NUMBER, 2 )[0] : '',
 				'activation_timestamp' => get_option( 'wcpay_activation_timestamp', null ),
 			],
 
 			// Other store setup details.
-			'wp_setup'               => [
+			'wp_setup'                                    => [
 				'name'           => get_bloginfo( 'name' ),
 				'url'            => home_url(),
 				'active_theme'   => $this->get_store_theme_details(),
@@ -2761,7 +2789,7 @@ class WC_Payments_Account implements MultiCurrencyAccountInterface {
 				'version'        => get_bloginfo( 'version' ),
 				'locale'         => get_locale(),
 			],
-			'wc_setup'               => [
+			'wc_setup'                                    => [
 				'version'                     => defined( 'WC_VERSION' ) ? explode( '-', WC_VERSION, 2 )[0] : '',
 				'store_id'                    => ( class_exists( '\WC_Install' ) && defined( '\WC_Install::STORE_ID_OPTION' ) ) ? get_option( \WC_Install::STORE_ID_OPTION, null ) : null,
 				'currency'                    => get_woocommerce_currency(),

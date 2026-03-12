@@ -116,17 +116,17 @@
         },
         {
             "name": "automattic/jetpack-assets",
-            "version": "v4.3.17",
-            "version_normalized": "4.3.17.0",
+            "version": "v4.3.21",
+            "version_normalized": "4.3.21.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Automattic/jetpack-assets.git",
-                "reference": "f054d11d49f1f59eea16cf26ce40896c91aed9ec"
+                "reference": "1f4e84567a57d4e19ea3f1108286f0f0b6789319"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Automattic/jetpack-assets/zipball/f054d11d49f1f59eea16cf26ce40896c91aed9ec",
-                "reference": "f054d11d49f1f59eea16cf26ce40896c91aed9ec",
+                "url": "https://api.github.com/repos/Automattic/jetpack-assets/zipball/1f4e84567a57d4e19ea3f1108286f0f0b6789319",
+                "reference": "1f4e84567a57d4e19ea3f1108286f0f0b6789319",
                 "shasum": ""
             },
             "require": {
@@ -144,7 +144,7 @@
             "suggest": {
                 "automattic/jetpack-autoloader": "Allow for better interoperability with other plugins that use this package."
             },
-            "time": "2025-12-15T11:22:40+00:00",
+            "time": "2026-01-26T07:35:32+00:00",
             "type": "jetpack-library",
             "extra": {
                 "autotagger": true,
@@ -172,7 +172,7 @@
             ],
             "description": "Asset management utilities for Jetpack ecosystem packages",
             "support": {
-                "source": "https://github.com/Automattic/jetpack-assets/tree/v4.3.17"
+                "source": "https://github.com/Automattic/jetpack-assets/tree/v4.3.21"
             },
             "install-path": "../automattic/jetpack-assets"
         },
@@ -1034,6 +1034,7 @@
                 "source": "https://github.com/Automattic/woocommerce-subscriptions-core/tree/6.7.1",
                 "issues": "https://github.com/Automattic/woocommerce-subscriptions-core/issues"
             },
+            "abandoned": true,
             "install-path": "../woocommerce/subscriptions-core"
         }
     ],

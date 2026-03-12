@@ -201,6 +201,11 @@ class WC_REST_Payments_Settings_Controller extends WC_Payments_REST_Controller {
 						'description' => __( 'A CSS hex color value representing the secondary branding color for this account.', 'woocommerce-payments' ),
 						'type'        => 'string',
 					],
+					'account_communications_email'         => [
+						'description'       => __( 'Email address used for WooPayments communications.', 'woocommerce-payments' ),
+						'type'              => 'string',
+						'validate_callback' => [ $this, 'validate_account_communications_email' ],
+					],
 					'deposit_schedule_interval'            => [
 						'description' => __( 'An interval for deposit scheduling.', 'woocommerce-payments' ),
 						'type'        => 'string',
@@ -222,8 +227,8 @@ class WC_REST_Payments_Settings_Controller extends WC_Payments_REST_Controller {
 						'type'              => 'boolean',
 						'validate_callback' => 'rest_validate_request_arg',
 					],
-					'is_apple_google_pay_in_payment_methods_options_enabled' => [
-						'description'       => __( 'If Apple Pay / Google Pay should be enabled as an option in the payment methods list.', 'woocommerce-payments' ),
+					'is_express_checkout_in_payment_methods_enabled' => [
+						'description'       => __( 'If express checkout methods (Apple Pay, Google Pay, Amazon Pay) should be enabled as options in the payment methods list.', 'woocommerce-payments' ),
 						'type'              => 'boolean',
 						'validate_callback' => 'rest_validate_request_arg',
 					],
@@ -287,12 +292,12 @@ class WC_REST_Payments_Settings_Controller extends WC_Payments_REST_Controller {
 					],
 					'stripe_billing_subscription_count'    => [
 						'description'       => __( 'The number of subscriptions using Stripe Billing', 'woocommerce-payments' ),
-						'type'              => 'int',
+						'type'              => 'integer',
 						'validate_callback' => 'rest_validate_request_arg',
 					],
 					'stripe_billing_migrated_count'        => [
 						'description'       => __( 'The number of subscriptions migrated from Stripe Billing to on-site billing.', 'woocommerce-payments' ),
-						'type'              => 'int',
+						'type'              => 'integer',
 						'validate_callback' => 'rest_validate_request_arg',
 					],
 					'express_checkout_product_methods'     => [
@@ -451,6 +456,37 @@ class WC_REST_Payments_Settings_Controller extends WC_Payments_REST_Controller {
 	}
 
 	/**
+	 * Validate the account communications email.
+	 *
+	 * @param string          $value The value being validated.
+	 * @param WP_REST_Request $request The request made.
+	 * @param string          $param The parameter name, used in error messages.
+	 * @return true|WP_Error
+	 */
+	public function validate_account_communications_email( string $value, WP_REST_Request $request, string $param ) {
+		$string_validation_result = rest_validate_request_arg( $value, $request, $param );
+		if ( true !== $string_validation_result ) {
+			return $string_validation_result;
+		}
+
+		if ( '' === $value ) {
+			return new WP_Error(
+				'rest_invalid_pattern',
+				__( 'Error: Communications email is required.', 'woocommerce-payments' )
+			);
+		}
+
+		if ( ! is_email( $value ) ) {
+			return new WP_Error(
+				'rest_invalid_pattern',
+				__( 'Error: Invalid email address: ', 'woocommerce-payments' ) . $value
+			);
+		}
+
+		return true;
+	}
+
+	/**
 	 * Retrieve settings.
 	 *
 	 * @return WP_REST_Response
@@ -517,8 +553,9 @@ class WC_REST_Payments_Settings_Controller extends WC_Payments_REST_Controller {
 				'account_branding_primary_color'         => $this->wcpay_gateway->get_option( 'account_branding_primary_color' ),
 				'account_branding_secondary_color'       => $this->wcpay_gateway->get_option( 'account_branding_secondary_color' ),
 				'account_domestic_currency'              => $this->wcpay_gateway->get_option( 'account_domestic_currency' ),
+				'account_communications_email'           => $this->wcpay_gateway->get_option( 'account_communications_email' ),
 				'is_payment_request_enabled'             => $this->wcpay_gateway->is_payment_request_enabled(),
-				'is_apple_google_pay_in_payment_methods_options_enabled' => 'yes' === $this->wcpay_gateway->get_option( 'apple_google_pay_in_payment_methods_options' ),
+				'is_express_checkout_in_payment_methods_enabled' => 'yes' === $this->wcpay_gateway->get_option( 'express_checkout_in_payment_methods' ),
 				'is_debug_log_enabled'                   => 'yes' === $this->wcpay_gateway->get_option( 'enable_logging' ),
 				'payment_request_button_size'            => $this->wcpay_gateway->get_option( 'payment_request_button_size' ),
 				'payment_request_button_type'            => $this->wcpay_gateway->get_option( 'payment_request_button_type' ),
@@ -563,7 +600,7 @@ class WC_REST_Payments_Settings_Controller extends WC_Payments_REST_Controller {
 		$this->update_is_multi_currency_enabled( $request );
 		$this->update_is_wcpay_subscriptions_enabled( $request );
 		$this->update_is_payment_request_enabled( $request );
-		$this->update_is_apple_google_pay_in_payment_methods_options_enabled( $request );
+		$this->update_is_express_checkout_in_payment_methods_enabled( $request );
 		$this->update_payment_request_appearance( $request );
 		$this->update_is_saved_cards_enabled( $request );
 		$this->update_is_woopay_enabled( $request );
@@ -691,11 +728,8 @@ class WC_REST_Payments_Settings_Controller extends WC_Payments_REST_Controller {
 		foreach ( $enabled_payment_methods as $payment_method_id ) {
 			$gateway = WC_Payments::get_payment_gateway_by_id( $payment_method_id );
 			if ( ! $gateway ) {
-				if ( function_exists( 'wc_get_logger' ) ) {
-					$logger = wc_get_logger();
-					/* translators: 1: Payment method ID, 2: Error message */
-					$logger->warning( sprintf( 'Failed to enable payment method %1$s: %2$s', $payment_method_id, 'payment gateway instance not available' ), [ 'source' => 'woopayments' ] );
-				}
+				/* translators: 1: Payment method ID, 2: Error message */
+				WC_Payments_Utils::log_to_wc( sprintf( 'Failed to enable payment method %1$s: %2$s', $payment_method_id, 'payment gateway instance not available' ), 'warning' );
 				continue;
 			}
 
@@ -710,11 +744,8 @@ class WC_REST_Payments_Settings_Controller extends WC_Payments_REST_Controller {
 		foreach ( $disabled_payment_methods as $payment_method_id ) {
 			$gateway = WC_Payments::get_payment_gateway_by_id( $payment_method_id );
 			if ( ! $gateway ) {
-				if ( function_exists( 'wc_get_logger' ) ) {
-					$logger = wc_get_logger();
-					/* translators: 1: Payment method ID, 2: Error message */
-					$logger->warning( sprintf( 'Failed to disable payment method %1$s: %2$s', $payment_method_id, 'payment gateway instance not available' ), [ 'source' => 'woopayments' ] );
-				}
+				/* translators: 1: Payment method ID, 2: Error message */
+				WC_Payments_Utils::log_to_wc( sprintf( 'Failed to disable payment method %1$s: %2$s', $payment_method_id, 'payment gateway instance not available' ), 'warning' );
 				continue;
 			}
 			$gateway->disable();
@@ -900,18 +931,20 @@ class WC_REST_Payments_Settings_Controller extends WC_Payments_REST_Controller {
 	}
 
 	/**
-	 * Updates the "Apple Pay / Google Pay in payment methods options" enable/disable settings.
+	 * Updates the "express checkout in payment methods" enable/disable settings.
+	 * This controls whether Apple Pay, Google Pay, and Amazon Pay appear as options
+	 * in the payment methods list instead of as separate express checkout buttons.
 	 *
 	 * @param WP_REST_Request $request Request object.
 	 */
-	private function update_is_apple_google_pay_in_payment_methods_options_enabled( WP_REST_Request $request ) {
-		if ( ! $request->has_param( 'is_apple_google_pay_in_payment_methods_options_enabled' ) ) {
+	private function update_is_express_checkout_in_payment_methods_enabled( WP_REST_Request $request ) {
+		if ( ! $request->has_param( 'is_express_checkout_in_payment_methods_enabled' ) ) {
 			return;
 		}
 
-		$is_apple_google_pay_in_payment_methods_options_enabled = $request->get_param( 'is_apple_google_pay_in_payment_methods_options_enabled' );
+		$is_express_checkout_in_payment_methods_enabled = $request->get_param( 'is_express_checkout_in_payment_methods_enabled' );
 
-		$this->wcpay_gateway->update_option( 'apple_google_pay_in_payment_methods_options', $is_apple_google_pay_in_payment_methods_options_enabled ? 'yes' : 'no' );
+		$this->wcpay_gateway->update_option( 'express_checkout_in_payment_methods', $is_express_checkout_in_payment_methods_enabled ? 'yes' : 'no' );
 	}
 
 	/**
