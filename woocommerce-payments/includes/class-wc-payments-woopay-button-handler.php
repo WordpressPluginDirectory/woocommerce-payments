@@ -150,6 +150,12 @@ class WC_Payments_WooPay_Button_Handler {
 		$config['shouldShowWooPayButton']   = $this->should_show_woopay_button();
 		$config['woopaySessionEmail']       = WooPay_Session::get_user_email( $user );
 		$config['woopayIsCountryAvailable'] = $this->woopay_utilities->is_country_available( $this->gateway );
+		$config['woopayAppearance']         = $this->gateway->is_woopay_global_theme_support_enabled()
+			? WC_Payments_Styles_Cache::get_woopay_appearance()
+			: null;
+		$config['woopayFontRules']          = $this->gateway->is_woopay_global_theme_support_enabled()
+			? WC_Payments_Styles_Cache::get_woopay_font_rules()
+			: [];
 
 		return $config;
 	}
@@ -279,6 +285,12 @@ class WC_Payments_WooPay_Button_Handler {
 			return false;
 		}
 
+		// Product page, but the product can't be added to the cart (not purchasable or out of stock).
+		if ( $this->express_checkout_helper->is_product() && ! $this->express_checkout_helper->is_product_purchasable() ) {
+			Logger::log( 'Product is not purchasable ( WooPay Express button disabled )' );
+			return false;
+		}
+
 		// Cart has unsupported product type.
 		if ( ( $this->express_checkout_helper->is_checkout() || $this->express_checkout_helper->is_cart() ) && ! $this->has_allowed_items_in_cart() ) {
 			Logger::log( 'Items in the cart have unsupported product type ( WooPay Express button disabled )' );
@@ -326,18 +338,23 @@ class WC_Payments_WooPay_Button_Handler {
 
 		$settings = $this->get_button_settings();
 
+		// Use a <div> placeholder instead of <button>. The Add to Cart + Options block
+		// scans hooked content for form elements (BUTTON, INPUT, etc.) to decide between
+		// Interactivity API mode and legacy form-submit mode. A <button> here forces
+		// legacy mode, which breaks the mini-cart drawer. The React component hydrates
+		// the #wcpay-woopay-button container regardless of the placeholder element type,
+		// and .woopay-express-button CSS fully styles the element, so <div> is visually
+		// identical.
 		?>
 		<div id="wcpay-woopay-button" data-product_page=<?php echo esc_attr( $this->express_checkout_helper->is_product() ); ?>>
-			<?php // The WooPay express checkout button React component will go here. This is rendered as disabled for now, until the page is initialized. ?>
-			<button
-				class="woopay-express-button"
+			<div
+				class="woopay-express-button is-placeholder"
 				aria-label="<?php esc_attr_e( 'WooPay', 'woocommerce-payments' ); ?>"
 				data-type="<?php echo esc_attr( $settings['type'] ); ?>"
 				data-theme="<?php echo esc_attr( $settings['theme'] ); ?>"
 				data-size="<?php echo esc_attr( $settings['size'] ); ?>"
 				style="height: <?php echo esc_attr( $settings['height'] ); ?>px; border-radius: <?php echo esc_attr( $settings['radius'] ); ?>px"
-				disabled
-			></button>
+			></div>
 		</div>
 		<?php
 	}
@@ -378,6 +395,14 @@ class WC_Payments_WooPay_Button_Handler {
 			$is_supported = false;
 		}
 
+		/**
+		 * Filters whether the WooPay Express button supports the given product.
+		 *
+		 * @since 5.9.0
+		 *
+		 * @param bool                   $is_supported Whether the product is supported by the WooPay Express button.
+		 * @param WC_Product|false|null  $product      The product being checked, or false/null when none could be resolved.
+		 */
 		return apply_filters( 'wcpay_woopay_button_is_product_supported', $is_supported, $product );
 	}
 
@@ -401,6 +426,13 @@ class WC_Payments_WooPay_Button_Handler {
 			}
 		}
 
+		/**
+		 * Filters whether the WooPay Express button supports all of the items currently in the cart.
+		 *
+		 * @since 5.7.0
+		 *
+		 * @param bool $is_supported Whether all cart items are supported by the WooPay Express button.
+		 */
 		return apply_filters( 'wcpay_platform_checkout_button_are_cart_items_supported', $is_supported );
 	}
 }

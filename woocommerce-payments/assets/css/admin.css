@@ -35,8 +35,13 @@
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
-	border-radius: 2px;
-	outline: 1px solid rgba( 0, 0, 0, 0.25 );
+	/*
+	 * Match the refreshed badges: a box-shadow ring (not an `outline`, which
+	 * only tracks border-radius in Safari 16.4+) at the badges' baked corner
+	 * radius (4.6875% = 3/64, 7.5% = 3/40).
+	 */
+	border-radius: 4.6875% / 7.5%;
+	box-shadow: 0 0 0 1px rgba( 0, 0, 0, 0.07 );
 }
 
 .payment-method__brand--amex {
@@ -65,6 +70,19 @@
 
 .payment-method__brand--visa {
 	background-image: url( '../images/cards/visa.svg' );
+}
+
+.payment-method__brand--eftpos_au {
+	background-image: url( '../images/cards/eftpos_au.svg' );
+	background-color: #fff;
+	background-size: contain;
+}
+
+.payment-method__brand--cartes_bancaires,
+.payment-method__brand--eftpos_au {
+	background-size: contain;
+	/* These brands opt out of the chip ring (their art carries its own frame). */
+	box-shadow: none;
 }
 
 .payment-method__brand--alipay {

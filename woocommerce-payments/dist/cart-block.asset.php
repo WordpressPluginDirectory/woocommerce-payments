@@ -1,1 +1,1 @@
-<?php return array('dependencies' => array('react', 'wp-data', 'wp-polyfill'), 'version' => '4c3a6e146c4abcc89e62');
+<?php return array('dependencies' => array('react', 'react-jsx-runtime', 'wc-blocks-checkout', 'wp-data', 'wp-plugins', 'wp-polyfill'), 'version' => '17852ce1099c88b71f10');

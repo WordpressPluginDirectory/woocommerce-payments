@@ -45,13 +45,22 @@ class CardDefinition implements PaymentMethodDefinitionInterface {
 	}
 
 	/**
-	 * Get the customer-facing title of the payment method
-	 *
-	 * @param string|null $account_country Optional. The merchant's account country.
+	 * Get the Stripe PaymentMethod type.
 	 *
 	 * @return string
 	 */
-	public static function get_title( ?string $account_country = null ): string {
+	public static function get_stripe_payment_method_type(): string {
+		return self::get_id();
+	}
+
+	/**
+	 * Get the customer-facing title of the payment method
+	 *
+	 * @param string|null $_unused_account_country Optional. The merchant's account country.
+	 *
+	 * @return string
+	 */
+	public static function get_title( ?string $_unused_account_country = null ): string {
 		return __( 'Card', 'woocommerce-payments' );
 	}
 
@@ -67,28 +76,50 @@ class CardDefinition implements PaymentMethodDefinitionInterface {
 	 * @return string|null The dynamic title, or null to use the default get_title().
 	 */
 	public static function get_title_from_charge_details( string $account_country, array $payment_details ): ?string {
-		// TODO: to be implemented when fully removing the `CC_Payment_Method` class.
-		return null;
+		if ( ! isset( $payment_details[ self::get_id() ] ) ) {
+			return null;
+		}
+
+		$details       = $payment_details[ self::get_id() ];
+		$funding_types = [
+			'credit'  => __( 'credit', 'woocommerce-payments' ),
+			'debit'   => __( 'debit', 'woocommerce-payments' ),
+			'prepaid' => __( 'prepaid', 'woocommerce-payments' ),
+			'unknown' => __( 'unknown', 'woocommerce-payments' ),
+		];
+
+		$card_network = $details['display_brand'] ?? $details['network'] ?? $details['networks']['preferred'] ?? $details['networks']['available'][0] ?? 'card';
+		// Networks like `cartes_bancaires` may use underscores, so we replace them with spaces.
+		$card_network = str_replace( '_', ' ', $card_network );
+
+		$payment_method_title = sprintf(
+			// Translators: %1$s card brand, %2$s card funding (prepaid, credit, etc.).
+			__( '%1$s %2$s card', 'woocommerce-payments' ),
+			ucwords( $card_network ),
+			$funding_types[ $details['funding'] ?? 'unknown' ]
+		);
+
+		return $payment_method_title;
 	}
 
 	/**
 	 * Get the title of the payment method for the settings page.
 	 *
-	 * @param string|null $account_country Optional. The merchant's account country.
+	 * @param string|null $_unused_account_country Optional. The merchant's account country.
 	 *
 	 * @return string
 	 */
-	public static function get_settings_label( ?string $account_country = null ): string {
+	public static function get_settings_label( ?string $_unused_account_country = null ): string {
 		return __( 'Credit / Debit Cards', 'woocommerce-payments' );
 	}
 
 	/**
 	 * Get the customer-facing description of the payment method
 	 *
-	 * @param string|null $account_country Optional. The merchant's account country.
+	 * @param string|null $_unused_account_country Optional. The merchant's account country.
 	 * @return string
 	 */
-	public static function get_description( ?string $account_country = null ): string {
+	public static function get_description( ?string $_unused_account_country = null ): string {
 		return __(
 			'Let your customers pay with major credit and debit cards without leaving your store.',
 			'woocommerce-payments'
@@ -109,10 +140,10 @@ class CardDefinition implements PaymentMethodDefinitionInterface {
 	 * Get the list of supported countries
 	 * Empty array means all countries are supported
 	 *
-	 * @param string|null $account_country Optional. The merchant's account country.
+	 * @param string|null $_unused_account_country Optional. The merchant's account country.
 	 * @return string[] Array of country codes
 	 */
-	public static function get_supported_countries( ?string $account_country = null ): array {
+	public static function get_supported_countries( ?string $_unused_account_country = null ): array {
 		return [];
 	}
 
@@ -133,11 +164,11 @@ class CardDefinition implements PaymentMethodDefinitionInterface {
 	/**
 	 * Get the URL for the payment method's icon
 	 *
-	 * @param string|null $account_country Optional. The merchant's account country.
+	 * @param string|null $_unused_account_country Optional. The merchant's account country.
 	 *
 	 * @return string
 	 */
-	public static function get_icon_url( ?string $account_country = null ): string {
+	public static function get_icon_url( ?string $_unused_account_country = null ): string {
 		return plugins_url( 'assets/images/payment-methods/generic-card.svg', WCPAY_PLUGIN_FILE );
 	}
 
@@ -155,11 +186,11 @@ class CardDefinition implements PaymentMethodDefinitionInterface {
 	/**
 	 * Get the URL for the payment method's settings icon
 	 *
-	 * @param string|null $account_country Optional. The merchant's account country.
+	 * @param string|null $_unused_account_country Optional. The merchant's account country.
 	 *
 	 * @return string
 	 */
-	public static function get_settings_icon_url( ?string $account_country = null ): string {
+	public static function get_settings_icon_url( ?string $_unused_account_country = null ): string {
 		return plugins_url( 'assets/images/payment-methods/generic-card-black.svg', WCPAY_PLUGIN_FILE );
 	}
 
@@ -203,24 +234,24 @@ class CardDefinition implements PaymentMethodDefinitionInterface {
 	/**
 	 * Get the minimum amount for this payment method for a given currency and country
 	 *
-	 * @param string $currency The currency code.
-	 * @param string $country The country code.
+	 * @param string $_unused_currency The currency code.
+	 * @param string $_unused_country The country code.
 	 *
 	 * @return int|null The minimum amount or null if no minimum.
 	 */
-	public static function get_minimum_amount( string $currency, string $country ): ?int {
+	public static function get_minimum_amount( string $_unused_currency, string $_unused_country ): ?int {
 		return null;
 	}
 
 	/**
 	 * Get the maximum amount for this payment method for a given currency and country
 	 *
-	 * @param string $currency The currency code.
-	 * @param string $country The country code.
+	 * @param string $_unused_currency The currency code.
+	 * @param string $_unused_country The country code.
 	 *
 	 * @return int|null The maximum amount or null if no maximum.
 	 */
-	public static function get_maximum_amount( string $currency, string $country ): ?int {
+	public static function get_maximum_amount( string $_unused_currency, string $_unused_country ): ?int {
 		return null;
 	}
 }

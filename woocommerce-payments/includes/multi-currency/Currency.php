@@ -85,7 +85,7 @@ class Currency implements \JsonSerializable {
 		$this->code                 = $code;
 		$this->rate                 = $rate;
 
-		if ( get_woocommerce_currency() === $code ) {
+		if ( get_option( 'woocommerce_currency', '' ) === $code ) {
 			$this->is_default = true;
 		}
 
@@ -160,7 +160,7 @@ class Currency implements \JsonSerializable {
 	 */
 	public function get_name(): string {
 		$wc_currencies = get_woocommerce_currencies();
-		return $wc_currencies[ $this->code ];
+		return $wc_currencies[ $this->code ] ?? $this->code;
 	}
 
 	/**

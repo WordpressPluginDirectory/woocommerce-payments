@@ -15,6 +15,7 @@ use WC_Payments;
 use WC_Payments_Account;
 use WC_Payments_Customer_Service;
 use WC_Payments_Fraud_Service;
+use WC_Payments_Styles_Cache;
 use WC_Payments_Utils;
 use WC_Payments_Features;
 use WCPay\Constants\Payment_Method;
@@ -200,8 +201,16 @@ class WC_Payments_Checkout {
 			'isWooPayEmailInputEnabled'         => $this->woopay_util->is_woopay_email_input_enabled(),
 			'isWooPayDirectCheckoutEnabled'     => WC_Payments_Features::is_woopay_direct_checkout_enabled(),
 			'isWooPayGlobalThemeSupportEnabled' => $this->gateway->is_woopay_global_theme_support_enabled(),
+			'isShortcodeCheckout'               => is_checkout() && ! has_block( 'woocommerce/checkout' ),
 			'woopayHost'                        => WooPay_Utilities::get_woopay_url(),
 			'platformTrackerNonce'              => wp_create_nonce( 'platform_tracks_nonce' ),
+			/**
+			 * Filters the account ID used for payment intent confirmation.
+			 *
+			 * @since 3.9.0
+			 *
+			 * @param string $account_id The account ID for intent confirmation.
+			 */
 			'accountIdForIntentConfirmation'    => apply_filters( 'wc_payments_account_id_for_intent_confirmation', '' ),
 			'wcpayVersionNumber'                => WCPAY_VERSION_NUMBER,
 			'woopaySignatureNonce'              => wp_create_nonce( 'woopay_signature_nonce' ),
@@ -211,6 +220,12 @@ class WC_Payments_Checkout {
 			'woopayMinimumSessionData'          => WooPay_Session::get_woopay_minimum_session_data(),
 		];
 
+		// Provide the admin nonce when previewing in the Customizer so the
+		// frontend can POST the live appearance to the admin endpoint.
+		if ( is_customize_preview() && current_user_can( 'manage_woocommerce' ) ) {
+			$js_config['adminAppearanceNonce'] = wp_create_nonce( 'wcpay_admin_woopay_appearance_nonce' );
+		}
+
 		$payment_fields = $js_config;
 
 		$payment_fields['gatewayId']                = WC_Payment_Gateway_WCPay::GATEWAY_ID;
@@ -219,7 +234,7 @@ class WC_Payments_Checkout {
 		$payment_fields['testMode']                 = WC_Payments::mode()->is_test();
 		$payment_fields['cartContainsSubscription'] = $this->gateway->is_subscription_item_in_cart();
 		$payment_fields['currency']                 = get_woocommerce_currency();
-		$payment_fields['stylesCacheVersion']       = WC_Payments_Utils::get_styles_cache_version();
+		$payment_fields['stylesCacheVersion']       = WC_Payments_Styles_Cache::get_styles_cache_version();
 		$cart_total                                 = ( WC()->cart ? WC()->cart->get_total( '' ) : 0 );
 		$payment_fields['cartTotal']                = WC_Payments_Utils::prepare_amount( $cart_total, get_woocommerce_currency() );
 
@@ -260,6 +275,8 @@ class WC_Payments_Checkout {
 
 		/**
 		 * Allows filtering of the JS config for the payment fields.
+		 *
+		 * @since 5.2.0
 		 *
 		 * @param array $js_config The JS config for the payment fields.
 		 */
@@ -405,6 +422,11 @@ class WC_Payments_Checkout {
 						if ( ! did_action( '__wcpay_upe_config_localized' ) ) {
 							wp_localize_script( 'wcpay-upe-checkout', 'wcpay_upe_config', $payment_fields );
 						}
+						/**
+						 * Fires once the UPE config has been localized, to guard against duplicate localization.
+						 *
+						 * @since 8.5.0
+						 */
 						do_action( '__wcpay_upe_config_localized' );
 					}
 				);
@@ -417,6 +439,11 @@ class WC_Payments_Checkout {
 							if ( ! did_action( '__wcpay_customer_data_localized' ) ) {
 								wp_localize_script( 'wcpay-upe-checkout', 'wcpayCustomerData', $prepared_customer_data );
 							}
+							/**
+							 * Fires once the customer data has been localized, to guard against duplicate localization.
+							 *
+							 * @since 8.5.0
+							 */
 							do_action( '__wcpay_customer_data_localized' );
 						}
 					);
@@ -476,6 +503,13 @@ class WC_Payments_Checkout {
 				<?php
 					$this->gateway->display_gateway_html();
 				if ( $this->gateway->is_saved_cards_enabled() && $this->gateway->should_support_saved_payments() ) {
+					/**
+					 * Filters whether to display the "save payment method" checkbox.
+					 *
+					 * @since 1.3.0
+					 *
+					 * @param bool $display_tokenization Whether tokenization is being displayed.
+					 */
 					$force_save_payment = ( $display_tokenization && ! apply_filters( 'wc_payments_display_save_payment_method_checkbox', $display_tokenization ) ) || is_add_payment_method_page();
 					if ( is_user_logged_in() || $force_save_payment ) {
 						$this->gateway->save_payment_method_checkbox( $force_save_payment );
@@ -487,6 +521,13 @@ class WC_Payments_Checkout {
 			</div>
 			<?php
 
+			/**
+			 * Fires after the UPE payment fields have been rendered.
+			 *
+			 * @since 3.4.0
+			 *
+			 * @param string $gateway_id The gateway ID.
+			 */
 			do_action( 'wcpay_payment_fields_upe', $this->gateway->id );
 
 		} catch ( \Exception $e ) {
