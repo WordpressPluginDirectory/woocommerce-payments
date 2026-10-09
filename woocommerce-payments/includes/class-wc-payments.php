@@ -372,7 +372,6 @@ class WC_Payments {
 		}
 
 		add_action( 'admin_init', [ __CLASS__, 'add_woo_admin_notes' ] );
-		add_action( 'admin_init', [ __CLASS__, 'remove_deprecated_notes' ] );
 		add_action( 'init', [ __CLASS__, 'install_actions' ] );
 
 		// Invalidate styles cache and recompute WooPay appearance when theme or styles change.
@@ -479,6 +478,7 @@ class WC_Payments {
 		include_once __DIR__ . '/exceptions/class-add-payment-method-exception.php';
 		include_once __DIR__ . '/exceptions/class-amount-too-large-exception.php';
 		include_once __DIR__ . '/exceptions/class-amount-too-small-exception.php';
+		include_once __DIR__ . '/exceptions/class-blocked-by-fraud-rules-exception.php';
 		include_once __DIR__ . '/exceptions/class-cannot-combine-currencies-exception.php';
 		include_once __DIR__ . '/exceptions/class-intent-authentication-exception.php';
 		include_once __DIR__ . '/exceptions/class-invalid-payment-method-exception.php';
@@ -744,6 +744,7 @@ class WC_Payments {
 		require_once __DIR__ . '/migrations/class-allowed-payment-request-button-sizes-update.php';
 		require_once __DIR__ . '/migrations/class-update-service-data-from-server.php';
 		require_once __DIR__ . '/migrations/class-additional-payment-methods-admin-notes-removal.php';
+		require_once __DIR__ . '/migrations/class-qualitative-feedback-admin-note-removal.php';
 		require_once __DIR__ . '/migrations/class-link-woopay-mutual-exclusion-handler.php';
 		require_once __DIR__ . '/migrations/class-gateway-settings-sync.php';
 		require_once __DIR__ . '/migrations/class-delete-active-woopay-webhook.php';
@@ -760,19 +761,18 @@ class WC_Payments {
 		add_action( 'woocommerce_woocommerce_payments_updated', [ new \WCPay\Migrations\Allowed_Payment_Request_Button_Sizes_Update( self::get_gateway() ), 'maybe_migrate' ] );
 		add_action( 'woocommerce_woocommerce_payments_updated', [ new \WCPay\Migrations\Update_Service_Data_From_Server( self::get_account_service() ), 'maybe_migrate' ] );
 		add_action( 'woocommerce_woocommerce_payments_updated', [ new \WCPay\Migrations\Additional_Payment_Methods_Admin_Notes_Removal(), 'maybe_migrate' ] );
+		add_action( 'woocommerce_woocommerce_payments_updated', [ new \WCPay\Migrations\Qualitative_Feedback_Admin_Note_Removal(), 'maybe_migrate' ] );
 		add_action( 'woocommerce_woocommerce_payments_updated', [ new \WCPay\Migrations\Link_WooPay_Mutual_Exclusion_Handler( self::get_gateway() ), 'maybe_migrate' ] );
 		add_action( 'woocommerce_woocommerce_payments_updated', [ new \WCPay\Migrations\Gateway_Settings_Sync( self::get_gateway(), self::get_payment_gateway_map() ), 'maybe_sync' ] );
 		add_action( 'woocommerce_woocommerce_payments_updated', [ '\WCPay\Migrations\Delete_Active_WooPay_Webhook', 'maybe_delete' ] );
 		/**
-		 * Bumped migration version from for giropay from 7.9.0 to 11.0.0 because commit a4739037b re-added giropay to
-		 *              PaymentMethodDefinitionRegistry, which re-enabled them on accounts that
-		 *              still had fee data for them. Re-running the migration ensures those
-		 *              accounts are cleaned up after the registry fix in 11.0.0.
+		 * The version is the release that should run the cleanup, not the one that deprecated the method. A
+		 * cleanup only fires on stores upgrading from below it, so bump it whenever stores need it again.
 		 *
 		 * @see WOOPMNT-6277.
 		 */
 		add_action( 'woocommerce_woocommerce_payments_updated', [ new \WCPay\Migrations\Payment_Method_Deprecation_Settings_Update( self::get_gateway(), self::get_payment_gateway_map(), 'giropay', '11.0.0' ), 'maybe_migrate' ] );
-		add_action( 'woocommerce_woocommerce_payments_updated', [ new \WCPay\Migrations\Payment_Method_Deprecation_Settings_Update( self::get_gateway(), self::get_payment_gateway_map(), 'sofort', '8.9.0' ), 'maybe_migrate' ] );
+		add_action( 'woocommerce_woocommerce_payments_updated', [ new \WCPay\Migrations\Payment_Method_Deprecation_Settings_Update( self::get_gateway(), self::get_payment_gateway_map(), 'sofort', '11.1.0' ), 'maybe_migrate' ] );
 		add_action( 'woocommerce_woocommerce_payments_updated', [ new \WCPay\Migrations\Erase_Bnpl_Announcement_Meta(), 'maybe_migrate' ] );
 		add_action( 'woocommerce_woocommerce_payments_updated', [ new \WCPay\Migrations\Erase_Deprecated_Flags_And_Options(), 'maybe_migrate' ] );
 		add_action( 'woocommerce_woocommerce_payments_updated', [ new \WCPay\Migrations\Manual_Capture_Payment_Method_Settings_Update( self::get_gateway(), self::get_payment_gateway_map() ), 'maybe_migrate' ] );
@@ -1089,9 +1089,6 @@ class WC_Payments {
 		return array_merge(
 			$user_data_fields,
 			[
-				// Inbox notifications.
-				'wc_payments_overview_inbox_last_read',
-
 				// Column visibility preferences.
 				'wc_payments_transactions_hidden_columns',
 				'wc_payments_transactions_blocked_hidden_columns',
@@ -1106,10 +1103,6 @@ class WC_Payments {
 				// any future PHP-side consumer MUST validate this shape
 				// before trusting it (it is user-writable JSON).
 				'wc_payments_reports_fees_view',
-
-				// WooPayments review prompt user preferences.
-				'wc_payments_review_prompt_dismissed',
-				'wc_payments_review_prompt_maybe_later',
 
 				// Reports feedback user preferences.
 				'wc_payments_reports_feedback_dismissed',
